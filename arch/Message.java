@@ -18,7 +18,7 @@ public class Message {
     
     mHeader messageHeader;
     mType messageType;
-    int[] args;
+    mData messageData;
     boolean read;
     
     /**
@@ -29,10 +29,10 @@ public class Message {
      * @param args
      * @param messageType
      */
-    public Message(partition publisher, partition[] subscriber, int[] args, mType messageType) {
+    public Message(partition publisher, partition[] subscriber, mData messageData, mType messageType) {
 	
-	messageHeader = new mHeader(publisher, subscriber, args.length);
-	this.args = args;
+	messageHeader = new mHeader(publisher, subscriber, messageData.arguments.length + messageData.labels.length);
+	this.messageData = messageData;
 	this.messageType = messageType;
 	read = false;
 	

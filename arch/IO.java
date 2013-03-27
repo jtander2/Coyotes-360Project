@@ -42,9 +42,9 @@ public class IO {
      * @param args
      * @param messageType
      */
-    public void createMessageToSend(partition publisher, partition[] subscriber, int[] args, mType messageType) {
+    public void createMessageToSend(partition publisher, partition[] subscriber, mData messageData, mType messageType) {
 	
-	Message newMessage = new Message(publisher, subscriber, args, messageType);
+	Message newMessage = new Message(publisher, subscriber, messageData, messageType);
 	messageInbox.sendMessage(newMessage);
 	
     }
@@ -58,9 +58,9 @@ public class IO {
      * @param messageType
      * @param sendCount
      */
-    public void createScheduledMessage(partition publisher, partition[] subscriber, int[] args, mType messageType, int sendCount) {
+    public void createScheduledMessage(partition publisher, partition[] subscriber, mData messageData, mType messageType, int sendCount) {
 	
-	Message newMessage = new Message(publisher, subscriber, args, messageType);
+	Message newMessage = new Message(publisher, subscriber, messageData, messageType);
 	SMessage newSMessage = new SMessage(newMessage, sendCount);
 	
 	messageScheduleList.add(newSMessage);
