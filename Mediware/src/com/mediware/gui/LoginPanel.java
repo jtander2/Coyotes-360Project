@@ -1,26 +1,43 @@
 package com.mediware.gui;
 
-import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
-@SuppressWarnings("serial")
-public class LoginPanel extends JPanel {
+import com.mediware.gui.doctor.DoctorMainPanel;
+import com.mediware.service.LoginService;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+public class LoginPanel extends JPanel implements ActionListener, MouseListener {
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
-
+	private JButton btnLogin;
+	private JLabel lblForgotPassword;
+	private JLabel lblforgotUsername;
+	private JFrame parentFrame;
+	
 	/**
-	 * Create the panel.
+	 * LoginPanel Layout
 	 */
-	public LoginPanel() {
+	public LoginPanel(JFrame parentFrame) {
+		this.parentFrame = parentFrame;
 		setBorder(new TitledBorder(null, "Login", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JLabel lblUsername = new JLabel("Username:");
@@ -33,13 +50,17 @@ public class LoginPanel extends JPanel {
 		txtPassword = new JPasswordField();
 		txtPassword.setColumns(10);
 		
-		JLabel lblForgotPassword = new JLabel("<html><u>Forgot Password?</u></html>");
+		lblForgotPassword = new JLabel("<html><u>Forgot Password?</u></html>");
 		lblForgotPassword.setForeground(Color.BLUE);
+		lblForgotPassword.addMouseListener(this);
 		
-		JButton btnLogin = new JButton("Login");
+		//Login button
+		btnLogin = new JButton("Login");
+		btnLogin.addActionListener (this);
 		
-		JLabel lblforgotUsername = new JLabel("<html><u>Forgot Username?</u></html>");
+		lblforgotUsername = new JLabel("<html><u>Forgot Username?</u></html>");
 		lblforgotUsername.setForeground(Color.BLUE);
+		lblforgotUsername.addMouseListener (this);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -86,5 +107,68 @@ public class LoginPanel extends JPanel {
 		);
 		setLayout(groupLayout);
 
+	
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		// Check which button was clicked on
+		if (event.getSource() == btnLogin)
+		{	// Login button was clicked
+			
+			// Check if name & pass are valid
+    		if (LoginService.authenticate(txtUsername.getText(), txtPassword.getPassword().toString()))
+    		{	// User is valid, so show their main panel based on their user type
+    			parentFrame.getContentPane().add(new DoctorMainPanel(parentFrame));
+    			setVisible(false);
+    		}
+    		else
+    		{	// User is invalid
+    			JOptionPane.showMessageDialog(parentFrame, "Invalid Username or Password", "Login Error", JOptionPane.ERROR_MESSAGE);
+    		}
+        }
+	}
+
+	@Override
+	public void mousePressed(MouseEvent event) {
+		// Check to see what was clicked on
+		
+		if (event.getSource() == lblforgotUsername)
+		{	// Forgot username button was clicked
+			JDialog dlgRetrieveUsername = new RtvUsername();
+			dlgRetrieveUsername.setVisible(true);
+		}
+		else if (event.getSource() == lblForgotPassword)
+		{	// Forgot password button was clicked
+			JDialog dlgRetrievePassword = new RtvPassword();
+			dlgRetrievePassword.setVisible(true);
+		}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
+
+
