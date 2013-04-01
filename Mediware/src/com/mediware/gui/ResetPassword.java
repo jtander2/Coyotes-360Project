@@ -7,6 +7,7 @@ import java.awt.Insets;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -20,8 +21,9 @@ public class ResetPassword extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param currentFrame 
 	 */
-	public ResetPassword() {
+	public ResetPassword(JFrame currentFrame) {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Reset Password", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};

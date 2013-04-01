@@ -18,9 +18,11 @@ public class DoctorMainPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public DoctorMainPanel() {
+	private JFrame parentFrame;
+	
+	public DoctorMainPanel(JFrame parentFrame) {
 		
-		JFrame frame = new JFrame("Mediware Health Services");
+		this.parentFrame = parentFrame;
 		
 		setBorder(new TitledBorder(null, "Doctor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -98,5 +100,7 @@ public class DoctorMainPanel extends JPanel {
 		add(lbllogOut, gbc_lbllogOut);
 
 	}
+	
+	
 
 }

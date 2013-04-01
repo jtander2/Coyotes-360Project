@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -17,8 +18,9 @@ public class TempPassword extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param currentFrame 
 	 */
-	public TempPassword() {
+	public TempPassword(JFrame currentFrame) {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Reset Password", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 176, 0, 0, 0, 0};

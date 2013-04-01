@@ -1,11 +1,8 @@
 package com.mediware;
 
-import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-import com.mediware.gui.LoginPanel;
+import com.mediware.display.CND;
 
 public class Mediware {
 	private static JFrame frame;
@@ -14,15 +11,17 @@ public class Mediware {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		frame = new JFrame("Mediware Health Services");
+		CND cnd = new CND();
+		cnd.displayLoginPanel();
+		//cnd.displayLoginPanel2();
+		//cnd.displayMessagePanel();
+		//cnd.displayReplyPanel();
+		//cnd.displayResetPassword();
+		//---scnd.displayRtvPassword(); //not working yet
+		//---cnd.displayRtvUsername();  //not working yet
+		//cnd.displayTempPassword();
+		//cnd.displayViewMessagePanel();
 		
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        frame.setLayout(new FlowLayout()); 
-
-        JPanel pnlLogin = new LoginPanel(frame);
-		frame.getContentPane().add(pnlLogin);
-        
-        frame.setVisible(true);
+		//cnd.displayDoctorMainPanel();
 	}
 }

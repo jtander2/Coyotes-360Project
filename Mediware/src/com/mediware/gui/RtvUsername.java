@@ -1,6 +1,7 @@
 package com.mediware.gui;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.border.TitledBorder;

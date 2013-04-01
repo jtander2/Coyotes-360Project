@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
@@ -14,8 +15,9 @@ public class MessagePanel extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param currentFrame 
 	 */
-	public MessagePanel() {
+	public MessagePanel(JFrame currentFrame) {
 		setBorder(new TitledBorder(null, "Messages / Alerts", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

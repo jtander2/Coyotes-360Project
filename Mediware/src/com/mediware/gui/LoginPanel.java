@@ -1,29 +1,26 @@
 package com.mediware.gui;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
-import javax.swing.border.TitledBorder;
-
-import com.mediware.gui.doctor.DoctorMainPanel;
-import com.mediware.service.LoginService;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.TitledBorder;
+
+import com.mediware.gui.doctor.DoctorMainPanel;
+import com.mediware.service.LoginService;
 
 public class LoginPanel extends JPanel implements ActionListener, MouseListener {
 	private JTextField txtUsername;
