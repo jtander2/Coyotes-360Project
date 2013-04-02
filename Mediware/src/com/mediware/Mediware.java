@@ -17,20 +17,19 @@ public class Mediware {
 		while(true) {
 			cnd.run();
 			sys.run();
-			
-			io.nextFrame(partition.CND);
-			io.nextFrame(partition.SYS);
 		}
 		//cnd.displayLoginPanel();
 		//cnd.displayLoginPanel2();
 		//cnd.displayMessagePanel();
 		//cnd.displayReplyPanel();
 		//cnd.displayResetPassword();
-		//---scnd.displayRtvPassword(); //not working yet
-		//---cnd.displayRtvUsername();  //not working yet
+		//cnd.displayRtvPassword();
+		//cnd.displayRtvUsername();
 		//cnd.displayTempPassword();
 		//cnd.displayViewMessagePanel();
 		
 		//cnd.displayDoctorMainPanel();
+		
+		//cnd.displayErrorDialog("Invalid Username or Password", "Login Error");
 	}
 }

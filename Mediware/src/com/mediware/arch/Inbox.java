@@ -13,7 +13,7 @@ import com.mediware.arch.Enums.partition;
  */
 public class Inbox {
     
-    ArrayList<Message> mList;
+    private ArrayList<Message> mList;
     
     /**
      * Creates an empty Inbox to add messages to.
@@ -24,7 +24,15 @@ public class Inbox {
 	
     }
     
-    /**
+    public ArrayList<Message> getmList() {
+		return mList;
+	}
+
+	public void setmList(ArrayList<Message> mList) {
+		this.mList = mList;
+	}
+
+	/**
      * 
      * @param thisPartition
      * @return array of messages in inbox that are sent to the given subscriber
@@ -52,20 +60,11 @@ public class Inbox {
      */
     public void emptyReadMessages() {
 		
-    	ArrayList<Integer> toRemove = new ArrayList<Integer>();
 		for(int i = 0; i < mList.size(); i++) {
 		    if(mList.get(i).isRead()) {
-		    	toRemove.add(i);
+		    	mList.remove(i);
+		    	i--;
 		    }
-		}
-		
-		// This has been added so that if messages 2 and 5 were to be removed this 
-		// would remove index 2 and then index 4 because index 5 will have shifted
-		// backwards. This will always work as the indices will always be sorted
-		int offset = 0;
-		for(int i = 0; i < toRemove.size(); i++) {
-			mList.remove(toRemove.get(i) + offset);
-			offset--;
 		}
 	
     }

@@ -3,11 +3,12 @@ package com.mediware.display;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.mediware.arch.IO;
 import com.mediware.arch.Message;
-import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 import com.mediware.gui.LoginPanel;
 import com.mediware.gui.LoginPanel2;
@@ -19,7 +20,6 @@ import com.mediware.gui.RtvUsername;
 import com.mediware.gui.TempPassword;
 import com.mediware.gui.ViewMessagePanel;
 import com.mediware.gui.doctor.DoctorMainPanel;
-import com.mediware.service.LoginService;
 
 
 public class CND {
@@ -49,17 +49,25 @@ public class CND {
 			System.out.println(cndMessages[i].getMessageType().toString());
 			switch(cndMessages[i].getMessageType()) {
 				case cndDisplayDoctorMainPanel:
-					System.out.println("should display Doc GUI");
 					displayDoctorMainPanel();
 					break;
+				case cndDisplayRtvUsername:
+					displayRtvUsername();
+					break;
+				case cndDisplayRtvPassword:
+					displayRtvPassword();
+					break;
+				case cndDisplayErrorDialog:
+					String[] params = cndMessages[i].getMessageData().getLabels();
+					displayErrorDialog(params[0], params[1]);
 				default:
 					break;					
 			}
+			
 		}
 		
 		// MUST remove messages that were just handled above
 		cndIO.getInbox().emptyReadMessages();
-		
 	}
 	
 
@@ -126,17 +134,13 @@ public class CND {
 	}
 	
 	public void displayRtvPassword() {
-		currentFrame.getContentPane().removeAll();
-		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new RtvPassword());
-		currentFrame.setVisible(true);
+		JDialog dlgRetrievePassword = new RtvPassword();
+		dlgRetrievePassword.setVisible(true);
 	}
 	
 	public void displayRtvUsername() {
-		currentFrame.getContentPane().removeAll();
-		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new RtvUsername());
-		currentFrame.setVisible(true);
+		JDialog dlgRetrieveUsername = new RtvUsername();
+		dlgRetrieveUsername.setVisible(true);
 	}
 	
 	public void displayTempPassword() {
@@ -166,5 +170,10 @@ public class CND {
 	//*****************************************************************************
 	//com.mediware.patient
 	//*****************************************************************************
+	
+	//Other
+	public void displayErrorDialog(String message, String type) {
+		JOptionPane.showMessageDialog(currentFrame, message, type, JOptionPane.ERROR_MESSAGE);
+	}
 	
 }

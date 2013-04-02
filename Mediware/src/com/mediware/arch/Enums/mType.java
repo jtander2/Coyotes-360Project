@@ -4,6 +4,8 @@ package com.mediware.arch.Enums;
 public enum mType {
     loginRequest,
     loginResponse,
-    cndDisplayDoctorMainPanel
-    
+    cndDisplayDoctorMainPanel,
+    cndDisplayRtvUsername,
+    cndDisplayRtvPassword,
+    cndDisplayErrorDialog    
 }

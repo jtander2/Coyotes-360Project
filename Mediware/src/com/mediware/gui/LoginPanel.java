@@ -150,13 +150,19 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 		
 		if (event.getSource() == lblforgotUsername)
 		{	// Forgot username button was clicked
-			JDialog dlgRetrieveUsername = new RtvUsername();
-			dlgRetrieveUsername.setVisible(true);
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			logIO.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayRtvUsername);
 		}
 		else if (event.getSource() == lblForgotPassword)
 		{	// Forgot password button was clicked
-			JDialog dlgRetrievePassword = new RtvPassword();
-			dlgRetrievePassword.setVisible(true);
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			logIO.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayRtvPassword);
 		}
 		
 	}

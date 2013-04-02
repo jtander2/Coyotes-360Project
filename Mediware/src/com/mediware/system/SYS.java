@@ -50,8 +50,11 @@ public class SYS{
 		    		}
 		    		else
 		    		{	// User is invalid
-		    			//@TODO
-		    			//JOptionPane.showMessageDialog(parentFrame, "Invalid Username or Password", "Login Error", JOptionPane.ERROR_MESSAGE);
+		    			int[] intParams = new int[0];
+		    			String[] stringParams = {"Invalid Username or Password", "Login Error"};
+		    			mData messageData = new mData(intParams, stringParams);
+		    			partition[] subscribers = {partition.CND};
+		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 		    		}
 					break;
 				case loginResponse:
@@ -59,6 +62,7 @@ public class SYS{
 				default:
 					break;					
 			}
+			
 		}
 		
 		// MUST remove messages that were just handled above
