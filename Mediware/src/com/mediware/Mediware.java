@@ -1,18 +1,27 @@
 package com.mediware;
 
-import javax.swing.JFrame;
-
+import com.mediware.arch.IO;
+import com.mediware.arch.Enums.partition;
 import com.mediware.display.CND;
+import com.mediware.system.SYS;
 
 public class Mediware {
-	private static JFrame frame;
-	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CND cnd = new CND();
-		cnd.displayLoginPanel();
+		IO io = new IO();
+		CND cnd = new CND(io);
+		SYS sys = new SYS(io);
+
+		while(true) {
+			cnd.run();
+			sys.run();
+			
+			io.nextFrame(partition.CND);
+			io.nextFrame(partition.SYS);
+		}
+		//cnd.displayLoginPanel();
 		//cnd.displayLoginPanel2();
 		//cnd.displayMessagePanel();
 		//cnd.displayReplyPanel();

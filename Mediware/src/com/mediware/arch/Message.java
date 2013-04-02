@@ -16,10 +16,10 @@ import com.mediware.arch.Enums.partition;
 public class Message {
 
     
-    mHeader messageHeader;
-    mType messageType;
-    mData messageData;
-    boolean read;
+    private mHeader messageHeader;
+    private mType messageType;
+    private mData messageData;
+    private boolean read;
     
     /**
      * Default Message Constructor
@@ -30,16 +30,48 @@ public class Message {
      * @param messageType
      */
     public Message(partition publisher, partition[] subscriber, mData messageData, mType messageType) {
-	
-	messageHeader = new mHeader(publisher, subscriber, messageData.arguments.length + messageData.labels.length);
-	this.messageData = messageData;
-	this.messageType = messageType;
-	read = false;
-	
-	
+		
+		messageHeader = new mHeader(publisher, subscriber, messageData.getArguments().length + messageData.getLabels().length);
+		this.messageData = messageData;
+		this.messageType = messageType;
+		read = false;
+		
+		
     }
     
-    /**
+    public mHeader getMessageHeader() {
+		return messageHeader;
+	}
+
+	public void setMessageHeader(mHeader messageHeader) {
+		this.messageHeader = messageHeader;
+	}
+
+	public mType getMessageType() {
+		return messageType;
+	}
+
+	public void setMessageType(mType messageType) {
+		this.messageType = messageType;
+	}
+
+	public mData getMessageData() {
+		return messageData;
+	}
+
+	public void setMessageData(mData messageData) {
+		this.messageData = messageData;
+	}
+
+	public boolean isRead() {
+		return read;
+	}
+
+	public void setRead(boolean read) {
+		this.read = read;
+	}
+
+	/**
      * 
      * @return the number of arguments in the message
      */
@@ -91,17 +123,17 @@ public class Message {
      */
     private class mHeader {
 	
-	partition publisher;
-	partition[] subscriber;
-	int argCount;
-	
-	public mHeader(partition publisher, partition[] subscriber, int argCount) {
-	    
-	    this.publisher = publisher;
-	    this.subscriber = subscriber;
-	    this.argCount = argCount;
-	    
-	}
+		partition publisher;
+		partition[] subscriber;
+		int argCount;
+		
+		public mHeader(partition publisher, partition[] subscriber, int argCount) {
+		    
+		    this.publisher = publisher;
+		    this.subscriber = subscriber;
+		    this.argCount = argCount;
+		    
+		}
 	
     }
     

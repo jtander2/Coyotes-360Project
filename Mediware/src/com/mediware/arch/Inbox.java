@@ -20,7 +20,7 @@ public class Inbox {
      */
     public Inbox() {
 	
-	mList = new ArrayList<Message>();
+    	mList = new ArrayList<Message>();
 	
     }
     
@@ -31,20 +31,19 @@ public class Inbox {
      */
     public Message[] getNewMessages(partition thisPartition) {
 	
-	ArrayList<Message> m = new ArrayList<Message>();
-	
-	for(int i = 0; i < mList.size(); i++) {
-	    
-	    if(mList.get(i).checkIsSubscriber(thisPartition)) {
-		m.add(mList.get(i));
-		mList.get(i).read = true;
-	    }
-	    
-	}
-	
-	Message[] a = new Message[m.size()];
-	return m.toArray(a);
-	
+		ArrayList<Message> m = new ArrayList<Message>();
+		
+		for(int i = 0; i < mList.size(); i++) {
+		    if(mList.get(i).checkIsSubscriber(thisPartition)) {
+				m.add(mList.get(i));
+				mList.get(i).setRead(true);
+		    }
+		    
+		}
+		
+		Message[] a = new Message[m.size()];
+		return m.toArray(a);
+		
     }
     
     /**
@@ -52,12 +51,22 @@ public class Inbox {
      * This shall occur once every frame.
      */
     public void emptyReadMessages() {
-	
-	for(int i = 0; i < mList.size(); i++) {
-	    if(mList.get(i).read) {
-		mList.remove(i);
-	    }
-	}
+		
+    	ArrayList<Integer> toRemove = new ArrayList<Integer>();
+		for(int i = 0; i < mList.size(); i++) {
+		    if(mList.get(i).isRead()) {
+		    	toRemove.add(i);
+		    }
+		}
+		
+		// This has been added so that if messages 2 and 5 were to be removed this 
+		// would remove index 2 and then index 4 because index 5 will have shifted
+		// backwards. This will always work as the indices will always be sorted
+		int offset = 0;
+		for(int i = 0; i < toRemove.size(); i++) {
+			mList.remove(toRemove.get(i) + offset);
+			offset--;
+		}
 	
     }
     
@@ -67,7 +76,7 @@ public class Inbox {
      */
     public boolean isEmpty() {
 	
-	return mList.size() == 0;
+    	return mList.size() == 0;
 	
     }
     
@@ -76,7 +85,7 @@ public class Inbox {
      * @param newMessage
      */
     public void sendMessage(Message newMessage) {
-	mList.add(newMessage);
+    	mList.add(newMessage);
     }
 
     

@@ -19,7 +19,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
 
-import com.mediware.gui.doctor.DoctorMainPanel;
+import com.mediware.arch.IO;
+import com.mediware.arch.mData;
+import com.mediware.arch.Enums.mType;
+import com.mediware.arch.Enums.partition;
+import com.mediware.display.CND;
 import com.mediware.service.LoginService;
 
 public class LoginPanel extends JPanel implements ActionListener, MouseListener {
@@ -29,12 +33,17 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 	private JLabel lblForgotPassword;
 	private JLabel lblforgotUsername;
 	private JFrame parentFrame;
+	private IO logIO;
+	private CND logCND;
 	
 	/**
 	 * LoginPanel Layout
 	 */
-	public LoginPanel(JFrame parentFrame) {
+	public LoginPanel(JFrame parentFrame, IO io, CND cnd) {
 		this.parentFrame = parentFrame;
+		logIO = io;
+		logCND = cnd;
+		
 		setBorder(new TitledBorder(null, "Login", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JLabel lblUsername = new JLabel("Username:");
@@ -112,17 +121,26 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 		// Check which button was clicked on
 		if (event.getSource() == btnLogin)
 		{	// Login button was clicked
+			// Create a message of type loginRequest to be sent to SYS with the username and password as
+			// parameters
+			int[] loginInts = new int[0];
+			String[] loginParams = {txtUsername.getText(), txtPassword.getPassword().toString()};
+			mData messageData = new mData(loginInts, loginParams);
+			partition[] subscribers = {partition.SYS};
+			logIO.createMessageToSend(partition.CND, subscribers, messageData, mType.loginRequest);
 			
+			/*
 			// Check if name & pass are valid
     		if (LoginService.authenticate(txtUsername.getText(), txtPassword.getPassword().toString()))
     		{	// User is valid, so show their main panel based on their user type
-    			parentFrame.getContentPane().add(new DoctorMainPanel(parentFrame));
-    			setVisible(false);
+    			// This is temporary until the messages start working
+    			logCND.displayDoctorMainPanel();
     		}
     		else
     		{	// User is invalid
     			JOptionPane.showMessageDialog(parentFrame, "Invalid Username or Password", "Login Error", JOptionPane.ERROR_MESSAGE);
     		}
+    		*/
         }
 	}
 

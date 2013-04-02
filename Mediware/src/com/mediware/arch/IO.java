@@ -19,11 +19,11 @@ public class IO {
     
     public IO() {
 	
-	//Creates new inbox to be used
-	messageInbox = new Inbox();
-	       
-	messageScheduleList = new ArrayList<SMessage>();
-	
+		//Creates new inbox to be used
+		messageInbox = new Inbox();
+		       
+		messageScheduleList = new ArrayList<SMessage>();
+		
     }
     
     /**
@@ -31,7 +31,7 @@ public class IO {
      * @return Inbox
      */
     public Inbox getInbox() {
-	return messageInbox;
+    	return messageInbox;
     }
     
     /**
@@ -44,9 +44,9 @@ public class IO {
      */
     public void createMessageToSend(partition publisher, partition[] subscriber, mData messageData, mType messageType) {
 	
-	Message newMessage = new Message(publisher, subscriber, messageData, messageType);
-	messageInbox.sendMessage(newMessage);
-	
+		Message newMessage = new Message(publisher, subscriber, messageData, messageType);
+		messageInbox.sendMessage(newMessage);
+		System.out.println("Message sent of type " + messageType.toString());
     }
     
     /**
@@ -59,12 +59,12 @@ public class IO {
      * @param sendCount
      */
     public void createScheduledMessage(partition publisher, partition[] subscriber, mData messageData, mType messageType, int sendCount) {
-	
-	Message newMessage = new Message(publisher, subscriber, messageData, messageType);
-	SMessage newSMessage = new SMessage(newMessage, sendCount);
-	
-	messageScheduleList.add(newSMessage);
-	
+		
+		Message newMessage = new Message(publisher, subscriber, messageData, messageType);
+		SMessage newSMessage = new SMessage(newMessage, sendCount);
+		
+		messageScheduleList.add(newSMessage);
+		
     }
     
     /**
@@ -74,15 +74,15 @@ public class IO {
      */
     public void scheduleMessages(partition p) {
 	
-	for(int i = 0; i < messageScheduleList.size(); i++) {
-	    if(messageScheduleList.get(i).m.getPublisher() == p)
-		messageInbox.sendMessage(messageScheduleList.get(i).m);
-	    	if(messageScheduleList.get(i).decrementSendCount()) {
-	    	    messageScheduleList.remove(i);
-	    	    i--;
-	    	}
-	
-	}
+		for(int i = 0; i < messageScheduleList.size(); i++) {
+		    if(messageScheduleList.get(i).m.getPublisher() == p)
+			messageInbox.sendMessage(messageScheduleList.get(i).m);
+		    	if(messageScheduleList.get(i).decrementSendCount()) {
+		    	    messageScheduleList.remove(i);
+		    	    i--;
+		    	}
+		
+		}
     }
     
     /**
@@ -93,9 +93,11 @@ public class IO {
      * @return List of new message for which the partition is subscribed
      */
     public Message[] nextFrame(partition p) {
-	
-	scheduleMessages(p);
-	return messageInbox.getNewMessages(p);
+		
+		scheduleMessages(p);
+		Message[] returnMessages = messageInbox.getNewMessages(p);
+		//messageInbox.emptyReadMessages();
+		return returnMessages;
     }
     
 
