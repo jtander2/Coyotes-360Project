@@ -56,6 +56,7 @@ public class Inbox {
 	for(int i = 0; i < mList.size(); i++) {
 	    if(mList.get(i).read) {
 		mList.remove(i);
+		i--;
 	    }
 	}
 	

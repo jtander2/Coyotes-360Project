@@ -65,8 +65,7 @@ public class SYS{
 			
 		}
 		
-		// MUST remove messages that were just handled above
-		sysIO.getInbox().emptyReadMessages();
+	
 		
 	}
 		

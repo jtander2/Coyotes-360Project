@@ -65,9 +65,7 @@ public class CND {
 			}
 			
 		}
-		
-		// MUST remove messages that were just handled above
-		cndIO.getInbox().emptyReadMessages();
+
 	}
 	
 

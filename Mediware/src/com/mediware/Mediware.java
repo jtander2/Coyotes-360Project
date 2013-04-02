@@ -17,6 +17,7 @@ public class Mediware {
 		while(true) {
 			cnd.run();
 			sys.run();
+			io.getInbox().emptyReadMessages();
 		}
 		//cnd.displayLoginPanel();
 		//cnd.displayLoginPanel2();
