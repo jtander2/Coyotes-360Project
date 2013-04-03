@@ -7,5 +7,11 @@ public enum mType {
     cndDisplayDoctorMainPanel,
     cndDisplayRtvUsername,
     cndDisplayRtvPassword,
-    cndDisplayErrorDialog    
+    cndDisplayErrorDialog,
+    cndDisplayNewPatientPanel,
+    cndDisplayPatientSearchPanel,
+    cndDisplayMessagePanel,
+    cndDisplayNewEmployeePanel,
+    cndDisplayEditEmployee,
+    cndDisplayLoginPanel
 }

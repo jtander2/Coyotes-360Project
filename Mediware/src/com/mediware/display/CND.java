@@ -79,6 +79,25 @@ public class CND {
 				case cndDisplayErrorDialog:
 					String[] params = cndMessages[i].getMessageData().getLabels();
 					displayErrorDialog(params[0], params[1]);
+					break;
+				case cndDisplayNewPatientPanel:
+					displayNewPatientPanel();
+					break;
+				case cndDisplayPatientSearchPanel:
+					displayPatientSearchPanel();
+					break;
+				case cndDisplayMessagePanel:
+					displayMessagePanel();
+					break;
+				case cndDisplayNewEmployeePanel:
+					displayNewEmployeePanel();
+					break;
+				case cndDisplayEditEmployee:
+					displayEditEmployee();
+					break;
+				case cndDisplayLoginPanel:
+					displayLoginPanel();
+					break;
 				default:
 					break;					
 			}

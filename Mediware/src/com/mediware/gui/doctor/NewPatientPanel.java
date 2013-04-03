@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,9 +15,12 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import com.mediware.arch.IO;
+import com.mediware.arch.mData;
+import com.mediware.arch.Enums.mType;
+import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
-public class NewPatientPanel extends JPanel {
+public class NewPatientPanel extends JPanel implements ActionListener {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -60,11 +65,13 @@ public class NewPatientPanel extends JPanel {
 	private JLabel lblPassword;
 	private JTextField textField_18;
 
+	private IO io;
 	/**
 	 * Create the panel.
 	 * @param cndIO 
 	 */
 	public NewPatientPanel(IO cndIO) {
+		this.io = cndIO;
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Create New Patient", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 67, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0};
@@ -452,6 +459,7 @@ public class NewPatientPanel extends JPanel {
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 20;
 		add(btnNewButton, gbc_btnNewButton);
+		btnNewButton.addActionListener (this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -460,7 +468,26 @@ public class NewPatientPanel extends JPanel {
 		gbc_btnCancel.gridx = 4;
 		gbc_btnCancel.gridy = 20;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener (this);
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == btnNewButton) 
+		{
+			
+		} 
+		else if(e.getSource() == btnCancel) 
+		{
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayDoctorMainPanel);
+		}
+		
 	}
 
 }
