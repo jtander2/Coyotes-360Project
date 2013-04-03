@@ -1,6 +1,11 @@
 package com.mediware.gui.doctor;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -103,6 +108,42 @@ public class DoctorMainPanel extends JPanel {
 
 	}
 	
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		// Check which button was clicked on
+		if (event.getSource() == btnNewButton)
+		{	// Patient Search button was clicked
+			
+			
+        }
+		else if (event.getSource() == btnNewButton_2)
+		{	// Messages / Alerts button was clicked
+			
+			
+        }
+		else if (event.getSource() == btnNewButton_1)
+		{	// Create New Patient button was clicked
+			
+			
+        }
+		else if (event.getSource() == btnCreateEmployeeProfile)
+		{	// Create New Employee button was clicked
+			
+			
+        }
+		else if (event.getSource() == btnEditEmployee)
+		{	// Edit Employee button was clicked
+			
+			
+        }
+		
+	@Override
+	public void mousePressed(MouseEvent event) {
+		// Check to see what was clicked on
+			
+		if (event.getSource() == lbllogOut)
+		{	// Log Out button was clicked
+			
 	
 
 }
