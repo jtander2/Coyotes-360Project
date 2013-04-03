@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class PatientProfilePanel extends JPanel {
 	private JTextField textLast;
@@ -52,8 +54,9 @@ public class PatientProfilePanel extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param cndIO 
 	 */
-	public PatientProfilePanel() {
+	public PatientProfilePanel(IO cndIO) {
 		setBorder(new TitledBorder(null, "Profile", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0};

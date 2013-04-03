@@ -11,14 +11,16 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class ReplyPanel extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * @param currentFrame 
+	 * @param cndIO 
 	 */
-	public ReplyPanel(JFrame currentFrame) {
+	public ReplyPanel(IO cndIO) {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Messages / Alerts - Reply", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

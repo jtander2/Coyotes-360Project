@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class PatientVitalsPanel extends JPanel {
 	private JTextField textBP;
@@ -24,8 +26,9 @@ public class PatientVitalsPanel extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param cndIO 
 	 */
-	public PatientVitalsPanel() {
+	public PatientVitalsPanel(IO cndIO) {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Record Vitals", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 88, 0, 0, 0, 0, 0};

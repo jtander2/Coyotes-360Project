@@ -11,14 +11,16 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class ViewMessagePanel extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * @param currentFrame 
+	 * @param cndIO 
 	 */
-	public ViewMessagePanel(JFrame currentFrame) {
+	public ViewMessagePanel(IO cndIO) {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Messages / Alerts - View", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

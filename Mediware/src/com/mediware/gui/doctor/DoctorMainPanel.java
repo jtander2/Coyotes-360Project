@@ -12,17 +12,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class DoctorMainPanel extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	private JFrame parentFrame;
+	private IO io;
 	
-	public DoctorMainPanel(JFrame parentFrame) {
+	public DoctorMainPanel(IO cndIO) {
 		
-		this.parentFrame = parentFrame;
+		this.io = cndIO;
 		
 		setBorder(new TitledBorder(null, "Doctor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();

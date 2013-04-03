@@ -13,13 +13,16 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import com.mediware.arch.IO;
+
 public class RtvPassword extends JDialog {
 	private JTextField textField;
 
 	/**
 	 * Create the panel.
+	 * @param cndIO 
 	 */
-	public RtvPassword() {
+	public RtvPassword(IO cndIO) {
 		
 		setTitle("Retrieve Password");
 		setSize(350, 150);

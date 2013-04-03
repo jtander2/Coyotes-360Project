@@ -8,6 +8,9 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
+
+import com.mediware.arch.IO;
+
 import java.awt.Font;
 
 @SuppressWarnings("serial")
@@ -21,8 +24,9 @@ public class PatientReport extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param cndIO 
 	 */
-	public PatientReport() {
+	public PatientReport(IO cndIO) {
 		setBorder(new TitledBorder(null, "Patient Menu", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 136, 61, 105, 51, 0, 0, 0};

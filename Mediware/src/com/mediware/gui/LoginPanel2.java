@@ -22,6 +22,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import com.mediware.arch.IO;
 import com.mediware.service.LoginService;
 
 @SuppressWarnings("serial")
@@ -35,7 +36,7 @@ public class LoginPanel2 extends JPanel {
     private JButton btnLogin;
     private boolean succeeded;
  
-    public LoginPanel2(Frame parent) {
+    public LoginPanel2(IO cndIO) {
     	JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
  

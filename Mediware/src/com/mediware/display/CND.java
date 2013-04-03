@@ -20,6 +20,25 @@ import com.mediware.gui.RtvUsername;
 import com.mediware.gui.TempPassword;
 import com.mediware.gui.ViewMessagePanel;
 import com.mediware.gui.doctor.DoctorMainPanel;
+import com.mediware.gui.doctor.EditEmployee;
+import com.mediware.gui.doctor.EmployeeSearchPanel;
+import com.mediware.gui.doctor.EmployeeSelect;
+import com.mediware.gui.doctor.MAMainPanel;
+import com.mediware.gui.doctor.MAPatientReport;
+import com.mediware.gui.doctor.NewCommentPanel;
+import com.mediware.gui.doctor.NewEmployeePanel;
+import com.mediware.gui.doctor.NewPatientPanel;
+import com.mediware.gui.doctor.NurseMainPanel;
+import com.mediware.gui.doctor.PatientProfile;
+import com.mediware.gui.doctor.PatientReport;
+import com.mediware.gui.doctor.PatientSearchPanel;
+import com.mediware.gui.doctor.PatientSelect;
+import com.mediware.gui.doctor.ViewCommentPanel;
+import com.mediware.gui.doctor.VitalsPanel;
+import com.mediware.gui.patient.PatientHealthHistory;
+import com.mediware.gui.patient.PatientMenuPanel;
+import com.mediware.gui.patient.PatientProfilePanel;
+import com.mediware.gui.patient.PatientVitalsPanel;
 
 
 public class CND {
@@ -34,7 +53,7 @@ public class CND {
 		
 		currentFrame = new JFrame("Mediware Health Services");
 		currentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		currentFrame.setSize(400, 400);
+		currentFrame.setSize(600, 600);
 		currentFrame.setLayout(new FlowLayout()); 
 		currentFrame.setVisible(true);
 		displayLoginPanel();
@@ -99,59 +118,59 @@ public class CND {
 	public void displayLoginPanel() {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new LoginPanel(currentFrame, cndIO, this));
+		currentFrame.getContentPane().add(new LoginPanel(cndIO));
 		currentFrame.setVisible(true);
 	}
 	
 	public void displayLoginPanel2() {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new LoginPanel2(currentFrame));
+		currentFrame.getContentPane().add(new LoginPanel2(cndIO));
 		currentFrame.setVisible(true);
 	}
 	
 	public void displayMessagePanel() {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new MessagePanel(currentFrame));
+		currentFrame.getContentPane().add(new MessagePanel(cndIO));
 		currentFrame.setVisible(true);
 	}
 	
 	public void displayReplyPanel() {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new ReplyPanel(currentFrame));
+		currentFrame.getContentPane().add(new ReplyPanel(cndIO));
 		currentFrame.setVisible(true);
 	}
 	
 	public void displayResetPassword() {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new ResetPassword(currentFrame));
+		currentFrame.getContentPane().add(new ResetPassword(cndIO));
 		currentFrame.setVisible(true);
 	}
 	
 	public void displayRtvPassword() {
-		JDialog dlgRetrievePassword = new RtvPassword();
+		JDialog dlgRetrievePassword = new RtvPassword(cndIO);
 		dlgRetrievePassword.setVisible(true);
 	}
 	
 	public void displayRtvUsername() {
-		JDialog dlgRetrieveUsername = new RtvUsername();
+		JDialog dlgRetrieveUsername = new RtvUsername(cndIO);
 		dlgRetrieveUsername.setVisible(true);
 	}
 	
 	public void displayTempPassword() {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new TempPassword(currentFrame));
+		currentFrame.getContentPane().add(new TempPassword(cndIO));
 		currentFrame.setVisible(true);
 	}
 	
 	public void displayViewMessagePanel() {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new ViewMessagePanel(currentFrame));
+		currentFrame.getContentPane().add(new ViewMessagePanel(cndIO));
 		currentFrame.setVisible(true);
 	}
 	
@@ -161,13 +180,145 @@ public class CND {
 	public void displayDoctorMainPanel() {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new DoctorMainPanel(currentFrame));
+		currentFrame.getContentPane().add(new DoctorMainPanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayEditEmployee() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new EditEmployee(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayEmployeeSearchPanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new EmployeeSearchPanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayEmployeeSelect() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new EmployeeSelect(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayMAMainPanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new MAMainPanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayMAPatientReport() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new MAPatientReport(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayNewCommentPanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new NewCommentPanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayNewEmployeePanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new NewEmployeePanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayNewPatientPanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new NewPatientPanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayNurseMainPanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new NurseMainPanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayPatientProfile() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new PatientProfile(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayPatientReport() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new PatientReport(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayPatientSearchPanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new PatientSearchPanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayPatientSelect() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new PatientSelect(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayViewCommentPanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new ViewCommentPanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayVitalsPanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new VitalsPanel(cndIO));
 		currentFrame.setVisible(true);
 	}
 	
 	//*****************************************************************************
-	//com.mediware.patient
+	//com.mediware.gui.patient
 	//*****************************************************************************
+	public void displayPatientHealthHistory() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new PatientHealthHistory(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayPatientMenuPanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new PatientMenuPanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayPatientProfilePanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new PatientProfilePanel(cndIO));
+		currentFrame.setVisible(true);
+	}
+	
+	public void displayPatientVitalsPanel() {
+		currentFrame.getContentPane().removeAll();
+		currentFrame.setVisible(false);
+		currentFrame.getContentPane().add(new PatientVitalsPanel(cndIO));
+		currentFrame.setVisible(true);
+	}
 	
 	//Other
 	public void displayErrorDialog(String message, String type) {

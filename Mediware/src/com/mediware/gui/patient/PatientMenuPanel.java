@@ -12,13 +12,16 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class PatientMenuPanel extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param cndIO 
 	 */
-	public PatientMenuPanel() {
+	public PatientMenuPanel(IO cndIO) {
 		
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Patient", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();

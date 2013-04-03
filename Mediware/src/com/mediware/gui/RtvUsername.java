@@ -11,13 +11,16 @@ import javax.swing.JButton;
 import java.awt.Insets;
 import javax.swing.JTextField;
 
+import com.mediware.arch.IO;
+
 public class RtvUsername extends JDialog {
 	private JTextField textField;
 
 	/**
 	 * Create the panel.
+	 * @param cndIO 
 	 */
-	public RtvUsername() {
+	public RtvUsername(IO cndIO) {
 		
 		setTitle("Retrieve Username");
 		setSize(350, 150);

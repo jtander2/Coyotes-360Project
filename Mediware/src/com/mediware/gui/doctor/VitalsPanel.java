@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class VitalsPanel extends JPanel {
 	private JTextField textBP;
@@ -20,8 +22,9 @@ public class VitalsPanel extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param cndIO 
 	 */
-	public VitalsPanel() {
+	public VitalsPanel(IO cndIO) {
 		setBorder(new TitledBorder(null, "Patient Vitals", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 88, 0, 0, 0, 0, 0};

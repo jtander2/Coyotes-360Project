@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class EmployeeSearchPanel extends JPanel {
 	private JTextField textField;
@@ -18,8 +20,9 @@ public class EmployeeSearchPanel extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param cndIO 
 	 */
-	public EmployeeSearchPanel() {
+	public EmployeeSearchPanel(IO cndIO) {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Employee Search", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};

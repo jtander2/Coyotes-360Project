@@ -9,6 +9,8 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class PatientSearchPanel extends JPanel {
 	private JTextField textField;
@@ -17,8 +19,9 @@ public class PatientSearchPanel extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param cndIO 
 	 */
-	public PatientSearchPanel() {
+	public PatientSearchPanel(IO cndIO) {
 		setBorder(new TitledBorder(null, "Patient Search", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};

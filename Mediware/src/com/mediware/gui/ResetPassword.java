@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class ResetPassword extends JPanel {
 	private JTextField textField;
@@ -21,9 +23,9 @@ public class ResetPassword extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * @param currentFrame 
+	 * @param cndIO 
 	 */
-	public ResetPassword(JFrame currentFrame) {
+	public ResetPassword(IO cndIO) {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Reset Password", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};

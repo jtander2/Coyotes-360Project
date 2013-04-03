@@ -11,13 +11,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 
+import com.mediware.arch.IO;
+
 @SuppressWarnings("serial")
 public class PatientHealthHistory extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param cndIO 
 	 */
-	public PatientHealthHistory() {
+	public PatientHealthHistory(IO cndIO) {
 		setBorder(new TitledBorder(null, "Health History", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

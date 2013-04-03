@@ -9,10 +9,7 @@ import java.awt.event.MouseListener;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -23,26 +20,21 @@ import com.mediware.arch.IO;
 import com.mediware.arch.mData;
 import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
-import com.mediware.display.CND;
-import com.mediware.service.LoginService;
 
+@SuppressWarnings("serial")
 public class LoginPanel extends JPanel implements ActionListener, MouseListener {
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
 	private JButton btnLogin;
 	private JLabel lblForgotPassword;
 	private JLabel lblforgotUsername;
-	private JFrame parentFrame;
 	private IO logIO;
-	private CND logCND;
 	
 	/**
 	 * LoginPanel Layout
 	 */
-	public LoginPanel(JFrame parentFrame, IO io, CND cnd) {
-		this.parentFrame = parentFrame;
+	public LoginPanel(IO io) {
 		logIO = io;
-		logCND = cnd;
 		
 		setBorder(new TitledBorder(null, "Login", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
@@ -128,19 +120,6 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 			mData messageData = new mData(loginInts, loginParams);
 			partition[] subscribers = {partition.SYS};
 			logIO.createMessageToSend(partition.CND, subscribers, messageData, mType.loginRequest);
-			
-			/*
-			// Check if name & pass are valid
-    		if (LoginService.authenticate(txtUsername.getText(), txtPassword.getPassword().toString()))
-    		{	// User is valid, so show their main panel based on their user type
-    			// This is temporary until the messages start working
-    			logCND.displayDoctorMainPanel();
-    		}
-    		else
-    		{	// User is invalid
-    			JOptionPane.showMessageDialog(parentFrame, "Invalid Username or Password", "Login Error", JOptionPane.ERROR_MESSAGE);
-    		}
-    		*/
         }
 	}
 
@@ -150,6 +129,7 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 		
 		if (event.getSource() == lblforgotUsername)
 		{	// Forgot username button was clicked
+			// create a message and send it to CND to display the Rtv username window
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
@@ -158,6 +138,7 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 		}
 		else if (event.getSource() == lblForgotPassword)
 		{	// Forgot password button was clicked
+			// create a message and send it to CND to display the Rtv password window
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
