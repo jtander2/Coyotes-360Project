@@ -42,9 +42,16 @@ public class Inbox {
 		ArrayList<Message> m = new ArrayList<Message>();
 		
 		for(int i = 0; i < mList.size(); i++) {
-		    if(mList.get(i).checkIsSubscriber(thisPartition)) {
+		    
+		    try {
+		    
+			if(mList.get(i).checkIsSubscriber(thisPartition)) {
 				m.add(mList.get(i));
 				mList.get(i).setRead(true);
+		    	}
+			
+		    }catch(NullPointerException e) {
+			//what the hellx2?
 		    }
 		    
 		}
@@ -60,12 +67,15 @@ public class Inbox {
      */
     public void emptyReadMessages() {
 		
+	try {
 		for(int i = 0; i < mList.size(); i++) {
 		    if(mList.get(i).isRead()) {
-		    	mList.remove(i);
-		    	i--;
+		    	mList.remove(i--);
 		    }
 		}
+	}catch(NullPointerException e) {
+	    //what the hell?
+	}
 	
     }
     
