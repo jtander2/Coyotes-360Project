@@ -37,6 +37,7 @@ public class mainTest {
 			System.out.println("G	-	Get Account by ID");
 			System.out.println("D	-	Delete Account by ID");
 			System.out.println("T	-	Add Alert to Client");
+			System.out.println("P	-	Find Account from Username and Password.");
 			System.out.println("Q	-	Quit");
 			
 			choice = input.nextLine();
@@ -291,6 +292,14 @@ public class mainTest {
 			case "E":
 				System.out.println("Type in AID for ACCOUNT: ");
 				System.out.println("Does this exist? " + dd.existsAccount(tryparse(input.nextLine())));
+				break;
+				
+			case "P":
+				System.out.println("Type in the USERNAME: ");
+				String username = input.nextLine();
+				System.out.println("Type in the PASSWORD: ");
+				String password = input.nextLine();
+				System.out.println("AID: " + dd.findUserPass(username, password) );
 				break;
 				
 			case "Q":

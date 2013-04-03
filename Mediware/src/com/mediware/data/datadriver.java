@@ -18,10 +18,14 @@ package com.mediware.data;
 			sql characters with safe ones.  It also does this when it pulls it
 			out from the DB.
 	
-	THIS VERSION: 0.01 Alpha	
+	
+	
+	THIS VERSION: 0.02 Alpha	
 		-------------------
 		CHANGELOG for DATABASE layer - database.java
 [ / - Changed | + Feature added | ~Bugfix | - Removed | ->Implemented ] 
+		0.02A	~	+Added feature to find DB for Username and Password combination
+
 		0.01A	~	/Data into 6 tables
 					+Parser/unparser for BP and alerts
 					+Support to search every table
@@ -151,6 +155,11 @@ public class datadriver
 		return db.getAccount(AID).getPermissions();
 	}
 	
+	public account getAccount(int AID)
+	{
+		return db.getAccount(AID);
+	}
+	
 	/*	--------------------------		EXISTS Functions		-------------------------------
  	-					Commands to see if an account ID exists							    	-*/
 	public boolean existsAccount(int AID)
@@ -182,6 +191,39 @@ public class datadriver
 	{
 		return db.existsEmployeeInfo(aid);
 	}
+	
+	/*	--------------------------		FIND Functions		-------------------------------
+ 	-					Commands to find and return data from the DB					  -*/
+	
+	//This function checks for Username and Password in accounts
+	//Returns : -1 = No User found | positive int = AID
+	public int findUserPass(String username, String password)
+	{
+		account oAccount = new account();
+		oAccount.setUsername(username);
+		oAccount.setPassword(password);
+		
+		List<Integer> oIntList = db.findAccount(oAccount);
+		
+		if(oIntList.isEmpty())	//Does a quick check to see if the user is good.
+			return -1;
+		
+		//What if someone had a like username and the same password? (amazingly)
+		if(oIntList.size() > 1)	
+		{
+			for(int i = 0; i <= oIntList.size(); i++)
+			{
+				account iAccount = getAccount(oIntList.get(i));
+				if(iAccount.getUsername().matches(username) && iAccount.getPassword().matches(password))
+					return oIntList.get(i);		//This one matched in the list
+			}
+			return -1;		
+		}
+		
+		return oIntList.get(0);
+	}
+	
+	
 	/*	--------------------------		EDIT Functions		-------------------------------
  	-					Commands to edit the data in the database						  -*/
 	
