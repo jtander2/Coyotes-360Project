@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class VitalsPanel extends JPanel {
+public class VitalsPanel extends JPanel implements ActionListener {
 	private JTextField textFieldBloodPressure;
 	private JTextField textFieldWeight;
 	private JTextField textFieldTemperature;

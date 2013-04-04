@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -21,7 +22,7 @@ import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
-public class PatientVitalsPanel extends JPanel {
+public class PatientVitalsPanel extends JPanel implements ActionListener {
 	private JTextField textFieldBloodPressure;
 	private JTextField textFieldWeight;
 	private JTextField textFieldTemperature;

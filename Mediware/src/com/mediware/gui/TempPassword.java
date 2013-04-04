@@ -3,6 +3,8 @@ package com.mediware.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,16 +15,24 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import com.mediware.arch.IO;
+import com.mediware.arch.mData;
+import com.mediware.arch.Enums.mType;
+import com.mediware.arch.Enums.partition;
 
-@SuppressWarnings("serial")
-public class TempPassword extends JPanel {
-	private JTextField textField;
+@SuppressWarnings({ "serial", "unused" })
+public class TempPassword extends JPanel implements ActionListener{
+	private JTextField textFieldPassword;
+	private JButton btnGotoLogin;
+	private IO io;
 
 	/**
 	 * Create the panel.
 	 * @param cndIO 
 	 */
 	public TempPassword(IO cndIO) {
+		
+		this.io = cndIO;
+		
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Reset Password", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 176, 0, 0, 0, 0};
@@ -38,22 +48,36 @@ public class TempPassword extends JPanel {
 		gbc_lblNewLabel.gridy = 1;
 		add(lblNewLabel, gbc_lblNewLabel);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 3;
-		gbc_textField.gridy = 2;
-		add(textField, gbc_textField);
-		textField.setColumns(10);
+		textFieldPassword = new JTextField();
+		GridBagConstraints gbc_textFieldPassword = new GridBagConstraints();
+		gbc_textFieldPassword.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldPassword.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldPassword.gridx = 3;
+		gbc_textFieldPassword.gridy = 2;
+		add(textFieldPassword, gbc_textFieldPassword);
+		textFieldPassword.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Return to Login");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 3;
-		gbc_btnNewButton.gridy = 4;
-		add(btnNewButton, gbc_btnNewButton);
+		btnGotoLogin = new JButton("Return to Login");
+		GridBagConstraints gbc_btnGotoLogin = new GridBagConstraints();
+		gbc_btnGotoLogin.insets = new Insets(0, 0, 5, 5);
+		gbc_btnGotoLogin.gridx = 3;
+		gbc_btnGotoLogin.gridy = 4;
+		add(btnGotoLogin, gbc_btnGotoLogin);
 
+	}
+	
+	public void actionPerformed(ActionEvent event) {
+		// Check which button was clicked on
+		if (event.getSource() == btnGotoLogin)
+		{	// Patient Search button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+        }
+		
+		
 	}
 
 }

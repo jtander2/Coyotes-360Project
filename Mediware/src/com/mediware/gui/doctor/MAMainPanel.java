@@ -23,7 +23,7 @@ import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
-public class MAMainPanel extends JPanel {
+public class MAMainPanel extends JPanel implements ActionListener, MouseListener {
 
 	private JButton btnCreateNewPatient;
 	private JLabel lbllogOut;
@@ -125,6 +125,30 @@ public class MAMainPanel extends JPanel {
 			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayLoginPanel);
 		}
 	
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

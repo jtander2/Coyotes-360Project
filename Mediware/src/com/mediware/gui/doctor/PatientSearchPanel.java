@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -17,7 +18,7 @@ import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
-public class PatientSearchPanel extends JPanel {
+public class PatientSearchPanel extends JPanel implements ActionListener {
 	private JTextField textFieldLastName;
 	private JTextField textFieldPhoneNumber;
 	private JTextField textFieldDOB;

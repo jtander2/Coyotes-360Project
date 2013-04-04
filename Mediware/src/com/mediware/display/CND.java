@@ -11,7 +11,6 @@ import com.mediware.arch.IO;
 import com.mediware.arch.Message;
 import com.mediware.arch.Enums.partition;
 import com.mediware.gui.LoginPanel;
-import com.mediware.gui.LoginPanel2;
 import com.mediware.gui.MessagePanel;
 import com.mediware.gui.ReplyPanel;
 import com.mediware.gui.ResetPassword;
@@ -141,12 +140,6 @@ public class CND {
 		currentFrame.setVisible(true);
 	}
 	
-	public void displayLoginPanel2() {
-		currentFrame.getContentPane().removeAll();
-		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new LoginPanel2(cndIO));
-		currentFrame.setVisible(true);
-	}
 	
 	public void displayMessagePanel() {
 		currentFrame.getContentPane().removeAll();

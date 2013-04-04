@@ -9,12 +9,22 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 
 import com.mediware.arch.IO;
+import com.mediware.arch.mData;
+import com.mediware.arch.Enums.mType;
+import com.mediware.arch.Enums.partition;
 
-public class RtvUsername extends JDialog {
-	private JTextField textField;
+@SuppressWarnings({ "serial", "unused" })
+public class RtvUsername extends JDialog implements ActionListener{
+	private JTextField textFieldEmail;
+	private JButton btnSend;
+	private JButton btnCancel;
+	private IO io;
 
 	/**
 	 * Create the panel.
@@ -22,8 +32,10 @@ public class RtvUsername extends JDialog {
 	 */
 	public RtvUsername(IO cndIO) {
 		
+		this.io = cndIO;
+		
 		setTitle("Retrieve Username");
-		setSize(350, 150);
+		setSize(350, 266);
 		setModal(true);
 		
 		JPanel panel = new JPanel();
@@ -37,28 +49,37 @@ public class RtvUsername extends JDialog {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gridBagLayout);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 3;
-		gbc_textField.gridy = 1;
-		panel.add(textField, gbc_textField);
-		textField.setColumns(10);
+		textFieldEmail = new JTextField();
+		GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
+		gbc_textFieldEmail.gridwidth = 5;
+		gbc_textFieldEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldEmail.gridx = 1;
+		gbc_textFieldEmail.gridy = 1;
+		panel.add(textFieldEmail, gbc_textFieldEmail);
+		textFieldEmail.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Enter your email address.");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.gridwidth = 3;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 3;
+		gbc_lblNewLabel.gridx = 2;
 		gbc_lblNewLabel.gridy = 2;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 		
-		JButton btnNewButton = new JButton("Send");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 3;
-		gbc_btnNewButton.gridy = 4;
-		panel.add(btnNewButton, gbc_btnNewButton);
+		btnSend = new JButton("Send");
+		GridBagConstraints gbc_btnSend = new GridBagConstraints();
+		gbc_btnSend.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSend.gridx = 2;
+		gbc_btnSend.gridy = 4;
+		panel.add(btnSend, gbc_btnSend);
+		
+		btnCancel = new JButton("Cancel");
+		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCancel.gridx = 4;
+		gbc_btnCancel.gridy = 4;
+		panel.add(btnCancel, gbc_btnCancel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Please check your email to retrieve your username.");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -68,8 +89,28 @@ public class RtvUsername extends JDialog {
 		gbc_lblNewLabel_1.gridy = 6;
 		panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		add(panel);
+		getContentPane().add(panel);
 
+	}
+	public void actionPerformed(ActionEvent event) {
+		// Check which button was clicked on
+		if (event.getSource() == btnSend)
+		{	// Patient Search button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+        }
+		else if (event.getSource() == btnCancel)
+		{	// Messages / Alerts button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+        }
+		
 	}
 
 }

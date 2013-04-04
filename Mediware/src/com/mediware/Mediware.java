@@ -20,7 +20,6 @@ public class Mediware {
 		}
 		
 		//cnd.displayLoginPanel();
-		//cnd.displayLoginPanel2();
 		//cnd.displayMessagePanel();
 		//cnd.displayReplyPanel();
 		//cnd.displayResetPassword();

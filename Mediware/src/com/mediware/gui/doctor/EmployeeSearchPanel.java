@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,7 +20,7 @@ import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
-public class EmployeeSearchPanel extends JPanel {
+public class EmployeeSearchPanel extends JPanel implements ActionListener {
 	private JTextField textFieldLastName;
 	private JTextField textFieldEmployeeNumber;
 	private IO io;

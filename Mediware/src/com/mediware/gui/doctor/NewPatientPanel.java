@@ -21,15 +21,15 @@ import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
 public class NewPatientPanel extends JPanel implements ActionListener {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textFieldLastName;
+	private JTextField textFieldMiddleName;
+	private JTextField textFieldFirstName;
 	private JLabel lblAddress;
 	private JLabel lblPhone;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField textFieldStreet;
+	private JTextField textFieldCity;
+	private JTextField textFieldState;
+	private JTextField textFieldZipCode;
 	private JLabel lblMiddle;
 	private JLabel lblFirst;
 	private JLabel lblLast;
@@ -40,30 +40,30 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 	private JLabel lblHome;
 	private JLabel lblWork;
 	private JLabel lblMobile;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField textFieldHomePhone;
+	private JTextField textFieldWorkPhone;
+	private JTextField textFieldMobilePhone;
 	private JLabel lblEmail;
-	private JTextField textField_10;
+	private JTextField textFieldEmail;
 	private JLabel lblHealthInsurance;
 	private JLabel lblProvider;
-	private JTextField textField_11;
+	private JTextField textFieldProvider;
 	private JLabel lblPolicy;
 	private JLabel lblGroup;
-	private JTextField textField_12;
-	private JTextField textField_13;
-	private JButton btnNewButton;
+	private JTextField textFieldPolicy;
+	private JTextField textFieldGroup;
+	private JButton btnCreate;
 	private JButton btnCancel;
 	private JLabel lblNewLabel_1;
-	private JTextField textField_14;
+	private JTextField textFieldDOB;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	private JTextField textField_15;
-	private JTextField textField_16;
+	private JTextField textFieldHeight;
+	private JTextField textFieldWeight;
 	private JLabel lblUsername;
-	private JTextField textField_17;
+	private JTextField textFieldPassword;
 	private JLabel lblPassword;
-	private JTextField textField_18;
+	private JTextField textFieldUsername;
 
 	private IO io;
 	/**
@@ -88,34 +88,34 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblName.gridy = 0;
 		add(lblName, gbc_lblName);
 		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.gridwidth = 2;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.fill = GridBagConstraints.BOTH;
-		gbc_textField_2.gridx = 2;
-		gbc_textField_2.gridy = 0;
-		add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		textFieldFirstName = new JTextField();
+		GridBagConstraints gbc_textFieldFirstName = new GridBagConstraints();
+		gbc_textFieldFirstName.gridwidth = 2;
+		gbc_textFieldFirstName.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldFirstName.fill = GridBagConstraints.BOTH;
+		gbc_textFieldFirstName.gridx = 2;
+		gbc_textFieldFirstName.gridy = 0;
+		add(textFieldFirstName, gbc_textFieldFirstName);
+		textFieldFirstName.setColumns(10);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 4;
-		gbc_textField_1.gridy = 0;
-		add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		textFieldMiddleName = new JTextField();
+		GridBagConstraints gbc_textFieldMiddleName = new GridBagConstraints();
+		gbc_textFieldMiddleName.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldMiddleName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMiddleName.gridx = 4;
+		gbc_textFieldMiddleName.gridy = 0;
+		add(textFieldMiddleName, gbc_textFieldMiddleName);
+		textFieldMiddleName.setColumns(10);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 4;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 5;
-		gbc_textField.gridy = 0;
-		add(textField, gbc_textField);
-		textField.setColumns(10);
+		textFieldLastName = new JTextField();
+		GridBagConstraints gbc_textFieldLastName = new GridBagConstraints();
+		gbc_textFieldLastName.gridwidth = 4;
+		gbc_textFieldLastName.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldLastName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldLastName.gridx = 5;
+		gbc_textFieldLastName.gridy = 0;
+		add(textFieldLastName, gbc_textFieldLastName);
+		textFieldLastName.setColumns(10);
 		
 		lblFirst = new JLabel("First");
 		lblFirst.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -151,15 +151,15 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblAddress.gridy = 2;
 		add(lblAddress, gbc_lblAddress);
 		
-		textField_3 = new JTextField();
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.gridwidth = 5;
-		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 2;
-		gbc_textField_3.gridy = 2;
-		add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
+		textFieldStreet = new JTextField();
+		GridBagConstraints gbc_textFieldStreet = new GridBagConstraints();
+		gbc_textFieldStreet.gridwidth = 5;
+		gbc_textFieldStreet.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldStreet.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldStreet.gridx = 2;
+		gbc_textFieldStreet.gridy = 2;
+		add(textFieldStreet, gbc_textFieldStreet);
+		textFieldStreet.setColumns(10);
 		
 		lblStreet = new JLabel("Street");
 		lblStreet.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -170,34 +170,34 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblStreet.gridy = 3;
 		add(lblStreet, gbc_lblStreet);
 		
-		textField_4 = new JTextField();
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.gridwidth = 2;
-		gbc_textField_4.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.gridx = 2;
-		gbc_textField_4.gridy = 4;
-		add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
+		textFieldCity = new JTextField();
+		GridBagConstraints gbc_textFieldCity = new GridBagConstraints();
+		gbc_textFieldCity.gridwidth = 2;
+		gbc_textFieldCity.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldCity.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCity.gridx = 2;
+		gbc_textFieldCity.gridy = 4;
+		add(textFieldCity, gbc_textFieldCity);
+		textFieldCity.setColumns(10);
 		
-		textField_5 = new JTextField();
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.gridx = 4;
-		gbc_textField_5.gridy = 4;
-		add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
+		textFieldState = new JTextField();
+		GridBagConstraints gbc_textFieldState = new GridBagConstraints();
+		gbc_textFieldState.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldState.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldState.gridx = 4;
+		gbc_textFieldState.gridy = 4;
+		add(textFieldState, gbc_textFieldState);
+		textFieldState.setColumns(10);
 		
-		textField_6 = new JTextField();
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.gridwidth = 2;
-		gbc_textField_6.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.gridx = 5;
-		gbc_textField_6.gridy = 4;
-		add(textField_6, gbc_textField_6);
-		textField_6.setColumns(10);
+		textFieldZipCode = new JTextField();
+		GridBagConstraints gbc_textFieldZipCode = new GridBagConstraints();
+		gbc_textFieldZipCode.gridwidth = 2;
+		gbc_textFieldZipCode.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldZipCode.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldZipCode.gridx = 5;
+		gbc_textFieldZipCode.gridy = 4;
+		add(textFieldZipCode, gbc_textFieldZipCode);
+		textFieldZipCode.setColumns(10);
 		
 		lblCity = new JLabel("City");
 		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -241,15 +241,15 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblHome.gridy = 6;
 		add(lblHome, gbc_lblHome);
 		
-		textField_7 = new JTextField();
-		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
-		gbc_textField_7.gridwidth = 4;
-		gbc_textField_7.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_7.gridx = 3;
-		gbc_textField_7.gridy = 6;
-		add(textField_7, gbc_textField_7);
-		textField_7.setColumns(10);
+		textFieldHomePhone = new JTextField();
+		GridBagConstraints gbc_textFieldHomePhone = new GridBagConstraints();
+		gbc_textFieldHomePhone.gridwidth = 4;
+		gbc_textFieldHomePhone.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldHomePhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldHomePhone.gridx = 3;
+		gbc_textFieldHomePhone.gridy = 6;
+		add(textFieldHomePhone, gbc_textFieldHomePhone);
+		textFieldHomePhone.setColumns(10);
 		
 		lblWork = new JLabel("Work:");
 		GridBagConstraints gbc_lblWork = new GridBagConstraints();
@@ -259,15 +259,15 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblWork.gridy = 7;
 		add(lblWork, gbc_lblWork);
 		
-		textField_8 = new JTextField();
-		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
-		gbc_textField_8.gridwidth = 4;
-		gbc_textField_8.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_8.gridx = 3;
-		gbc_textField_8.gridy = 7;
-		add(textField_8, gbc_textField_8);
-		textField_8.setColumns(10);
+		textFieldWorkPhone = new JTextField();
+		GridBagConstraints gbc_textFieldWorkPhone = new GridBagConstraints();
+		gbc_textFieldWorkPhone.gridwidth = 4;
+		gbc_textFieldWorkPhone.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldWorkPhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldWorkPhone.gridx = 3;
+		gbc_textFieldWorkPhone.gridy = 7;
+		add(textFieldWorkPhone, gbc_textFieldWorkPhone);
+		textFieldWorkPhone.setColumns(10);
 		
 		lblMobile = new JLabel("Mobile:");
 		GridBagConstraints gbc_lblMobile = new GridBagConstraints();
@@ -277,15 +277,15 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblMobile.gridy = 8;
 		add(lblMobile, gbc_lblMobile);
 		
-		textField_9 = new JTextField();
-		GridBagConstraints gbc_textField_9 = new GridBagConstraints();
-		gbc_textField_9.gridwidth = 4;
-		gbc_textField_9.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_9.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_9.gridx = 3;
-		gbc_textField_9.gridy = 8;
-		add(textField_9, gbc_textField_9);
-		textField_9.setColumns(10);
+		textFieldMobilePhone = new JTextField();
+		GridBagConstraints gbc_textFieldMobilePhone = new GridBagConstraints();
+		gbc_textFieldMobilePhone.gridwidth = 4;
+		gbc_textFieldMobilePhone.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldMobilePhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMobilePhone.gridx = 3;
+		gbc_textFieldMobilePhone.gridy = 8;
+		add(textFieldMobilePhone, gbc_textFieldMobilePhone);
+		textFieldMobilePhone.setColumns(10);
 		
 		lblEmail = new JLabel("Email:");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
@@ -295,15 +295,15 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblEmail.gridy = 9;
 		add(lblEmail, gbc_lblEmail);
 		
-		textField_10 = new JTextField();
-		GridBagConstraints gbc_textField_10 = new GridBagConstraints();
-		gbc_textField_10.gridwidth = 5;
-		gbc_textField_10.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_10.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_10.gridx = 2;
-		gbc_textField_10.gridy = 9;
-		add(textField_10, gbc_textField_10);
-		textField_10.setColumns(10);
+		textFieldEmail = new JTextField();
+		GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
+		gbc_textFieldEmail.gridwidth = 5;
+		gbc_textFieldEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldEmail.gridx = 2;
+		gbc_textFieldEmail.gridy = 9;
+		add(textFieldEmail, gbc_textFieldEmail);
+		textFieldEmail.setColumns(10);
 		
 		lblHealthInsurance = new JLabel("Health Insurance Information:");
 		GridBagConstraints gbc_lblHealthInsurance = new GridBagConstraints();
@@ -322,15 +322,15 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblProvider.gridy = 11;
 		add(lblProvider, gbc_lblProvider);
 		
-		textField_11 = new JTextField();
-		GridBagConstraints gbc_textField_11 = new GridBagConstraints();
-		gbc_textField_11.gridwidth = 4;
-		gbc_textField_11.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_11.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_11.gridx = 3;
-		gbc_textField_11.gridy = 11;
-		add(textField_11, gbc_textField_11);
-		textField_11.setColumns(10);
+		textFieldProvider = new JTextField();
+		GridBagConstraints gbc_textFieldProvider = new GridBagConstraints();
+		gbc_textFieldProvider.gridwidth = 4;
+		gbc_textFieldProvider.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldProvider.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldProvider.gridx = 3;
+		gbc_textFieldProvider.gridy = 11;
+		add(textFieldProvider, gbc_textFieldProvider);
+		textFieldProvider.setColumns(10);
 		
 		lblPolicy = new JLabel("Policy #");
 		GridBagConstraints gbc_lblPolicy = new GridBagConstraints();
@@ -340,15 +340,15 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblPolicy.gridy = 12;
 		add(lblPolicy, gbc_lblPolicy);
 		
-		textField_12 = new JTextField();
-		GridBagConstraints gbc_textField_12 = new GridBagConstraints();
-		gbc_textField_12.gridwidth = 4;
-		gbc_textField_12.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_12.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_12.gridx = 3;
-		gbc_textField_12.gridy = 12;
-		add(textField_12, gbc_textField_12);
-		textField_12.setColumns(10);
+		textFieldPolicy = new JTextField();
+		GridBagConstraints gbc_textFieldPolicy = new GridBagConstraints();
+		gbc_textFieldPolicy.gridwidth = 4;
+		gbc_textFieldPolicy.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldPolicy.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldPolicy.gridx = 3;
+		gbc_textFieldPolicy.gridy = 12;
+		add(textFieldPolicy, gbc_textFieldPolicy);
+		textFieldPolicy.setColumns(10);
 		
 		lblGroup = new JLabel("Group #");
 		GridBagConstraints gbc_lblGroup = new GridBagConstraints();
@@ -358,15 +358,15 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblGroup.gridy = 13;
 		add(lblGroup, gbc_lblGroup);
 		
-		textField_13 = new JTextField();
-		GridBagConstraints gbc_textField_13 = new GridBagConstraints();
-		gbc_textField_13.gridwidth = 4;
-		gbc_textField_13.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_13.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_13.gridx = 3;
-		gbc_textField_13.gridy = 13;
-		add(textField_13, gbc_textField_13);
-		textField_13.setColumns(10);
+		textFieldGroup = new JTextField();
+		GridBagConstraints gbc_textFieldGroup = new GridBagConstraints();
+		gbc_textFieldGroup.gridwidth = 4;
+		gbc_textFieldGroup.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldGroup.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldGroup.gridx = 3;
+		gbc_textFieldGroup.gridy = 13;
+		add(textFieldGroup, gbc_textFieldGroup);
+		textFieldGroup.setColumns(10);
 		
 		lblNewLabel_1 = new JLabel("Date of Birth:");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -376,14 +376,14 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblNewLabel_1.gridy = 14;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField_14 = new JTextField();
-		GridBagConstraints gbc_textField_14 = new GridBagConstraints();
-		gbc_textField_14.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_14.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_14.gridx = 2;
-		gbc_textField_14.gridy = 14;
-		add(textField_14, gbc_textField_14);
-		textField_14.setColumns(10);
+		textFieldDOB = new JTextField();
+		GridBagConstraints gbc_textFieldDOB = new GridBagConstraints();
+		gbc_textFieldDOB.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldDOB.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldDOB.gridx = 2;
+		gbc_textFieldDOB.gridy = 14;
+		add(textFieldDOB, gbc_textFieldDOB);
+		textFieldDOB.setColumns(10);
 		
 		lblNewLabel_2 = new JLabel("Height:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -393,14 +393,14 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblNewLabel_2.gridy = 15;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		textField_15 = new JTextField();
-		GridBagConstraints gbc_textField_15 = new GridBagConstraints();
-		gbc_textField_15.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_15.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_15.gridx = 2;
-		gbc_textField_15.gridy = 15;
-		add(textField_15, gbc_textField_15);
-		textField_15.setColumns(10);
+		textFieldHeight = new JTextField();
+		GridBagConstraints gbc_textFieldHeight = new GridBagConstraints();
+		gbc_textFieldHeight.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldHeight.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldHeight.gridx = 2;
+		gbc_textFieldHeight.gridy = 15;
+		add(textFieldHeight, gbc_textFieldHeight);
+		textFieldHeight.setColumns(10);
 		
 		lblNewLabel_3 = new JLabel("Weight");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -410,14 +410,14 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblNewLabel_3.gridy = 16;
 		add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		textField_16 = new JTextField();
-		GridBagConstraints gbc_textField_16 = new GridBagConstraints();
-		gbc_textField_16.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_16.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_16.gridx = 2;
-		gbc_textField_16.gridy = 16;
-		add(textField_16, gbc_textField_16);
-		textField_16.setColumns(10);
+		textFieldWeight = new JTextField();
+		GridBagConstraints gbc_textFieldWeight = new GridBagConstraints();
+		gbc_textFieldWeight.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldWeight.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldWeight.gridx = 2;
+		gbc_textFieldWeight.gridy = 16;
+		add(textFieldWeight, gbc_textFieldWeight);
+		textFieldWeight.setColumns(10);
 		
 		lblUsername = new JLabel("Username:");
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
@@ -427,14 +427,14 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblUsername.gridy = 17;
 		add(lblUsername, gbc_lblUsername);
 		
-		textField_18 = new JTextField();
-		GridBagConstraints gbc_textField_18 = new GridBagConstraints();
-		gbc_textField_18.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_18.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_18.gridx = 2;
-		gbc_textField_18.gridy = 17;
-		add(textField_18, gbc_textField_18);
-		textField_18.setColumns(10);
+		textFieldUsername = new JTextField();
+		GridBagConstraints gbc_textFieldUsername = new GridBagConstraints();
+		gbc_textFieldUsername.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldUsername.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldUsername.gridx = 2;
+		gbc_textFieldUsername.gridy = 17;
+		add(textFieldUsername, gbc_textFieldUsername);
+		textFieldUsername.setColumns(10);
 		
 		lblPassword = new JLabel("Password:");
 		GridBagConstraints gbc_lblPassword = new GridBagConstraints();
@@ -444,22 +444,22 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		gbc_lblPassword.gridy = 18;
 		add(lblPassword, gbc_lblPassword);
 		
-		textField_17 = new JTextField();
-		GridBagConstraints gbc_textField_17 = new GridBagConstraints();
-		gbc_textField_17.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_17.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_17.gridx = 2;
-		gbc_textField_17.gridy = 18;
-		add(textField_17, gbc_textField_17);
-		textField_17.setColumns(10);
+		textFieldPassword = new JTextField();
+		GridBagConstraints gbc_textFieldPassword = new GridBagConstraints();
+		gbc_textFieldPassword.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldPassword.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldPassword.gridx = 2;
+		gbc_textFieldPassword.gridy = 18;
+		add(textFieldPassword, gbc_textFieldPassword);
+		textFieldPassword.setColumns(10);
 		
-		btnNewButton = new JButton("Create");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 20;
-		add(btnNewButton, gbc_btnNewButton);
-		btnNewButton.addActionListener (this);
+		btnCreate = new JButton("Create");
+		GridBagConstraints gbc_btnCreate = new GridBagConstraints();
+		gbc_btnCreate.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCreate.gridx = 2;
+		gbc_btnCreate.gridy = 20;
+		add(btnCreate, gbc_btnCreate);
+		btnCreate.addActionListener (this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -472,21 +472,24 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getSource() == btnNewButton) 
-		{
-			
-		} 
-		else if(e.getSource() == btnCancel) 
-		{
+	public void actionPerformed(ActionEvent event) {
+		// Check which button was clicked on
+		if (event.getSource() == btnCreate)
+		{	// Patient Search button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayDoctorMainPanel);
-		}
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+        }
+		else if (event.getSource() == btnCancel)
+		{	// Messages / Alerts button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+        }
 		
 	}
 
