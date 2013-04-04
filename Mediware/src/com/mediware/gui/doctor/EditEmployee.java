@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -15,18 +16,21 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import com.mediware.arch.IO;
+import com.mediware.arch.mData;
+import com.mediware.arch.Enums.mType;
+import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
 public class EditEmployee extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textFieldLastName;
+	private JTextField textFieldMiddleName;
+	private JTextField textFieldFirstName;
 	private JLabel lblAddress;
 	private JLabel lblPhone;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField textFieldStreet;
+	private JTextField textFieldCity;
+	private JTextField textFieldState;
+	private JTextField textFieldZipCode;
 	private JLabel lblMiddle;
 	private JLabel lblFirst;
 	private JLabel lblLast;
@@ -37,25 +41,28 @@ public class EditEmployee extends JPanel {
 	private JLabel lblHome;
 	private JLabel lblWork;
 	private JLabel lblMobile;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField textFieldHomePhone;
+	private JTextField textFieldWorkPhone;
+	private JTextField textFieldMobilePhone;
 	private JLabel lblEmail;
-	private JTextField textField_10;
-	private JButton btnNewButton;
+	private JTextField textFieldEmail;
+	private JButton btnSaveChanges;
 	private JButton btnCancel;
 	private JLabel lblNewLabel_1;
-	private JTextField textField_14;
-	private JTextField textField_15;
+	private JTextField textFieldDOB;
+	private JTextField textFieldEmployeeNumber;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_2;
-	private JComboBox comboBox;
+	private JComboBox comboBoxAdminLevel;
+	private IO io;
 
 	/**
 	 * Create the panel.
 	 * @param cndIO 
 	 */
 	public EditEmployee(IO cndIO) {
+		this.io = cndIO;
+		
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "View/Edit Employee Profile", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 67, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0};
@@ -72,34 +79,34 @@ public class EditEmployee extends JPanel {
 		gbc_lblName.gridy = 0;
 		add(lblName, gbc_lblName);
 		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.gridwidth = 2;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.fill = GridBagConstraints.BOTH;
-		gbc_textField_2.gridx = 2;
-		gbc_textField_2.gridy = 0;
-		add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		textFieldFirstName = new JTextField();
+		GridBagConstraints gbc_textFieldFirstName = new GridBagConstraints();
+		gbc_textFieldFirstName.gridwidth = 2;
+		gbc_textFieldFirstName.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldFirstName.fill = GridBagConstraints.BOTH;
+		gbc_textFieldFirstName.gridx = 2;
+		gbc_textFieldFirstName.gridy = 0;
+		add(textFieldFirstName, gbc_textFieldFirstName);
+		textFieldFirstName.setColumns(10);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 4;
-		gbc_textField_1.gridy = 0;
-		add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		textFieldMiddleName = new JTextField();
+		GridBagConstraints gbc_textFieldMiddleName = new GridBagConstraints();
+		gbc_textFieldMiddleName.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldMiddleName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMiddleName.gridx = 4;
+		gbc_textFieldMiddleName.gridy = 0;
+		add(textFieldMiddleName, gbc_textFieldMiddleName);
+		textFieldMiddleName.setColumns(10);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 4;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 5;
-		gbc_textField.gridy = 0;
-		add(textField, gbc_textField);
-		textField.setColumns(10);
+		textFieldLastName = new JTextField();
+		GridBagConstraints gbc_textFieldLastName = new GridBagConstraints();
+		gbc_textFieldLastName.gridwidth = 4;
+		gbc_textFieldLastName.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldLastName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldLastName.gridx = 5;
+		gbc_textFieldLastName.gridy = 0;
+		add(textFieldLastName, gbc_textFieldLastName);
+		textFieldLastName.setColumns(10);
 		
 		lblFirst = new JLabel("First");
 		lblFirst.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -135,15 +142,15 @@ public class EditEmployee extends JPanel {
 		gbc_lblAddress.gridy = 2;
 		add(lblAddress, gbc_lblAddress);
 		
-		textField_3 = new JTextField();
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.gridwidth = 5;
-		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 2;
-		gbc_textField_3.gridy = 2;
-		add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
+		textFieldStreet = new JTextField();
+		GridBagConstraints gbc_textFieldStreet = new GridBagConstraints();
+		gbc_textFieldStreet.gridwidth = 5;
+		gbc_textFieldStreet.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldStreet.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldStreet.gridx = 2;
+		gbc_textFieldStreet.gridy = 2;
+		add(textFieldStreet, gbc_textFieldStreet);
+		textFieldStreet.setColumns(10);
 		
 		lblStreet = new JLabel("Street");
 		lblStreet.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -154,34 +161,34 @@ public class EditEmployee extends JPanel {
 		gbc_lblStreet.gridy = 3;
 		add(lblStreet, gbc_lblStreet);
 		
-		textField_4 = new JTextField();
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.gridwidth = 2;
-		gbc_textField_4.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.gridx = 2;
-		gbc_textField_4.gridy = 4;
-		add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
+		textFieldCity = new JTextField();
+		GridBagConstraints gbc_textFieldCity = new GridBagConstraints();
+		gbc_textFieldCity.gridwidth = 2;
+		gbc_textFieldCity.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldCity.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCity.gridx = 2;
+		gbc_textFieldCity.gridy = 4;
+		add(textFieldCity, gbc_textFieldCity);
+		textFieldCity.setColumns(10);
 		
-		textField_5 = new JTextField();
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.gridx = 4;
-		gbc_textField_5.gridy = 4;
-		add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
+		textFieldState = new JTextField();
+		GridBagConstraints gbc_textFieldState = new GridBagConstraints();
+		gbc_textFieldState.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldState.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldState.gridx = 4;
+		gbc_textFieldState.gridy = 4;
+		add(textFieldState, gbc_textFieldState);
+		textFieldState.setColumns(10);
 		
-		textField_6 = new JTextField();
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.gridwidth = 2;
-		gbc_textField_6.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.gridx = 5;
-		gbc_textField_6.gridy = 4;
-		add(textField_6, gbc_textField_6);
-		textField_6.setColumns(10);
+		textFieldZipCode = new JTextField();
+		GridBagConstraints gbc_textFieldZipCode = new GridBagConstraints();
+		gbc_textFieldZipCode.gridwidth = 2;
+		gbc_textFieldZipCode.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldZipCode.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldZipCode.gridx = 5;
+		gbc_textFieldZipCode.gridy = 4;
+		add(textFieldZipCode, gbc_textFieldZipCode);
+		textFieldZipCode.setColumns(10);
 		
 		lblCity = new JLabel("City");
 		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -225,15 +232,15 @@ public class EditEmployee extends JPanel {
 		gbc_lblHome.gridy = 6;
 		add(lblHome, gbc_lblHome);
 		
-		textField_7 = new JTextField();
-		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
-		gbc_textField_7.gridwidth = 4;
-		gbc_textField_7.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_7.gridx = 3;
-		gbc_textField_7.gridy = 6;
-		add(textField_7, gbc_textField_7);
-		textField_7.setColumns(10);
+		textFieldHomePhone = new JTextField();
+		GridBagConstraints gbc_textFieldHomePhone = new GridBagConstraints();
+		gbc_textFieldHomePhone.gridwidth = 4;
+		gbc_textFieldHomePhone.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldHomePhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldHomePhone.gridx = 3;
+		gbc_textFieldHomePhone.gridy = 6;
+		add(textFieldHomePhone, gbc_textFieldHomePhone);
+		textFieldHomePhone.setColumns(10);
 		
 		lblWork = new JLabel("Work:");
 		GridBagConstraints gbc_lblWork = new GridBagConstraints();
@@ -243,15 +250,15 @@ public class EditEmployee extends JPanel {
 		gbc_lblWork.gridy = 7;
 		add(lblWork, gbc_lblWork);
 		
-		textField_8 = new JTextField();
-		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
-		gbc_textField_8.gridwidth = 4;
-		gbc_textField_8.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_8.gridx = 3;
-		gbc_textField_8.gridy = 7;
-		add(textField_8, gbc_textField_8);
-		textField_8.setColumns(10);
+		textFieldWorkPhone = new JTextField();
+		GridBagConstraints gbc_textFieldWorkPhone = new GridBagConstraints();
+		gbc_textFieldWorkPhone.gridwidth = 4;
+		gbc_textFieldWorkPhone.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldWorkPhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldWorkPhone.gridx = 3;
+		gbc_textFieldWorkPhone.gridy = 7;
+		add(textFieldWorkPhone, gbc_textFieldWorkPhone);
+		textFieldWorkPhone.setColumns(10);
 		
 		lblMobile = new JLabel("Mobile:");
 		GridBagConstraints gbc_lblMobile = new GridBagConstraints();
@@ -261,15 +268,15 @@ public class EditEmployee extends JPanel {
 		gbc_lblMobile.gridy = 8;
 		add(lblMobile, gbc_lblMobile);
 		
-		textField_9 = new JTextField();
-		GridBagConstraints gbc_textField_9 = new GridBagConstraints();
-		gbc_textField_9.gridwidth = 4;
-		gbc_textField_9.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_9.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_9.gridx = 3;
-		gbc_textField_9.gridy = 8;
-		add(textField_9, gbc_textField_9);
-		textField_9.setColumns(10);
+		textFieldMobilePhone = new JTextField();
+		GridBagConstraints gbc_textFieldMobilePhone = new GridBagConstraints();
+		gbc_textFieldMobilePhone.gridwidth = 4;
+		gbc_textFieldMobilePhone.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldMobilePhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMobilePhone.gridx = 3;
+		gbc_textFieldMobilePhone.gridy = 8;
+		add(textFieldMobilePhone, gbc_textFieldMobilePhone);
+		textFieldMobilePhone.setColumns(10);
 		
 		lblEmail = new JLabel("Email:");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
@@ -279,15 +286,15 @@ public class EditEmployee extends JPanel {
 		gbc_lblEmail.gridy = 9;
 		add(lblEmail, gbc_lblEmail);
 		
-		textField_10 = new JTextField();
-		GridBagConstraints gbc_textField_10 = new GridBagConstraints();
-		gbc_textField_10.gridwidth = 5;
-		gbc_textField_10.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_10.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_10.gridx = 2;
-		gbc_textField_10.gridy = 9;
-		add(textField_10, gbc_textField_10);
-		textField_10.setColumns(10);
+		textFieldEmail = new JTextField();
+		GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
+		gbc_textFieldEmail.gridwidth = 5;
+		gbc_textFieldEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldEmail.gridx = 2;
+		gbc_textFieldEmail.gridy = 9;
+		add(textFieldEmail, gbc_textFieldEmail);
+		textFieldEmail.setColumns(10);
 		
 		lblNewLabel_1 = new JLabel("Date of Birth:");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -297,14 +304,14 @@ public class EditEmployee extends JPanel {
 		gbc_lblNewLabel_1.gridy = 10;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField_14 = new JTextField();
-		GridBagConstraints gbc_textField_14 = new GridBagConstraints();
-		gbc_textField_14.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_14.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_14.gridx = 2;
-		gbc_textField_14.gridy = 10;
-		add(textField_14, gbc_textField_14);
-		textField_14.setColumns(10);
+		textFieldDOB = new JTextField();
+		GridBagConstraints gbc_textFieldDOB = new GridBagConstraints();
+		gbc_textFieldDOB.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldDOB.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldDOB.gridx = 2;
+		gbc_textFieldDOB.gridy = 10;
+		add(textFieldDOB, gbc_textFieldDOB);
+		textFieldDOB.setColumns(10);
 		
 		lblNewLabel = new JLabel("Employee #");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -314,14 +321,14 @@ public class EditEmployee extends JPanel {
 		gbc_lblNewLabel.gridy = 11;
 		add(lblNewLabel, gbc_lblNewLabel);
 		
-		textField_15 = new JTextField();
-		GridBagConstraints gbc_textField_15 = new GridBagConstraints();
-		gbc_textField_15.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_15.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_15.gridx = 2;
-		gbc_textField_15.gridy = 11;
-		add(textField_15, gbc_textField_15);
-		textField_15.setColumns(10);
+		textFieldEmployeeNumber = new JTextField();
+		GridBagConstraints gbc_textFieldEmployeeNumber = new GridBagConstraints();
+		gbc_textFieldEmployeeNumber.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldEmployeeNumber.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldEmployeeNumber.gridx = 2;
+		gbc_textFieldEmployeeNumber.gridy = 11;
+		add(textFieldEmployeeNumber, gbc_textFieldEmployeeNumber);
+		textFieldEmployeeNumber.setColumns(10);
 		
 		lblNewLabel_2 = new JLabel("Admin Level:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -331,22 +338,22 @@ public class EditEmployee extends JPanel {
 		gbc_lblNewLabel_2.gridy = 12;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		comboBox = new JComboBox();
-		comboBox.setMaximumRowCount(3);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Doctor", "Nurse", "Medical Assistant"}));
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 12;
-		add(comboBox, gbc_comboBox);
+		comboBoxAdminLevel = new JComboBox();
+		comboBoxAdminLevel.setMaximumRowCount(3);
+		comboBoxAdminLevel.setModel(new DefaultComboBoxModel(new String[] {"Doctor", "Nurse", "Medical Assistant"}));
+		GridBagConstraints gbc_comboBoxAdminLevel = new GridBagConstraints();
+		gbc_comboBoxAdminLevel.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxAdminLevel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxAdminLevel.gridx = 2;
+		gbc_comboBoxAdminLevel.gridy = 12;
+		add(comboBoxAdminLevel, gbc_comboBoxAdminLevel);
 		
-		btnNewButton = new JButton("Save Changes");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 14;
-		add(btnNewButton, gbc_btnNewButton);
+		btnSaveChanges = new JButton("Save Changes");
+		GridBagConstraints gbc_btnSaveChanges = new GridBagConstraints();
+		gbc_btnSaveChanges.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSaveChanges.gridx = 2;
+		gbc_btnSaveChanges.gridy = 14;
+		add(btnSaveChanges, gbc_btnSaveChanges);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -356,6 +363,27 @@ public class EditEmployee extends JPanel {
 		gbc_btnCancel.gridy = 14;
 		add(btnCancel, gbc_btnCancel);
 
+	}
+	
+	
+	public void actionPerformed(ActionEvent event) {
+		// Check which button was clicked on
+		if (event.getSource() == btnSaveChanges)
+		{	// Save button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+        }
+		else if (event.getSource() == btnCancel)
+		{	// Cancel button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+        }
 	}
 
 }
