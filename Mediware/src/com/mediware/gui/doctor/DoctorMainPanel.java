@@ -27,10 +27,10 @@ public class DoctorMainPanel extends JPanel  implements ActionListener, MouseLis
 	 * Create the panel.
 	 */
 	private IO io;
-	private JButton btnNewButton;
-	private JButton btnNewButton_2;
-	private JButton btnNewButton_1;
-	private JButton btnCreateEmployeeProfile;
+	private JButton btnPatientSearch;
+	private JButton btnMessagesAlerts;
+	private JButton btnCreateNewPatient;
+	private JButton btnCreateNewEmployee;
 	private JButton btnEditEmployee;
 	private JLabel lbllogOut;
 	
@@ -62,21 +62,21 @@ public class DoctorMainPanel extends JPanel  implements ActionListener, MouseLis
 		gbc_lblNewLabel_2.gridy = 2;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		btnNewButton = new JButton("Patient Search");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 4;
-		gbc_btnNewButton.gridy = 3;
-		add(btnNewButton, gbc_btnNewButton);
-		btnNewButton.addActionListener (this);
+		btnPatientSearch = new JButton("Patient Search");
+		GridBagConstraints gbc_btnPatientSearch = new GridBagConstraints();
+		gbc_btnPatientSearch.insets = new Insets(0, 0, 5, 5);
+		gbc_btnPatientSearch.gridx = 4;
+		gbc_btnPatientSearch.gridy = 3;
+		add(btnPatientSearch, gbc_btnPatientSearch);
+		btnPatientSearch.addActionListener (this);
 		
-		btnNewButton_2 = new JButton("Messages / Alerts");
-		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_2.gridx = 4;
-		gbc_btnNewButton_2.gridy = 4;
-		add(btnNewButton_2, gbc_btnNewButton_2);
-		btnNewButton_2.addActionListener (this);
+		btnMessagesAlerts = new JButton("Messages / Alerts");
+		GridBagConstraints gbc_btnMessagesAlerts = new GridBagConstraints();
+		gbc_btnMessagesAlerts.insets = new Insets(0, 0, 5, 5);
+		gbc_btnMessagesAlerts.gridx = 4;
+		gbc_btnMessagesAlerts.gridy = 4;
+		add(btnMessagesAlerts, gbc_btnMessagesAlerts);
+		btnMessagesAlerts.addActionListener (this);
 		
 		JLabel lblNewLabel_1 = new JLabel("Administrative");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -86,21 +86,21 @@ public class DoctorMainPanel extends JPanel  implements ActionListener, MouseLis
 		gbc_lblNewLabel_1.gridy = 6;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		btnNewButton_1 = new JButton("Create New Patient");
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_1.gridx = 4;
-		gbc_btnNewButton_1.gridy = 7;
-		add(btnNewButton_1, gbc_btnNewButton_1);
-		btnNewButton_1.addActionListener (this);
+		btnCreateNewPatient = new JButton("Create New Patient");
+		GridBagConstraints gbc_btnCreateNewPatient = new GridBagConstraints();
+		gbc_btnCreateNewPatient.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCreateNewPatient.gridx = 4;
+		gbc_btnCreateNewPatient.gridy = 7;
+		add(btnCreateNewPatient, gbc_btnCreateNewPatient);
+		btnCreateNewPatient.addActionListener (this);
 		
-		btnCreateEmployeeProfile = new JButton("Create New Employee");
-		GridBagConstraints gbc_btnCreateEmployeeProfile = new GridBagConstraints();
-		gbc_btnCreateEmployeeProfile.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCreateEmployeeProfile.gridx = 4;
-		gbc_btnCreateEmployeeProfile.gridy = 8;
-		add(btnCreateEmployeeProfile, gbc_btnCreateEmployeeProfile);
-		btnCreateEmployeeProfile.addActionListener (this);
+		btnCreateNewEmployee = new JButton("Create New Employee");
+		GridBagConstraints gbc_btnCreateNewEmployee = new GridBagConstraints();
+		gbc_btnCreateNewEmployee.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCreateNewEmployee.gridx = 4;
+		gbc_btnCreateNewEmployee.gridy = 8;
+		add(btnCreateNewEmployee, gbc_btnCreateNewEmployee);
+		btnCreateNewEmployee.addActionListener (this);
 		
 		btnEditEmployee = new JButton("Edit Employee");
 		GridBagConstraints gbc_btnEditEmployee = new GridBagConstraints();
@@ -124,7 +124,7 @@ public class DoctorMainPanel extends JPanel  implements ActionListener, MouseLis
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		// Check which button was clicked on
-		if (event.getSource() == btnNewButton)
+		if (event.getSource() == btnPatientSearch)
 		{	// Patient Search button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
@@ -132,7 +132,7 @@ public class DoctorMainPanel extends JPanel  implements ActionListener, MouseLis
 			partition[] subscribers = {partition.CND};
 			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
         }
-		else if (event.getSource() == btnNewButton_2)
+		else if (event.getSource() == btnMessagesAlerts)
 		{	// Messages / Alerts button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
@@ -140,7 +140,7 @@ public class DoctorMainPanel extends JPanel  implements ActionListener, MouseLis
 			partition[] subscribers = {partition.CND};
 			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
         }
-		else if (event.getSource() == btnNewButton_1)
+		else if (event.getSource() == btnCreateNewPatient)
 		{	// Create New Patient button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
@@ -149,7 +149,7 @@ public class DoctorMainPanel extends JPanel  implements ActionListener, MouseLis
 			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayNewPatientPanel);
 			
         }
-		else if (event.getSource() == btnCreateEmployeeProfile)
+		else if (event.getSource() == btnCreateNewEmployee)
 		{	// Create New Employee button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];

@@ -12,19 +12,31 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 import com.mediware.arch.IO;
+import com.mediware.arch.mData;
+import com.mediware.arch.Enums.mType;
+import com.mediware.arch.Enums.partition;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class VitalsPanel extends JPanel {
-	private JTextField textBP;
-	private JTextField textWeight;
-	private JTextField textTemp;
-	private JTextField textPulse;
+	private JTextField textFieldBloodPressure;
+	private JTextField textFieldWeight;
+	private JTextField textFieldTemperature;
+	private JTextField textFieldPulse;
+	private JButton btnSubmit;
+	private JButton btnCancel;
+	private IO io;
 
 	/**
 	 * Create the panel.
 	 * @param cndIO 
 	 */
 	public VitalsPanel(IO cndIO) {
+		
+		this.io = cndIO;
+		
 		setBorder(new TitledBorder(null, "Patient Vitals", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 88, 0, 0, 0, 0, 0};
@@ -41,14 +53,14 @@ public class VitalsPanel extends JPanel {
 		gbc_lblBP.gridy = 1;
 		add(lblBP, gbc_lblBP);
 		
-		textBP = new JTextField();
-		GridBagConstraints gbc_textBP = new GridBagConstraints();
-		gbc_textBP.insets = new Insets(0, 0, 5, 5);
-		gbc_textBP.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textBP.gridx = 3;
-		gbc_textBP.gridy = 1;
-		add(textBP, gbc_textBP);
-		textBP.setColumns(10);
+		textFieldBloodPressure = new JTextField();
+		GridBagConstraints gbc_textFieldBloodPressure = new GridBagConstraints();
+		gbc_textFieldBloodPressure.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldBloodPressure.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldBloodPressure.gridx = 3;
+		gbc_textFieldBloodPressure.gridy = 1;
+		add(textFieldBloodPressure, gbc_textFieldBloodPressure);
+		textFieldBloodPressure.setColumns(10);
 		
 		JComboBox comboBoxBP = new JComboBox();
 		comboBoxBP.setModel(new DefaultComboBoxModel(new String[] {"mmHg"}));
@@ -68,14 +80,14 @@ public class VitalsPanel extends JPanel {
 		gbc_lblPulse.gridy = 3;
 		add(lblPulse, gbc_lblPulse);
 		
-		textPulse = new JTextField();
-		GridBagConstraints gbc_textPulse = new GridBagConstraints();
-		gbc_textPulse.insets = new Insets(0, 0, 5, 5);
-		gbc_textPulse.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textPulse.gridx = 3;
-		gbc_textPulse.gridy = 3;
-		add(textPulse, gbc_textPulse);
-		textPulse.setColumns(10);
+		textFieldPulse = new JTextField();
+		GridBagConstraints gbc_textFieldPulse = new GridBagConstraints();
+		gbc_textFieldPulse.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldPulse.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldPulse.gridx = 3;
+		gbc_textFieldPulse.gridy = 3;
+		add(textFieldPulse, gbc_textFieldPulse);
+		textFieldPulse.setColumns(10);
 		
 		JLabel lblBeats = new JLabel("beats/min");
 		GridBagConstraints gbc_lblBeats = new GridBagConstraints();
@@ -93,14 +105,14 @@ public class VitalsPanel extends JPanel {
 		gbc_lblTemp.gridy = 5;
 		add(lblTemp, gbc_lblTemp);
 		
-		textTemp = new JTextField();
-		GridBagConstraints gbc_textTemp = new GridBagConstraints();
-		gbc_textTemp.insets = new Insets(0, 0, 5, 5);
-		gbc_textTemp.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textTemp.gridx = 3;
-		gbc_textTemp.gridy = 5;
-		add(textTemp, gbc_textTemp);
-		textTemp.setColumns(10);
+		textFieldTemperature = new JTextField();
+		GridBagConstraints gbc_textFieldTemperature = new GridBagConstraints();
+		gbc_textFieldTemperature.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldTemperature.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldTemperature.gridx = 3;
+		gbc_textFieldTemperature.gridy = 5;
+		add(textFieldTemperature, gbc_textFieldTemperature);
+		textFieldTemperature.setColumns(10);
 		
 		JComboBox comboBoxTemp = new JComboBox();
 		comboBoxTemp.setModel(new DefaultComboBoxModel(new String[] {"\u00B0F", "\u00B0C"}));
@@ -120,14 +132,14 @@ public class VitalsPanel extends JPanel {
 		gbc_lblWeight.gridy = 7;
 		add(lblWeight, gbc_lblWeight);
 		
-		textWeight = new JTextField();
-		GridBagConstraints gbc_textWeight = new GridBagConstraints();
-		gbc_textWeight.insets = new Insets(0, 0, 5, 5);
-		gbc_textWeight.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textWeight.gridx = 3;
-		gbc_textWeight.gridy = 7;
-		add(textWeight, gbc_textWeight);
-		textWeight.setColumns(10);
+		textFieldWeight = new JTextField();
+		GridBagConstraints gbc_textFieldWeight = new GridBagConstraints();
+		gbc_textFieldWeight.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldWeight.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldWeight.gridx = 3;
+		gbc_textFieldWeight.gridy = 7;
+		add(textFieldWeight, gbc_textFieldWeight);
+		textFieldWeight.setColumns(10);
 		
 		JComboBox comboBoxWeight = new JComboBox();
 		comboBoxWeight.setModel(new DefaultComboBoxModel(new String[] {"lbs", "kg"}));
@@ -139,14 +151,18 @@ public class VitalsPanel extends JPanel {
 		gbc_comboBoxWeight.gridy = 7;
 		add(comboBoxWeight, gbc_comboBoxWeight);
 		
-		JButton btnDone = new JButton("Done");
-		GridBagConstraints gbc_btnDone = new GridBagConstraints();
-		gbc_btnDone.insets = new Insets(0, 0, 0, 5);
-		gbc_btnDone.gridx = 3;
-		gbc_btnDone.gridy = 9;
-		add(btnDone, gbc_btnDone);
+		btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		GridBagConstraints gbc_btnSubmit = new GridBagConstraints();
+		gbc_btnSubmit.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSubmit.gridx = 3;
+		gbc_btnSubmit.gridy = 9;
+		add(btnSubmit, gbc_btnSubmit);
 		
-		JButton btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.gridwidth = 2;
 		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
@@ -156,4 +172,24 @@ public class VitalsPanel extends JPanel {
 
 	}
 
+	public void actionPerformed(ActionEvent event) {
+		// Check which button was clicked on
+		if (event.getSource() == btnSubmit)
+		{	// Patient Search button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+        }
+		else if (event.getSource() == btnCancel)
+		{	// Messages / Alerts button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+        }
+		
+	}
 }

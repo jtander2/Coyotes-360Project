@@ -3,8 +3,10 @@ package com.mediware.gui.patient;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,15 +14,24 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 
 import com.mediware.arch.IO;
+import com.mediware.arch.mData;
+import com.mediware.arch.Enums.mType;
+import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
 public class PatientHealthHistory extends JPanel {
+
+	private JButton btnCancel;
+	private IO io;
 
 	/**
 	 * Create the panel.
 	 * @param cndIO 
 	 */
 	public PatientHealthHistory(IO cndIO) {
+		
+		this.io = cndIO;
+		
 		setBorder(new TitledBorder(null, "Health History", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -29,14 +40,14 @@ public class PatientHealthHistory extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JTextPane textPane = new JTextPane();
-		GridBagConstraints gbc_textPane = new GridBagConstraints();
-		gbc_textPane.gridwidth = 14;
-		gbc_textPane.insets = new Insets(0, 0, 5, 5);
-		gbc_textPane.fill = GridBagConstraints.BOTH;
-		gbc_textPane.gridx = 1;
-		gbc_textPane.gridy = 1;
-		add(textPane, gbc_textPane);
+		JTextPane textPaneHealthHistory = new JTextPane();
+		GridBagConstraints gbc_textPaneHealthHistory = new GridBagConstraints();
+		gbc_textPaneHealthHistory.gridwidth = 14;
+		gbc_textPaneHealthHistory.insets = new Insets(0, 0, 5, 5);
+		gbc_textPaneHealthHistory.fill = GridBagConstraints.BOTH;
+		gbc_textPaneHealthHistory.gridx = 1;
+		gbc_textPaneHealthHistory.gridy = 1;
+		add(textPaneHealthHistory, gbc_textPaneHealthHistory);
 		
 		JLabel lblYear = new JLabel("Year");
 		GridBagConstraints gbc_lblYear = new GridBagConstraints();
@@ -54,27 +65,46 @@ public class PatientHealthHistory extends JPanel {
 		gbc_lblVitalStat.gridy = 2;
 		add(lblVitalStat, gbc_lblVitalStat);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"2013", "2012", "2011", "2010"}));
-		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
-		gbc_comboBox_1.gridwidth = 4;
-		gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_1.gridx = 4;
-		gbc_comboBox_1.gridy = 3;
-		add(comboBox_1, gbc_comboBox_1);
+		JComboBox comboBoxYear = new JComboBox();
+		comboBoxYear.setModel(new DefaultComboBoxModel(new String[] {"2013", "2012", "2011", "2010"}));
+		GridBagConstraints gbc_comboBoxYear = new GridBagConstraints();
+		gbc_comboBoxYear.gridwidth = 4;
+		gbc_comboBoxYear.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxYear.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxYear.gridx = 4;
+		gbc_comboBoxYear.gridy = 3;
+		add(comboBoxYear, gbc_comboBoxYear);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setMaximumRowCount(5);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Blood Pressure", "Pulse", "Temperature", "Weight", "Sugar/Glucose Level"}));
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 2;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 9;
-		gbc_comboBox.gridy = 3;
-		add(comboBox, gbc_comboBox);
+		JComboBox comboBoxVitalStat = new JComboBox();
+		comboBoxVitalStat.setMaximumRowCount(5);
+		comboBoxVitalStat.setModel(new DefaultComboBoxModel(new String[] {"Blood Pressure", "Pulse", "Temperature", "Weight", "Sugar/Glucose Level"}));
+		GridBagConstraints gbc_comboBoxVitalStat = new GridBagConstraints();
+		gbc_comboBoxVitalStat.gridwidth = 2;
+		gbc_comboBoxVitalStat.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxVitalStat.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxVitalStat.gridx = 9;
+		gbc_comboBoxVitalStat.gridy = 3;
+		add(comboBoxVitalStat, gbc_comboBoxVitalStat);
+		
+		btnCancel = new JButton("Cancel");
+		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCancel.gridx = 13;
+		gbc_btnCancel.gridy = 3;
+		add(btnCancel, gbc_btnCancel);
 
+	}
+	
+	public void actionPerformed(ActionEvent event) {
+		// Check which button was clicked on
+		if (event.getSource() == btnCancel)
+		{	// Patient Search button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+        }
 	}
 
 }

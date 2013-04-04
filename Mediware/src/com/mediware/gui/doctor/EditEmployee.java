@@ -369,7 +369,7 @@ public class EditEmployee extends JPanel {
 	public void actionPerformed(ActionEvent event) {
 		// Check which button was clicked on
 		if (event.getSource() == btnSaveChanges)
-		{	// Save button was clicked
+		{	// Save Changes button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);

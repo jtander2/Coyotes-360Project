@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,18 +15,21 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import com.mediware.arch.IO;
+import com.mediware.arch.mData;
+import com.mediware.arch.Enums.mType;
+import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
 public class PatientProfilePanel extends JPanel {
-	private JTextField textLast;
-	private JTextField textMiddle;
-	private JTextField textFirst;
+	private JTextField textFieldLastName;
+	private JTextField textFieldMiddleName;
+	private JTextField textFieldFirstName;
 	private JLabel lblAddress;
 	private JLabel lblPhone;
-	private JTextField textStreet;
-	private JTextField textCity;
-	private JTextField textState;
-	private JTextField textZip;
+	private JTextField textFieldStreet;
+	private JTextField textFieldCity;
+	private JTextField textFieldState;
+	private JTextField textFieldZipCode;
 	private JLabel lblMiddle;
 	private JLabel lblFirst;
 	private JLabel lblLast;
@@ -35,28 +40,33 @@ public class PatientProfilePanel extends JPanel {
 	private JLabel lblHome;
 	private JLabel lblWork;
 	private JLabel lblMobile;
-	private JTextField textHome;
-	private JTextField textWork;
-	private JTextField textMobile;
+	private JTextField textFieldHomePhone;
+	private JTextField textFieldWorkPhone;
+	private JTextField textFieldMobilePhone;
 	private JLabel lblEmail;
-	private JTextField textEmail;
+	private JTextField textFieldEmail;
 	private JLabel lblHealthInsurance;
 	private JLabel lblProvider;
-	private JTextField textProvider;
+	private JTextField textFieldProvider;
 	private JLabel lblPolicy;
 	private JLabel lblGroup;
-	private JTextField textPolicy;
-	private JTextField textGroup;
-	private JButton btnNewButton;
+	private JTextField textFieldPolicy;
+	private JTextField textFieldGroup;
+	private JButton btnSaveChanges;
 	private JButton btnCancel;
 	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
+	private JLabel lblChangePassword;
+	private IO io;
+
 
 	/**
 	 * Create the panel.
 	 * @param cndIO 
 	 */
 	public PatientProfilePanel(IO cndIO) {
+		
+		this.io = cndIO;
+		
 		setBorder(new TitledBorder(null, "Profile", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0};
@@ -73,34 +83,34 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblName.gridy = 0;
 		add(lblName, gbc_lblName);
 		
-		textFirst = new JTextField();
-		GridBagConstraints gbc_textFirst = new GridBagConstraints();
-		gbc_textFirst.gridwidth = 2;
-		gbc_textFirst.insets = new Insets(0, 0, 5, 5);
-		gbc_textFirst.fill = GridBagConstraints.BOTH;
-		gbc_textFirst.gridx = 2;
-		gbc_textFirst.gridy = 0;
-		add(textFirst, gbc_textFirst);
-		textFirst.setColumns(10);
+		textFieldFirstName = new JTextField();
+		GridBagConstraints gbc_textFieldFirstName = new GridBagConstraints();
+		gbc_textFieldFirstName.gridwidth = 2;
+		gbc_textFieldFirstName.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldFirstName.fill = GridBagConstraints.BOTH;
+		gbc_textFieldFirstName.gridx = 2;
+		gbc_textFieldFirstName.gridy = 0;
+		add(textFieldFirstName, gbc_textFieldFirstName);
+		textFieldFirstName.setColumns(10);
 		
-		textMiddle = new JTextField();
-		GridBagConstraints gbc_textMiddle = new GridBagConstraints();
-		gbc_textMiddle.insets = new Insets(0, 0, 5, 5);
-		gbc_textMiddle.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textMiddle.gridx = 4;
-		gbc_textMiddle.gridy = 0;
-		add(textMiddle, gbc_textMiddle);
-		textMiddle.setColumns(10);
+		textFieldMiddleName = new JTextField();
+		GridBagConstraints gbc_textFieldMiddleName = new GridBagConstraints();
+		gbc_textFieldMiddleName.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldMiddleName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMiddleName.gridx = 4;
+		gbc_textFieldMiddleName.gridy = 0;
+		add(textFieldMiddleName, gbc_textFieldMiddleName);
+		textFieldMiddleName.setColumns(10);
 		
-		textLast = new JTextField();
-		GridBagConstraints gbc_textLast = new GridBagConstraints();
-		gbc_textLast.gridwidth = 4;
-		gbc_textLast.insets = new Insets(0, 0, 5, 5);
-		gbc_textLast.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textLast.gridx = 5;
-		gbc_textLast.gridy = 0;
-		add(textLast, gbc_textLast);
-		textLast.setColumns(10);
+		textFieldLastName = new JTextField();
+		GridBagConstraints gbc_textFieldLastName = new GridBagConstraints();
+		gbc_textFieldLastName.gridwidth = 4;
+		gbc_textFieldLastName.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldLastName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldLastName.gridx = 5;
+		gbc_textFieldLastName.gridy = 0;
+		add(textFieldLastName, gbc_textFieldLastName);
+		textFieldLastName.setColumns(10);
 		
 		lblFirst = new JLabel("First");
 		lblFirst.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -135,15 +145,15 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblAddress.gridy = 2;
 		add(lblAddress, gbc_lblAddress);
 		
-		textStreet = new JTextField();
-		GridBagConstraints gbc_textStreet = new GridBagConstraints();
-		gbc_textStreet.gridwidth = 5;
-		gbc_textStreet.insets = new Insets(0, 0, 5, 5);
-		gbc_textStreet.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textStreet.gridx = 2;
-		gbc_textStreet.gridy = 2;
-		add(textStreet, gbc_textStreet);
-		textStreet.setColumns(10);
+		textFieldStreet = new JTextField();
+		GridBagConstraints gbc_textFieldStreet = new GridBagConstraints();
+		gbc_textFieldStreet.gridwidth = 5;
+		gbc_textFieldStreet.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldStreet.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldStreet.gridx = 2;
+		gbc_textFieldStreet.gridy = 2;
+		add(textFieldStreet, gbc_textFieldStreet);
+		textFieldStreet.setColumns(10);
 		
 		lblStreet = new JLabel("Street");
 		lblStreet.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -154,34 +164,34 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblStreet.gridy = 3;
 		add(lblStreet, gbc_lblStreet);
 		
-		textCity = new JTextField();
-		GridBagConstraints gbc_textCity = new GridBagConstraints();
-		gbc_textCity.gridwidth = 2;
-		gbc_textCity.insets = new Insets(0, 0, 5, 5);
-		gbc_textCity.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textCity.gridx = 2;
-		gbc_textCity.gridy = 4;
-		add(textCity, gbc_textCity);
-		textCity.setColumns(10);
+		textFieldCity = new JTextField();
+		GridBagConstraints gbc_textFieldCity = new GridBagConstraints();
+		gbc_textFieldCity.gridwidth = 2;
+		gbc_textFieldCity.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldCity.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCity.gridx = 2;
+		gbc_textFieldCity.gridy = 4;
+		add(textFieldCity, gbc_textFieldCity);
+		textFieldCity.setColumns(10);
 		
-		textState = new JTextField();
-		GridBagConstraints gbc_textState = new GridBagConstraints();
-		gbc_textState.insets = new Insets(0, 0, 5, 5);
-		gbc_textState.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textState.gridx = 4;
-		gbc_textState.gridy = 4;
-		add(textState, gbc_textState);
-		textState.setColumns(10);
+		textFieldState = new JTextField();
+		GridBagConstraints gbc_textFieldState = new GridBagConstraints();
+		gbc_textFieldState.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldState.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldState.gridx = 4;
+		gbc_textFieldState.gridy = 4;
+		add(textFieldState, gbc_textFieldState);
+		textFieldState.setColumns(10);
 		
-		textZip = new JTextField();
-		GridBagConstraints gbc_textZip = new GridBagConstraints();
-		gbc_textZip.gridwidth = 2;
-		gbc_textZip.insets = new Insets(0, 0, 5, 5);
-		gbc_textZip.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textZip.gridx = 5;
-		gbc_textZip.gridy = 4;
-		add(textZip, gbc_textZip);
-		textZip.setColumns(10);
+		textFieldZipCode = new JTextField();
+		GridBagConstraints gbc_textFieldZipCode = new GridBagConstraints();
+		gbc_textFieldZipCode.gridwidth = 2;
+		gbc_textFieldZipCode.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldZipCode.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldZipCode.gridx = 5;
+		gbc_textFieldZipCode.gridy = 4;
+		add(textFieldZipCode, gbc_textFieldZipCode);
+		textFieldZipCode.setColumns(10);
 		
 		lblCity = new JLabel("City");
 		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -225,15 +235,15 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblHome.gridy = 6;
 		add(lblHome, gbc_lblHome);
 		
-		textHome = new JTextField();
-		GridBagConstraints gbc_textHome = new GridBagConstraints();
-		gbc_textHome.gridwidth = 3;
-		gbc_textHome.insets = new Insets(0, 0, 5, 5);
-		gbc_textHome.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textHome.gridx = 3;
-		gbc_textHome.gridy = 6;
-		add(textHome, gbc_textHome);
-		textHome.setColumns(10);
+		textFieldHomePhone = new JTextField();
+		GridBagConstraints gbc_textFieldHomePhone = new GridBagConstraints();
+		gbc_textFieldHomePhone.gridwidth = 3;
+		gbc_textFieldHomePhone.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldHomePhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldHomePhone.gridx = 3;
+		gbc_textFieldHomePhone.gridy = 6;
+		add(textFieldHomePhone, gbc_textFieldHomePhone);
+		textFieldHomePhone.setColumns(10);
 		
 		lblWork = new JLabel("Work:");
 		GridBagConstraints gbc_lblWork = new GridBagConstraints();
@@ -243,15 +253,15 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblWork.gridy = 7;
 		add(lblWork, gbc_lblWork);
 		
-		textWork = new JTextField();
-		GridBagConstraints gbc_textWork = new GridBagConstraints();
-		gbc_textWork.gridwidth = 3;
-		gbc_textWork.insets = new Insets(0, 0, 5, 5);
-		gbc_textWork.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textWork.gridx = 3;
-		gbc_textWork.gridy = 7;
-		add(textWork, gbc_textWork);
-		textWork.setColumns(10);
+		textFieldWorkPhone = new JTextField();
+		GridBagConstraints gbc_textFieldWorkPhone = new GridBagConstraints();
+		gbc_textFieldWorkPhone.gridwidth = 3;
+		gbc_textFieldWorkPhone.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldWorkPhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldWorkPhone.gridx = 3;
+		gbc_textFieldWorkPhone.gridy = 7;
+		add(textFieldWorkPhone, gbc_textFieldWorkPhone);
+		textFieldWorkPhone.setColumns(10);
 		
 		lblMobile = new JLabel("Mobile:");
 		GridBagConstraints gbc_lblMobile = new GridBagConstraints();
@@ -261,15 +271,15 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblMobile.gridy = 8;
 		add(lblMobile, gbc_lblMobile);
 		
-		textMobile = new JTextField();
-		GridBagConstraints gbc_textMobile = new GridBagConstraints();
-		gbc_textMobile.gridwidth = 3;
-		gbc_textMobile.insets = new Insets(0, 0, 5, 5);
-		gbc_textMobile.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textMobile.gridx = 3;
-		gbc_textMobile.gridy = 8;
-		add(textMobile, gbc_textMobile);
-		textMobile.setColumns(10);
+		textFieldMobilePhone = new JTextField();
+		GridBagConstraints gbc_textFieldMobilePhone = new GridBagConstraints();
+		gbc_textFieldMobilePhone.gridwidth = 3;
+		gbc_textFieldMobilePhone.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldMobilePhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMobilePhone.gridx = 3;
+		gbc_textFieldMobilePhone.gridy = 8;
+		add(textFieldMobilePhone, gbc_textFieldMobilePhone);
+		textFieldMobilePhone.setColumns(10);
 		
 		lblEmail = new JLabel("Email:");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
@@ -279,15 +289,15 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblEmail.gridy = 9;
 		add(lblEmail, gbc_lblEmail);
 		
-		textEmail = new JTextField();
-		GridBagConstraints gbc_textEmail = new GridBagConstraints();
-		gbc_textEmail.gridwidth = 4;
-		gbc_textEmail.insets = new Insets(0, 0, 5, 5);
-		gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textEmail.gridx = 2;
-		gbc_textEmail.gridy = 9;
-		add(textEmail, gbc_textEmail);
-		textEmail.setColumns(10);
+		textFieldEmail = new JTextField();
+		GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
+		gbc_textFieldEmail.gridwidth = 4;
+		gbc_textFieldEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldEmail.gridx = 2;
+		gbc_textFieldEmail.gridy = 9;
+		add(textFieldEmail, gbc_textFieldEmail);
+		textFieldEmail.setColumns(10);
 		
 		lblHealthInsurance = new JLabel("Health Insurance Information:");
 		GridBagConstraints gbc_lblHealthInsurance = new GridBagConstraints();
@@ -306,15 +316,15 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblProvider.gridy = 11;
 		add(lblProvider, gbc_lblProvider);
 		
-		textProvider = new JTextField();
-		GridBagConstraints gbc_textProvider = new GridBagConstraints();
-		gbc_textProvider.gridwidth = 3;
-		gbc_textProvider.insets = new Insets(0, 0, 5, 5);
-		gbc_textProvider.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textProvider.gridx = 3;
-		gbc_textProvider.gridy = 11;
-		add(textProvider, gbc_textProvider);
-		textProvider.setColumns(10);
+		textFieldProvider = new JTextField();
+		GridBagConstraints gbc_textFieldProvider = new GridBagConstraints();
+		gbc_textFieldProvider.gridwidth = 3;
+		gbc_textFieldProvider.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldProvider.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldProvider.gridx = 3;
+		gbc_textFieldProvider.gridy = 11;
+		add(textFieldProvider, gbc_textFieldProvider);
+		textFieldProvider.setColumns(10);
 		
 		lblPolicy = new JLabel("Policy #");
 		GridBagConstraints gbc_lblPolicy = new GridBagConstraints();
@@ -324,15 +334,15 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblPolicy.gridy = 12;
 		add(lblPolicy, gbc_lblPolicy);
 		
-		textPolicy = new JTextField();
-		GridBagConstraints gbc_textPolicy = new GridBagConstraints();
-		gbc_textPolicy.gridwidth = 3;
-		gbc_textPolicy.insets = new Insets(0, 0, 5, 5);
-		gbc_textPolicy.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textPolicy.gridx = 3;
-		gbc_textPolicy.gridy = 12;
-		add(textPolicy, gbc_textPolicy);
-		textPolicy.setColumns(10);
+		textFieldPolicy = new JTextField();
+		GridBagConstraints gbc_textFieldPolicy = new GridBagConstraints();
+		gbc_textFieldPolicy.gridwidth = 3;
+		gbc_textFieldPolicy.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldPolicy.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldPolicy.gridx = 3;
+		gbc_textFieldPolicy.gridy = 12;
+		add(textFieldPolicy, gbc_textFieldPolicy);
+		textFieldPolicy.setColumns(10);
 		
 		lblGroup = new JLabel("Group #");
 		GridBagConstraints gbc_lblGroup = new GridBagConstraints();
@@ -342,15 +352,15 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblGroup.gridy = 13;
 		add(lblGroup, gbc_lblGroup);
 		
-		textGroup = new JTextField();
-		GridBagConstraints gbc_textGroup = new GridBagConstraints();
-		gbc_textGroup.gridwidth = 3;
-		gbc_textGroup.insets = new Insets(0, 0, 5, 5);
-		gbc_textGroup.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textGroup.gridx = 3;
-		gbc_textGroup.gridy = 13;
-		add(textGroup, gbc_textGroup);
-		textGroup.setColumns(10);
+		textFieldGroup = new JTextField();
+		GridBagConstraints gbc_textFieldGroup = new GridBagConstraints();
+		gbc_textFieldGroup.gridwidth = 3;
+		gbc_textFieldGroup.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldGroup.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldGroup.gridx = 3;
+		gbc_textFieldGroup.gridy = 13;
+		add(textFieldGroup, gbc_textFieldGroup);
+		textFieldGroup.setColumns(10);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setForeground(Color.BLUE);
@@ -361,22 +371,22 @@ public class PatientProfilePanel extends JPanel {
 		gbc_lblNewLabel.gridy = 15;
 		add(lblNewLabel, gbc_lblNewLabel);
 		
-		lblNewLabel_1 = new JLabel("<html><u>Change_Password</u></html>");
-		lblNewLabel_1.setForeground(Color.BLUE);
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_1.gridwidth = 2;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 16;
-		add(lblNewLabel_1, gbc_lblNewLabel_1);
+		lblChangePassword = new JLabel("<html><u>Change_Password</u></html>");
+		lblChangePassword.setForeground(Color.BLUE);
+		GridBagConstraints gbc_lblChangePassword = new GridBagConstraints();
+		gbc_lblChangePassword.anchor = GridBagConstraints.WEST;
+		gbc_lblChangePassword.gridwidth = 2;
+		gbc_lblChangePassword.insets = new Insets(0, 0, 5, 5);
+		gbc_lblChangePassword.gridx = 1;
+		gbc_lblChangePassword.gridy = 16;
+		add(lblChangePassword, gbc_lblChangePassword);
 		
-		btnNewButton = new JButton("Save Changes");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 17;
-		add(btnNewButton, gbc_btnNewButton);
+		btnSaveChanges = new JButton("Save Changes");
+		GridBagConstraints gbc_btnSaveChanges = new GridBagConstraints();
+		gbc_btnSaveChanges.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSaveChanges.gridx = 2;
+		gbc_btnSaveChanges.gridy = 17;
+		add(btnSaveChanges, gbc_btnSaveChanges);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -386,6 +396,41 @@ public class PatientProfilePanel extends JPanel {
 		gbc_btnCancel.gridy = 17;
 		add(btnCancel, gbc_btnCancel);
 
+	}
+	
+	public void actionPerformed(ActionEvent event) {
+		// Check which button was clicked on
+		if (event.getSource() == btnSaveChanges)
+		{	// Patient Search button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+        }
+		else if (event.getSource() == btnCancel)
+		{	// Messages / Alerts button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+        }
+		
+	}
+	
+	public void mousePressed(MouseEvent event) {
+		// Check to see what was clicked on
+			
+		if (event.getSource() == lblChangePassword)
+		{	// Log Out button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayLoginPanel);
+		}
+	
 	}
 
 }

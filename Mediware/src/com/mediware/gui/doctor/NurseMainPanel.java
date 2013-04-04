@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,15 +16,27 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import com.mediware.arch.IO;
+import com.mediware.arch.mData;
+import com.mediware.arch.Enums.mType;
+import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
 public class NurseMainPanel extends JPanel {
+
+	private JButton btnPatientSearch;
+	private JButton btnMessagesAlerts;
+	private JButton btnCreateNewPatient;
+	private IO io;
+	private JLabel lbllogOut;
 
 	/**
 	 * Create the panel.
 	 * @param cndIO 
 	 */
 	public NurseMainPanel(IO cndIO) {
+		
+		this.io = cndIO;
+		
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Nurse", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -46,19 +60,19 @@ public class NurseMainPanel extends JPanel {
 		gbc_lblNewLabel_2.gridy = 2;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		JButton btnNewButton = new JButton("Patient Search");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 3;
-		gbc_btnNewButton.gridy = 3;
-		add(btnNewButton, gbc_btnNewButton);
+		btnPatientSearch = new JButton("Patient Search");
+		GridBagConstraints gbc_btnPatientSearch = new GridBagConstraints();
+		gbc_btnPatientSearch.insets = new Insets(0, 0, 5, 5);
+		gbc_btnPatientSearch.gridx = 3;
+		gbc_btnPatientSearch.gridy = 3;
+		add(btnPatientSearch, gbc_btnPatientSearch);
 		
-		JButton btnNewButton_2 = new JButton("Messages / Alerts");
-		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_2.gridx = 3;
-		gbc_btnNewButton_2.gridy = 4;
-		add(btnNewButton_2, gbc_btnNewButton_2);
+		btnMessagesAlerts = new JButton("Messages / Alerts");
+		GridBagConstraints gbc_btnMessagesAlerts = new GridBagConstraints();
+		gbc_btnMessagesAlerts.insets = new Insets(0, 0, 5, 5);
+		gbc_btnMessagesAlerts.gridx = 3;
+		gbc_btnMessagesAlerts.gridy = 4;
+		add(btnMessagesAlerts, gbc_btnMessagesAlerts);
 		
 		JLabel lblNewLabel_1 = new JLabel("Administrative");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -68,14 +82,14 @@ public class NurseMainPanel extends JPanel {
 		gbc_lblNewLabel_1.gridy = 6;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		JButton btnNewButton_1 = new JButton("Create New Patient");
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_1.gridx = 3;
-		gbc_btnNewButton_1.gridy = 7;
-		add(btnNewButton_1, gbc_btnNewButton_1);
+		btnCreateNewPatient = new JButton("Create New Patient");
+		GridBagConstraints gbc_btnCreateNewPatient = new GridBagConstraints();
+		gbc_btnCreateNewPatient.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCreateNewPatient.gridx = 3;
+		gbc_btnCreateNewPatient.gridy = 7;
+		add(btnCreateNewPatient, gbc_btnCreateNewPatient);
 		
-		JLabel lbllogOut = new JLabel("<html><u>Log out</u></html>");
+		lbllogOut = new JLabel("<html><u>Log out</u></html>");
 		lbllogOut.setForeground(Color.BLUE);
 		GridBagConstraints gbc_lbllogOut = new GridBagConstraints();
 		gbc_lbllogOut.gridwidth = 4;
@@ -83,6 +97,48 @@ public class NurseMainPanel extends JPanel {
 		gbc_lbllogOut.gridy = 9;
 		add(lbllogOut, gbc_lbllogOut);
 
+	}
+	
+	public void actionPerformed(ActionEvent event) {
+		// Check which button was clicked on
+		if (event.getSource() == btnPatientSearch)
+		{	// Patient Search button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+        }
+		else if (event.getSource() == btnMessagesAlerts)
+		{	// Messages/Alerts button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+        }
+		else if (event.getSource() == btnCreateNewPatient)
+		{	// Create New Patient button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+        }
+	}
+	
+	public void mousePressed(MouseEvent event) {
+		// Check to see what was clicked on
+			
+		if (event.getSource() == lbllogOut)
+		{	// Log Out button was clicked
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayLoginPanel);
+		}
+	
 	}
 
 }
