@@ -114,7 +114,15 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 			// Create a message of type loginRequest to be sent to SYS with the username and password as
 			// parameters
 			int[] loginInts = new int[0];
-			String[] loginParams = {txtUsername.getText(), txtPassword.getPassword().toString()};
+			
+			//getPassword returns character array - must convert to string
+			//before putting into loginParams
+			char[] thePW = txtPassword.getPassword();
+			String strPW = new String(thePW);
+			System.out.println(strPW);
+			
+			//create message and send message to SYS to check if user is valid
+			String[] loginParams = {txtUsername.getText(), strPW};
 			mData messageData = new mData(loginInts, loginParams);
 			partition[] subscribers = {partition.SYS};
 			logIO.createMessageToSend(partition.CND, subscribers, messageData, mType.loginRequest);
