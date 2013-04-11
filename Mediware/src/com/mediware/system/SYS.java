@@ -31,7 +31,6 @@ public class SYS{
 		//client theClient = new client("tester", "password"); // UN: test PW:test
 		//System.out.println(DB.addClient(theClient)); //adds client to database
 		//----------
-
 	}
 	
 	
