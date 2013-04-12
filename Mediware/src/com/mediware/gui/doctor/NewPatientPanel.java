@@ -475,20 +475,20 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		// Check which button was clicked on
 		if (event.getSource() == btnCreate)
-		{	// Patient Search button was clicked
+		{	// Patient Create button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			//io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
         }
 		else if (event.getSource() == btnCancel)
-		{	// Messages / Alerts button was clicked
+		{	// Cancel button was pressed
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayDoctorMainPanel);
         }
 		
 	}

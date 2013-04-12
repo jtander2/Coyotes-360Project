@@ -126,6 +126,7 @@ public class PatientSearchPanel extends JPanel implements ActionListener {
 		gbc_btnSearch.gridx = 1;
 		gbc_btnSearch.gridy = 8;
 		add(btnSearch, gbc_btnSearch);
+		btnSearch.addActionListener (this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -133,6 +134,7 @@ public class PatientSearchPanel extends JPanel implements ActionListener {
 		gbc_btnCancel.gridx = 3;
 		gbc_btnCancel.gridy = 8;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener (this);
 
 	}
 
@@ -144,15 +146,15 @@ public class PatientSearchPanel extends JPanel implements ActionListener {
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			//io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
         }
 		else if (event.getSource() == btnCancel)
-		{	// Messages / Alerts button was clicked
+		{	// Cancel button was pressed
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayDoctorMainPanel);
         }
 		
 	}

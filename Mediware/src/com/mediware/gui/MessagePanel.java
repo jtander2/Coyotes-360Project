@@ -57,6 +57,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 		gbc_btnViewMessage.gridx = 3;
 		gbc_btnViewMessage.gridy = 5;
 		add(btnViewMessage, gbc_btnViewMessage);
+		btnViewMessage.addActionListener (this);
 		
 		btnDeleteMessage = new JButton("Delete Message");
 		GridBagConstraints gbc_btnDeleteMessage = new GridBagConstraints();
@@ -65,6 +66,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 		gbc_btnDeleteMessage.gridx = 5;
 		gbc_btnDeleteMessage.gridy = 5;
 		add(btnDeleteMessage, gbc_btnDeleteMessage);
+		btnDeleteMessage.addActionListener (this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -72,6 +74,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 		gbc_btnCancel.gridx = 8;
 		gbc_btnCancel.gridy = 5;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener (this);
 
 	}
 	
@@ -99,7 +102,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayDoctorMainPanel);
         }
 		
 	}
