@@ -13,5 +13,8 @@ public enum mType {
     cndDisplayMessagePanel,
     cndDisplayNewEmployeePanel,
     cndDisplayEditEmployee,
-    cndDisplayLoginPanel
+    cndDisplayLoginPanel,
+    cndDisplayMAMainPanel,
+    cndDisplayNurseMainPanel,
+    cndDisplayPatientMenuPanel
 }

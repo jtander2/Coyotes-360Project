@@ -355,6 +355,7 @@ public class EditEmployee extends JPanel implements ActionListener {
 		gbc_btnSaveChanges.gridx = 2;
 		gbc_btnSaveChanges.gridy = 14;
 		add(btnSaveChanges, gbc_btnSaveChanges);
+		btnSaveChanges.addActionListener(this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -363,6 +364,7 @@ public class EditEmployee extends JPanel implements ActionListener {
 		gbc_btnCancel.gridx = 4;
 		gbc_btnCancel.gridy = 14;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener(this);
 
 	}
 	
@@ -371,19 +373,15 @@ public class EditEmployee extends JPanel implements ActionListener {
 		// Check which button was clicked on
 		if (event.getSource() == btnSaveChanges)
 		{	// Save Changes button was clicked
-			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
-			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			
         }
 		else if (event.getSource() == btnCancel)
-		{	// Cancel button was clicked
+		{	// Cancel button was pressed
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayDoctorMainPanel);
         }
 	}
 
