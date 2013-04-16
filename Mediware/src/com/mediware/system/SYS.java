@@ -28,8 +28,8 @@ public class SYS{
 		this.sysIO = theIO;
 		//----------
 		//the folowing block of code will add a client to the database for testing
-		//client theClient = new client("tester", "password"); // UN: test PW:test
-		//System.out.println(DB.addClient(theClient)); //adds client to database
+		client theClient = new client("doctor", "doctor"); // UN: test PW:test
+		System.out.println(DB.addClient(theClient)); //adds client to database
 		//----------
 	}
 	
@@ -53,14 +53,59 @@ public class SYS{
 					String[] loginParams = sysMessages[i].getMessageData().getLabels();
 					// Check if name & pass are valid
 		    		if (log.authenticate(loginParams[0], loginParams[1]))
-		    		{	// User is valid, so show their main panel based on their user type
-		    			//Send a message to CND to display DoctorMainPanel
-		    			System.out.println("Should send message to CND");
-		    			int[] intParams = new int[0];
-		    			String[] stringParams = new String[0];
-		    			mData messageData = new mData(intParams, stringParams);
-		    			partition[] subscribers = {partition.CND};
-		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayDoctorMainPanel);
+		    		{	
+		    			//get AID
+		    			int AID = DB.findUserPass(loginParams[0], loginParams[1]);
+		    			
+		    			System.out.println("AID: " + AID);
+		    			//determine permissions
+		    			int perm = DB.getPermission(AID);
+		    			
+		    			System.out.println("PERMISSIONS: " + perm);
+		    			
+		    			if(perm == 0)
+		    				System.out.println("No permissions");
+		    			else if(perm == 1) //client
+		    			{
+			    			System.out.println("Should send message to CND to display patient menu");
+			    			int[] intParams = new int[0];
+			    			String[] stringParams = new String[0];
+			    			mData messageData = new mData(intParams, stringParams);
+			    			partition[] subscribers = {partition.CND};
+			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayPatientMenuPanel);
+		    				
+		    			}
+		    			else if(perm == 2) //ofc
+		    			{
+	
+		    			}
+		    			else if(perm == 3) //ma
+		    			{
+			    			System.out.println("Should send message to CND to display MA main panel");
+			    			int[] intParams = new int[0];
+			    			String[] stringParams = new String[0];
+			    			mData messageData = new mData(intParams, stringParams);
+			    			partition[] subscribers = {partition.CND};
+			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayMAMainPanel);
+		    			}
+		    			else if(perm == 4) //nurse
+		    			{
+			    			System.out.println("Should send message to CND to display MA main panel");
+			    			int[] intParams = new int[0];
+			    			String[] stringParams = new String[0];
+			    			mData messageData = new mData(intParams, stringParams);
+			    			partition[] subscribers = {partition.CND};
+			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayNurseMainPanel);
+		    			}
+		    			else //doctor
+		    			{
+			    			System.out.println("Should send message to CND to display doctor panel");
+			    			int[] intParams = new int[0];
+			    			String[] stringParams = new String[0];
+			    			mData messageData = new mData(intParams, stringParams);
+			    			partition[] subscribers = {partition.CND};
+			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayDoctorMainPanel);	
+		    			}
 		    		}
 		    		else
 		    		{	// User is invalid
