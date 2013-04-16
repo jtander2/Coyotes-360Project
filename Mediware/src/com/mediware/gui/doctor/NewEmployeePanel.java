@@ -410,8 +410,19 @@ public class NewEmployeePanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		// Check which button was clicked on
 		if (event.getSource() == btnCreate)
-		{	// Patient Create button was pressed
-			
+		{	// Employee Create button was pressed
+			int[] intParams = new int[0];
+			String[] stringParams = {textFieldFirstName.getText(),      textFieldMiddleName.getText(), 
+									 textFieldLastName.getText(),       textFieldStreet.getText(), 
+									 textFieldCity.getText(),           textFieldState.getText(), 
+									 textFieldZipCode.getText(),        textFieldHomePhone.getText(), 
+									 textFieldWorkPhone.getText(),      textFieldMobilePhone.getText(), 
+									 textFieldEmail.getText(),          textFieldDOB.getText(),
+									 textFieldEmployeeNumber.getText(), (String)comboBoxAdminLevel.getSelectedItem(),
+									 textFieldUsername.getText(),       textFieldPassword.getText()};
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysCreateEmployee);
         }
 		else if (event.getSource() == btnCancel)
 		{	// Cancel button was pressed

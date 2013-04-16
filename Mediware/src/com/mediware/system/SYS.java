@@ -73,6 +73,22 @@ public class SYS{
 					break;
 				case loginResponse:
 					break;
+				case sysCreateEmployee:
+					break;
+				case sysCreatePatient:
+					String[] params = sysMessages[i].getMessageData().getLabels();
+					
+					//Example of how to display an error message if username is already in the db
+					if(params[17].equals("test")) {
+						int[] intParams = new int[0];
+		    			String[] stringParams = {"Cannot use this username. Please select a new one.", "Create Patient Error"};
+		    			mData messageData = new mData(intParams, stringParams);
+		    			partition[] subscribers = {partition.CND};
+		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
+					}
+					//End example
+					
+					break;
 				default:
 					break;					
 			}

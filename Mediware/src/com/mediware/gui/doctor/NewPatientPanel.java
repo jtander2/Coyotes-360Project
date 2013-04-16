@@ -477,10 +477,19 @@ public class NewPatientPanel extends JPanel implements ActionListener {
 		if (event.getSource() == btnCreate)
 		{	// Patient Create button was clicked
 			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
+			String[] stringParams = {textFieldFirstName.getText(), textFieldMiddleName.getText(), 
+									 textFieldLastName.getText(),  textFieldStreet.getText(), 
+									 textFieldCity.getText(),      textFieldState.getText(), 
+									 textFieldZipCode.getText(),   textFieldHomePhone.getText(), 
+									 textFieldWorkPhone.getText(), textFieldMobilePhone.getText(), 
+									 textFieldEmail.getText(),     textFieldProvider.getText(), 
+									 textFieldPolicy.getText(),    textFieldGroup.getText(), 
+									 textFieldDOB.getText(),       textFieldHeight.getText(), 
+									 textFieldWeight.getText(),    textFieldUsername.getText(), 
+									 textFieldPassword.getText()};			
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			//io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysCreatePatient);
         }
 		else if (event.getSource() == btnCancel)
 		{	// Cancel button was pressed
