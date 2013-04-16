@@ -97,16 +97,15 @@ public class CND {
 				case cndDisplayLoginPanel:
 					displayLoginPanel();
 					break;
-				case cndDisplayPatientMenuPanel:
-					displayPatientMenuPanel();
-					break;
 				case cndDisplayMAMainPanel:
 					displayMAMainPanel();
 					break;	
 				case cndDisplayNurseMainPanel:
 					displayNurseMainPanel();
 					break;	
-									
+				case cndDisplayPatientMenuPanel:
+					displayPatientMenuPanel();
+					break;
 				default:
 					break;					
 			}

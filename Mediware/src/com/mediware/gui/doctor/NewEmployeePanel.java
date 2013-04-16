@@ -394,6 +394,7 @@ public class NewEmployeePanel extends JPanel implements ActionListener {
 		gbc_btnCreate.gridx = 2;
 		gbc_btnCreate.gridy = 16;
 		add(btnCreate, gbc_btnCreate);
+		btnCreate.addActionListener (this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -402,26 +403,34 @@ public class NewEmployeePanel extends JPanel implements ActionListener {
 		gbc_btnCancel.gridx = 4;
 		gbc_btnCancel.gridy = 16;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener (this);
 
 	}
 
 	public void actionPerformed(ActionEvent event) {
 		// Check which button was clicked on
 		if (event.getSource() == btnCreate)
-		{	// Patient Search button was clicked
+		{	// Employee Create button was pressed
 			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
+			String[] stringParams = {textFieldFirstName.getText(),      textFieldMiddleName.getText(), 
+									 textFieldLastName.getText(),       textFieldStreet.getText(), 
+									 textFieldCity.getText(),           textFieldState.getText(), 
+									 textFieldZipCode.getText(),        textFieldHomePhone.getText(), 
+									 textFieldWorkPhone.getText(),      textFieldMobilePhone.getText(), 
+									 textFieldEmail.getText(),          textFieldDOB.getText(),
+									 textFieldEmployeeNumber.getText(), (String)comboBoxAdminLevel.getSelectedItem(),
+									 textFieldUsername.getText(),       textFieldPassword.getText()};
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysCreateEmployee);
         }
 		else if (event.getSource() == btnCancel)
-		{	// Messages / Alerts button was clicked
+		{	// Cancel button was pressed
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayDoctorMainPanel);
         }
 		
 	}
