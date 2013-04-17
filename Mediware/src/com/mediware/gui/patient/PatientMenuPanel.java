@@ -62,6 +62,7 @@ public class PatientMenuPanel extends JPanel implements ActionListener, MouseLis
 		gbc_btnEnterVitals.gridx = 4;
 		gbc_btnEnterVitals.gridy = 2;
 		add(btnEnterVitals, gbc_btnEnterVitals);
+		btnEnterVitals.addActionListener(this);
 		
 		btnMessagesAlerts = new JButton("Messages / Alerts");
 		GridBagConstraints gbc_btnMessagesAlerts = new GridBagConstraints();
@@ -69,6 +70,7 @@ public class PatientMenuPanel extends JPanel implements ActionListener, MouseLis
 		gbc_btnMessagesAlerts.gridx = 4;
 		gbc_btnMessagesAlerts.gridy = 4;
 		add(btnMessagesAlerts, gbc_btnMessagesAlerts);
+		btnMessagesAlerts.addActionListener(this);
 		
 		btnHealthHistory = new JButton("Health History");
 		GridBagConstraints gbc_btnHealthHistory = new GridBagConstraints();
@@ -76,6 +78,7 @@ public class PatientMenuPanel extends JPanel implements ActionListener, MouseLis
 		gbc_btnHealthHistory.gridx = 4;
 		gbc_btnHealthHistory.gridy = 6;
 		add(btnHealthHistory, gbc_btnHealthHistory);
+		btnHealthHistory.addActionListener(this);
 		
 		btnEditProfile = new JButton("Edit Profile");
 		GridBagConstraints gbc_btnEditProfile = new GridBagConstraints();
@@ -83,6 +86,7 @@ public class PatientMenuPanel extends JPanel implements ActionListener, MouseLis
 		gbc_btnEditProfile.gridx = 4;
 		gbc_btnEditProfile.gridy = 8;
 		add(btnEditProfile, gbc_btnEditProfile);
+		btnEditProfile.addActionListener(this);
 		
 		lbllogOut = new JLabel("<html><u>Log out</u></html>");
 		lbllogOut.setForeground(Color.BLUE);
@@ -91,18 +95,18 @@ public class PatientMenuPanel extends JPanel implements ActionListener, MouseLis
 		gbc_lbllogOut.gridx = 5;
 		gbc_lbllogOut.gridy = 10;
 		add(lbllogOut, gbc_lbllogOut);
-
+		lbllogOut.addMouseListener(this);
 	}
 	
 	public void actionPerformed(ActionEvent event) {
 		// Check which button was clicked on
 		if (event.getSource() == btnEnterVitals)
-		{	// Patient Search button was clicked
+		{	// Enter Vitals button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientVitalsPanel);
         }
 		else if (event.getSource() == btnMessagesAlerts)
 		{	// Messages / Alerts button was clicked
@@ -113,20 +117,20 @@ public class PatientMenuPanel extends JPanel implements ActionListener, MouseLis
 			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
         }
 		else if (event.getSource() == btnHealthHistory)
-		{	// Messages / Alerts button was clicked
+		{	// Health History button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientHealthHistory);
         }
 		else if (event.getSource() == btnEditProfile)
-		{	// Messages / Alerts button was clicked
+		{	// Edit Profile Button was selected
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysPatientEditProfileRequest);
         }
 	}
 	
@@ -138,8 +142,8 @@ public class PatientMenuPanel extends JPanel implements ActionListener, MouseLis
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayLoginPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysLogoutRequest);
 		}
 	
 	}

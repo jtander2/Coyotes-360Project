@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -21,7 +22,7 @@ import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
-public class PatientProfilePanel extends JPanel implements ActionListener {
+public class PatientProfilePanel extends JPanel implements ActionListener, MouseListener {
 	private JTextField textFieldLastName;
 	private JTextField textFieldMiddleName;
 	private JTextField textFieldFirstName;
@@ -64,7 +65,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 	 * Create the panel.
 	 * @param cndIO 
 	 */
-	public PatientProfilePanel(IO cndIO) {
+	public PatientProfilePanel(IO cndIO, String[] patientData) {
 		
 		this.io = cndIO;
 		
@@ -93,6 +94,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldFirstName.gridy = 0;
 		add(textFieldFirstName, gbc_textFieldFirstName);
 		textFieldFirstName.setColumns(10);
+		textFieldFirstName.setText(patientData[0]);
 		
 		textFieldMiddleName = new JTextField();
 		GridBagConstraints gbc_textFieldMiddleName = new GridBagConstraints();
@@ -102,6 +104,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldMiddleName.gridy = 0;
 		add(textFieldMiddleName, gbc_textFieldMiddleName);
 		textFieldMiddleName.setColumns(10);
+		textFieldMiddleName.setText(patientData[1]);
 		
 		textFieldLastName = new JTextField();
 		GridBagConstraints gbc_textFieldLastName = new GridBagConstraints();
@@ -112,6 +115,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldLastName.gridy = 0;
 		add(textFieldLastName, gbc_textFieldLastName);
 		textFieldLastName.setColumns(10);
+		textFieldLastName.setText(patientData[2]);
 		
 		lblFirst = new JLabel("First");
 		lblFirst.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -155,6 +159,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldStreet.gridy = 2;
 		add(textFieldStreet, gbc_textFieldStreet);
 		textFieldStreet.setColumns(10);
+		textFieldStreet.setText(patientData[3]);
 		
 		lblStreet = new JLabel("Street");
 		lblStreet.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -174,6 +179,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldCity.gridy = 4;
 		add(textFieldCity, gbc_textFieldCity);
 		textFieldCity.setColumns(10);
+		textFieldCity.setText(patientData[4]);
 		
 		textFieldState = new JTextField();
 		GridBagConstraints gbc_textFieldState = new GridBagConstraints();
@@ -183,6 +189,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldState.gridy = 4;
 		add(textFieldState, gbc_textFieldState);
 		textFieldState.setColumns(10);
+		textFieldState.setText(patientData[5]);
 		
 		textFieldZipCode = new JTextField();
 		GridBagConstraints gbc_textFieldZipCode = new GridBagConstraints();
@@ -193,6 +200,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldZipCode.gridy = 4;
 		add(textFieldZipCode, gbc_textFieldZipCode);
 		textFieldZipCode.setColumns(10);
+		textFieldZipCode.setText(patientData[6]);
 		
 		lblCity = new JLabel("City");
 		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -245,6 +253,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldHomePhone.gridy = 6;
 		add(textFieldHomePhone, gbc_textFieldHomePhone);
 		textFieldHomePhone.setColumns(10);
+		textFieldHomePhone.setText(patientData[7]);
 		
 		lblWork = new JLabel("Work:");
 		GridBagConstraints gbc_lblWork = new GridBagConstraints();
@@ -263,6 +272,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldWorkPhone.gridy = 7;
 		add(textFieldWorkPhone, gbc_textFieldWorkPhone);
 		textFieldWorkPhone.setColumns(10);
+		textFieldWorkPhone.setText(patientData[8]);
 		
 		lblMobile = new JLabel("Mobile:");
 		GridBagConstraints gbc_lblMobile = new GridBagConstraints();
@@ -281,6 +291,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldMobilePhone.gridy = 8;
 		add(textFieldMobilePhone, gbc_textFieldMobilePhone);
 		textFieldMobilePhone.setColumns(10);
+		textFieldMobilePhone.setText(patientData[9]);
 		
 		lblEmail = new JLabel("Email:");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
@@ -299,6 +310,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldEmail.gridy = 9;
 		add(textFieldEmail, gbc_textFieldEmail);
 		textFieldEmail.setColumns(10);
+		textFieldEmail.setText(patientData[10]);
 		
 		lblHealthInsurance = new JLabel("Health Insurance Information:");
 		GridBagConstraints gbc_lblHealthInsurance = new GridBagConstraints();
@@ -326,6 +338,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldProvider.gridy = 11;
 		add(textFieldProvider, gbc_textFieldProvider);
 		textFieldProvider.setColumns(10);
+		textFieldProvider.setText(patientData[11]);
 		
 		lblPolicy = new JLabel("Policy #");
 		GridBagConstraints gbc_lblPolicy = new GridBagConstraints();
@@ -344,6 +357,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldPolicy.gridy = 12;
 		add(textFieldPolicy, gbc_textFieldPolicy);
 		textFieldPolicy.setColumns(10);
+		textFieldPolicy.setText(patientData[12]);
 		
 		lblGroup = new JLabel("Group #");
 		GridBagConstraints gbc_lblGroup = new GridBagConstraints();
@@ -362,6 +376,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_textFieldGroup.gridy = 13;
 		add(textFieldGroup, gbc_textFieldGroup);
 		textFieldGroup.setColumns(10);
+		textFieldGroup.setText(patientData[13]);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setForeground(Color.BLUE);
@@ -381,6 +396,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_lblChangePassword.gridx = 1;
 		gbc_lblChangePassword.gridy = 16;
 		add(lblChangePassword, gbc_lblChangePassword);
+		lblChangePassword.addMouseListener(this);
 		
 		btnSaveChanges = new JButton("Save Changes");
 		GridBagConstraints gbc_btnSaveChanges = new GridBagConstraints();
@@ -388,6 +404,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_btnSaveChanges.gridx = 2;
 		gbc_btnSaveChanges.gridy = 17;
 		add(btnSaveChanges, gbc_btnSaveChanges);
+		btnSaveChanges.addActionListener(this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -396,6 +413,7 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		gbc_btnCancel.gridx = 3;
 		gbc_btnCancel.gridy = 17;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener(this);
 
 	}
 	
@@ -404,18 +422,24 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		if (event.getSource() == btnSaveChanges)
 		{	// Patient Search button was clicked
 			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
+			String[] stringParams = {textFieldFirstName.getText(), textFieldMiddleName.getText(), 
+					 textFieldLastName.getText(),  textFieldStreet.getText(), 
+					 textFieldCity.getText(),      textFieldState.getText(), 
+					 textFieldZipCode.getText(),   textFieldHomePhone.getText(), 
+					 textFieldWorkPhone.getText(), textFieldMobilePhone.getText(), 
+					 textFieldEmail.getText(),     textFieldProvider.getText(), 
+					 textFieldPolicy.getText(),    textFieldGroup.getText()};
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysUpdatePatient);
         }
 		else if (event.getSource() == btnCancel)
-		{	// Messages / Alerts button was clicked
+		{	// Cancel button was pressed
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
         }
 		
 	}
@@ -424,14 +448,34 @@ public class PatientProfilePanel extends JPanel implements ActionListener {
 		// Check to see what was clicked on
 			
 		if (event.getSource() == lblChangePassword)
-		{	// Log Out button was clicked
-			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
-			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayLoginPanel);
+		{	// Change password button was pressed
+			
 		}
 	
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

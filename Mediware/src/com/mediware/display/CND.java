@@ -106,6 +106,16 @@ public class CND {
 				case cndDisplayPatientMenuPanel:
 					displayPatientMenuPanel();
 					break;
+				case cndDisplayPatientProfilePanel:
+					String[] patientParams = cndMessages[i].getMessageData().getLabels();
+					displayPatientProfilePanel(patientParams);
+					break;
+				case cndDisplayPatientVitalsPanel:
+					displayPatientVitalsPanel();
+					break;
+				case cndDisplayPatientHealthHistory:
+					displayPatientHealthHistory();
+					break;
 				default:
 					break;					
 			}
@@ -327,10 +337,10 @@ public class CND {
 		currentFrame.setVisible(true);
 	}
 	
-	public void displayPatientProfilePanel() {
+	public void displayPatientProfilePanel(String[] patientData) {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new PatientProfilePanel(cndIO));
+		currentFrame.getContentPane().add(new PatientProfilePanel(cndIO, patientData));
 		currentFrame.setVisible(true);
 	}
 	

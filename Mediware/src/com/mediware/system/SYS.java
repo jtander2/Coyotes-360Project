@@ -22,6 +22,7 @@ public class SYS{
 	private Message[] sysMessages; 		
 	private int current_mType;
 	private account current_Account;
+	private int mPerm;
 	
 	//constructor - IO as an argument.
 	public SYS(IO theIO){
@@ -59,13 +60,13 @@ public class SYS{
 		    			
 		    			System.out.println("AID: " + AID);
 		    			//determine permissions
-		    			int perm = DB.getPermission(AID);
+		    			mPerm = DB.getPermission(AID);
 		    			
-		    			System.out.println("PERMISSIONS: " + perm);
+		    			System.out.println("PERMISSIONS: " + mPerm);
 		    			
-		    			if(perm == 0)
+		    			if(mPerm == 0)
 		    				System.out.println("No permissions");
-		    			else if(perm == 1) //client
+		    			else if(mPerm == 1) //client
 		    			{
 			    			System.out.println("Should send message to CND to display patient menu");
 			    			int[] intParams = new int[0];
@@ -75,11 +76,11 @@ public class SYS{
 			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayPatientMenuPanel);
 		    				
 		    			}
-		    			else if(perm == 2) //ofc
+		    			else if(mPerm == 2) //ofc
 		    			{
 	
 		    			}
-		    			else if(perm == 3) //ma
+		    			else if(mPerm == 3) //ma
 		    			{
 			    			System.out.println("Should send message to CND to display MA main panel");
 			    			int[] intParams = new int[0];
@@ -88,7 +89,7 @@ public class SYS{
 			    			partition[] subscribers = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayMAMainPanel);
 		    			}
-		    			else if(perm == 4) //nurse
+		    			else if(mPerm == 4) //nurse
 		    			{
 			    			System.out.println("Should send message to CND to display MA main panel");
 			    			int[] intParams = new int[0];
@@ -134,6 +135,49 @@ public class SYS{
 					//End example
 					
 					break;
+				case sysLogoutRequest:
+					// Clear saved data
+					mPerm = 0;	//no permissions
+					// Send message to CND to display the login panel
+					int[] intParams = new int[0];
+					String[] stringParams = new String[0];
+					mData messageData = new mData(intParams, stringParams);
+					partition[] subscribers = {partition.CND};
+					sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayLoginPanel);
+					break;
+				case sysPatientEditProfileRequest:
+					// Send message to CND to display the edit profile screen with the correct parameters
+					int[] intPs = new int[0];
+					String[] stringPs = {"fname", "mname", "lname", "street", "city", "state", "zip", "homenum", "worknum", "mobilenum", "email", "provider", "policy", "group"};
+					mData messageD = new mData(intPs, stringPs);
+					partition[] subscriber = {partition.CND};
+					sysIO.createMessageToSend(partition.SYS, subscriber, messageD, mType.cndDisplayPatientProfilePanel);					
+					break;
+				case sysUpdatePatient:
+					
+					break;
+				case sysGoToMenu:
+					int[] emptyInts = new int[0];
+					String[] emptyStrings = new String[0];
+					mData emptyData = new mData(emptyInts, emptyStrings);
+					partition[] subscriberCND = {partition.CND};
+					if(mPerm == 0) {
+						//no permissions
+					} else if(mPerm == 1) {
+						//patient
+						sysIO.createMessageToSend(partition.CND, subscriberCND, emptyData, mType.cndDisplayPatientMenuPanel);
+					} else if(mPerm == 2) {
+						//ofc
+					} else if(mPerm == 3) {
+						//ma
+						sysIO.createMessageToSend(partition.CND, subscriberCND, emptyData, mType.cndDisplayMAMainPanel);
+					} else if(mPerm == 4) {
+						//nurse
+						sysIO.createMessageToSend(partition.CND, subscriberCND, emptyData, mType.cndDisplayNurseMainPanel);
+					} else {
+						//doctor
+						sysIO.createMessageToSend(partition.CND, subscriberCND, emptyData, mType.cndDisplayDoctorMainPanel);
+					}
 				default:
 					break;					
 			}

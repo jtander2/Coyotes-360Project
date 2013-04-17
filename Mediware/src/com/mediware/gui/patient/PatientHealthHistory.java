@@ -93,18 +93,19 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 		gbc_btnCancel.gridx = 13;
 		gbc_btnCancel.gridy = 3;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener (this);
 
 	}
 	
 	public void actionPerformed(ActionEvent event) {
 		// Check which button was clicked on
 		if (event.getSource() == btnCancel)
-		{	// Patient Search button was clicked
+		{	// Cancel button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
         }
 	}
 

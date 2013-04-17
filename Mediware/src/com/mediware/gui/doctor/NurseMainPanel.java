@@ -68,6 +68,7 @@ public class NurseMainPanel extends JPanel implements ActionListener, MouseListe
 		gbc_btnPatientSearch.gridx = 3;
 		gbc_btnPatientSearch.gridy = 3;
 		add(btnPatientSearch, gbc_btnPatientSearch);
+		btnPatientSearch.addActionListener(this);
 		
 		btnMessagesAlerts = new JButton("Messages / Alerts");
 		GridBagConstraints gbc_btnMessagesAlerts = new GridBagConstraints();
@@ -75,6 +76,7 @@ public class NurseMainPanel extends JPanel implements ActionListener, MouseListe
 		gbc_btnMessagesAlerts.gridx = 3;
 		gbc_btnMessagesAlerts.gridy = 4;
 		add(btnMessagesAlerts, gbc_btnMessagesAlerts);
+		btnMessagesAlerts.addActionListener(this);
 		
 		JLabel lblNewLabel_1 = new JLabel("Administrative");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -90,6 +92,7 @@ public class NurseMainPanel extends JPanel implements ActionListener, MouseListe
 		gbc_btnCreateNewPatient.gridx = 3;
 		gbc_btnCreateNewPatient.gridy = 7;
 		add(btnCreateNewPatient, gbc_btnCreateNewPatient);
+		btnCreateNewPatient.addActionListener(this);
 		
 		lbllogOut = new JLabel("<html><u>Log out</u></html>");
 		lbllogOut.setForeground(Color.BLUE);
@@ -98,6 +101,7 @@ public class NurseMainPanel extends JPanel implements ActionListener, MouseListe
 		gbc_lbllogOut.gridx = 4;
 		gbc_lbllogOut.gridy = 9;
 		add(lbllogOut, gbc_lbllogOut);
+		lbllogOut.addMouseListener(this);
 
 	}
 	
@@ -125,7 +129,7 @@ public class NurseMainPanel extends JPanel implements ActionListener, MouseListe
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayNewPatientPanel);
         }
 	}
 	
@@ -137,8 +141,8 @@ public class NurseMainPanel extends JPanel implements ActionListener, MouseListe
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayLoginPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysLogoutRequest);
 		}
 	
 	}

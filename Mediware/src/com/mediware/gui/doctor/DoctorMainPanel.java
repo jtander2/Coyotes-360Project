@@ -108,7 +108,7 @@ public class DoctorMainPanel extends JPanel  implements ActionListener, MouseLis
 		gbc_btnEditEmployee.gridx = 4;
 		gbc_btnEditEmployee.gridy = 9;
 		add(btnEditEmployee, gbc_btnEditEmployee);
-		btnEditEmployee.addActionListener (this);
+		btnEditEmployee.addActionListener(this);
 		
 		lbllogOut = new JLabel("<html><u>Log out</u></html>");
 		lbllogOut.setForeground(Color.BLUE);
@@ -177,8 +177,8 @@ public class DoctorMainPanel extends JPanel  implements ActionListener, MouseLis
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayLoginPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysLogoutRequest);
 		}
 	
 	}

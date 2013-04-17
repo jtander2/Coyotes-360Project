@@ -205,6 +205,7 @@ public class PatientVitalsPanel extends JPanel implements ActionListener {
 		gbc_btnSubmit.gridx = 3;
 		gbc_btnSubmit.gridy = 14;
 		add(btnSubmit, gbc_btnSubmit);
+		btnSubmit.addActionListener (this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -213,26 +214,23 @@ public class PatientVitalsPanel extends JPanel implements ActionListener {
 		gbc_btnCancel.gridx = 4;
 		gbc_btnCancel.gridy = 14;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener (this);
 
 	}
 	
 	public void actionPerformed(ActionEvent event) {
 		// Check which button was clicked on
 		if (event.getSource() == btnSubmit)
-		{	// Patient Search button was clicked
-			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
-			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+		{	// Submit vitals button was pressed
+			
         }
 		else if (event.getSource() == btnCancel)
 		{	// Messages / Alerts button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
         }
 		
 	}
