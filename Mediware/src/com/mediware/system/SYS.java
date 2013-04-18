@@ -29,9 +29,11 @@ public class SYS{
 		this.sysIO = theIO;
 		//----------
 		//the folowing block of code will add a client to the database for testing
-		client theClient = new client("doctor", "doctor"); // UN: test PW:test
-		System.out.println(DB.addClient(theClient)); //adds client to database
+		//client theClient = new client("doctor", "doctor"); // UN: test PW:test
+		//System.out.println(DB.addClient(theClient)); //adds client to database
 		//----------
+		
+
 	}
 	
 	
@@ -42,8 +44,7 @@ public class SYS{
 	 */
 	public void run()
 	{
-
-		
+				
 		//first retrieve messages
 		sysMessages = sysIO.nextFrame(partition.SYS);
 		for(int i = 0; i < sysMessages.length; i++) {
@@ -117,22 +118,107 @@ public class SYS{
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 		    		}
 					break;
-				case loginResponse:
-					break;
 				case sysCreateEmployee:
-					break;
-				case sysCreatePatient:
-					String[] params = sysMessages[i].getMessageData().getLabels();
+					//create a new employee - insert in database
+					// Message has string array created as follows:
+					// Index = 0      1      2      3      4      5     6       7          8           9         10   11       12            13         14        15
+					//      {fname, mname, lname, street, city, state, zip, homephone, workphone, mobilephone, email, dob, employeenum, permissions, username, password};
 					
-					//Example of how to display an error message if username is already in the db
-					if(params[17].equals("test")) {
+					String[] paramE = sysMessages[i].getMessageData().getLabels();
+					
+					//first check and make sure username is available -- uncomment once isUsernameAvail()
+					//method is written.....
+						if(/*DB.isUsernameAvail(paramE[14])*/ paramE[14].equals("test")) {
 						int[] intParams = new int[0];
 		    			String[] stringParams = {"Cannot use this username. Please select a new one.", "Create Patient Error"};
 		    			mData messageData = new mData(intParams, stringParams);
 		    			partition[] subscribers = {partition.CND};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
+					
+					} 
+					else{
+						//create and fill out new employee
+						employee E = new employee();
+						E.setFname(paramE[0]);
+						E.setMname(paramE[1]);
+						E.setLname(paramE[2]);
+						E.setAddress1(paramE[3]);
+						E.setCity(paramE[4]);
+						E.setState(paramE[5]);
+						E.setZip(paramE[6]);
+						E.setPhoneHome(paramE[7]);
+						E.setPhoneWork(paramE[8]);
+						E.setPhoneMobile(paramE[9]);
+						E.setEmail(paramE[10]);
+						//E.setDOB(paramE[11]);
+						E.setEmpNum(Integer.parseInt(paramE[12]));
+						E.setPermissions(Integer.parseInt(paramE[13]));
+						E.setUsername(paramE[14]);
+						E.setPassword(paramE[15]);
+												
+						//insert the newly created employee into the database
+						DB.addEmployee(E);
+						
+						//keep track of permissions - sysGoToMenu needs to know this
+						this.mPerm = E.getPermissions();
+						//Send message back to SYS (self) sysGoToMenu
+						int[] emptyInt = new int[0];
+		    			String[] emptyParams = {"", ""};
+		    			mData messageData = new mData(emptyInt, emptyParams);
+		    			partition[] subscribers = {partition.SYS};
+		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.sysGoToMenu);
+					
 					}
-					//End example
+					
+					break;
+				case sysCreatePatient:
+					String[] paramC = sysMessages[i].getMessageData().getLabels();
+					
+					//Example of how to display an error message if username is already in the db
+					if(paramC[17].equals("test")) {
+						int[] intParams = new int[0];
+		    			String[] stringParams = {"Cannot use this username. Please select a new one.", "Create Patient Error"};
+		    			mData messageData = new mData(intParams, stringParams);
+		    			partition[] subscribers = {partition.CND};
+		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
+					}else{
+						//create new patient and add to DB
+						// Message has string array created as follows:
+						// Index = 0      1      2      3      4      5     6       7          8           9         10      11         12        13      14    15      16       17        18
+						//      {fname, mname, lname, street, city, state, zip, homephone, workphone, mobilephone, email, provider, policynum, groupnum, dob, height, weight, username, password};
+						client C = new client(paramC[17],paramC[18]); // UN: test PW:test
+						C.setFname(paramC[0]);
+						C.setMname(paramC[1]);
+						C.setLname(paramC[2]);
+						C.setAddress1(paramC[3]);
+						C.setCity(paramC[4]);
+						C.setState(paramC[5]);
+						C.setZip(paramC[6]);
+						C.setPhoneHome(paramC[7]);
+						C.setPhoneWork(paramC[8]);
+						C.setPhoneMobile(paramC[9]);
+						C.setEmail(paramC[10]);
+						C.setProvider(paramC[11]);
+						C.setPolicy(paramC[12]);
+						C.setGroup(paramC[13]);
+						//C.setDOB(paramC[14];
+						//C.setHeight(paramC[15]);
+						//C.setWeight(paramC[16]);    //these last three need to be added to datadriver()
+						
+						//insert the newly created employee into the database
+						DB.addClient(C);
+						
+						//keep track of permissions - sysGoToMenu needs to know this
+						this.mPerm = C.getPermissions();
+						
+						//Send message back to SYS (self) sysGoToMenu
+						int[] emptyInt = new int[0];
+		    			String[] emptyParams = {"", ""};
+		    			mData messageData = new mData(emptyInt, emptyParams);
+		    			partition[] subscribers = {partition.SYS};
+		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.sysGoToMenu);
+					
+					}
 					
 					break;
 				case sysLogoutRequest:
