@@ -47,6 +47,19 @@ public class IO {
 		Message newMessage = new Message(publisher, subscriber, messageData, messageType);
 		messageInbox.sendMessage(newMessage);
 		System.out.println("Message sent of type " + messageType.toString());
+		if(messageData.getArguments().length > 0) {
+		    System.out.println("Integer Arguments: "); 
+		    for(int i = 0; i < messageData.getArguments().length; i++) {
+			System.out.print(messageData.getArguments()[i] + " ");
+		    }
+		}
+		
+		if(messageData.getLabels().length > 0) {
+		    System.out.println("String Arguments: ");
+		    for(int i = 0; i < messageData.getLabels().length; i++) {
+			System.out.print(messageData.getLabels()[i] + " ");
+		    }
+		}
     }
     
     /**
