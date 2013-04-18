@@ -155,11 +155,18 @@ public class SYS{
 						E.setPermissions(Integer.parseInt(paramE[13]));
 						E.setUsername(paramE[14]);
 						E.setPassword(paramE[15]);
-						
-						//Send message back to CND displaying "Patient Successfully Created"
-						
+												
 						//insert the newly created employee into the database
 						DB.addEmployee(E);
+						
+						//keep track of permissions - sysGoToMenu needs to know this
+						this.mPerm = E.getPermissions();
+						//Send message back to SYS (self) sysGoToMenu
+						int[] emptyInt = new int[0];
+		    			String[] emptyParams = {"", ""};
+		    			mData messageData = new mData(emptyInt, emptyParams);
+		    			partition[] subscribers = {partition.SYS};
+		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.sysGoToMenu);
 					
 					}
 					
@@ -198,10 +205,19 @@ public class SYS{
 						//C.setHeight(paramC[15]);
 						//C.setWeight(paramC[16]);    //these last three need to be added to datadriver()
 						
-						//Send message back to CND displaying "Patient Successfully Created"
-						
 						//insert the newly created employee into the database
 						DB.addClient(C);
+						
+						//keep track of permissions - sysGoToMenu needs to know this
+						this.mPerm = C.getPermissions();
+						
+						//Send message back to SYS (self) sysGoToMenu
+						int[] emptyInt = new int[0];
+		    			String[] emptyParams = {"", ""};
+		    			mData messageData = new mData(emptyInt, emptyParams);
+		    			partition[] subscribers = {partition.SYS};
+		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.sysGoToMenu);
+					
 					}
 					
 					break;
