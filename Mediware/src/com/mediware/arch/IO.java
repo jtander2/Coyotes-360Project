@@ -60,6 +60,7 @@ public class IO {
 			System.out.print(messageData.getLabels()[i] + " ");
 		    }
 		}
+		System.out.println("");
     }
     
     /**
