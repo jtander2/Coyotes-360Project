@@ -20,11 +20,16 @@ package com.mediware.data;
 	
 	
 	
-	THIS VERSION: 0.02 Alpha	
+	THIS VERSION: 0.1 Beta	
 		-------------------
 		CHANGELOG for DATABASE layer - database.java
 [ / - Changed | + Feature added | ~Bugfix | - Removed | ->Implemented ] 
-		0.02A	~	+Added feature to find DB for Username and Password combination
+		0.1B	~	+GetAllClients/Employees
+					+gets if an account username and password exists
+					+ability to search 'like' names by using end based wildcard
+					+Search for userinformation without complete information
+
+		0.02A	~	+find DB for Username and Password combination
 
 		0.01A	~	/Data into 6 tables
 					+Parser/unparser for BP and alerts
@@ -36,6 +41,7 @@ package com.mediware.data;
  /////////////////////////////////////////////////////////////////
 */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mediware.data.dataContainers.account;
@@ -160,6 +166,61 @@ public class datadriver
 		return db.getAccount(AID);
 	}
 	
+	//Gets all of the clients in the database
+	public List<client> getAllClients()
+	{
+		List<client> accountList = new ArrayList<client>();
+		List<Integer> aList = new ArrayList<Integer>();
+		aList = getAllClientsNum();
+		
+		for(int i = 0; i < aList.size(); i++)	//populate the data in the list
+		{
+			accountList.add(getClient(aList.get(i)));
+		}
+		
+		return accountList;
+	}
+	
+	//Gets all of the Employees in the Database
+	public List<employee> getAllEmployees()
+	{
+		List<Integer> aList = new ArrayList<Integer>();
+		List<employee> accountList = new ArrayList<employee>();
+		aList = getAllEmployeesNum();
+		
+		for(int i = 0; i < aList.size(); i++)	//populate the data in the list
+		{
+			accountList.add(getEmployee(aList.get(i)));
+		}
+	
+		return accountList;
+	}
+	
+	//Gets all of the clients in the database and returns their reference ID
+	public List<Integer> getAllClientsNum()
+	{
+		List<Integer> aList = new ArrayList<Integer>();
+		client oClient = new client();
+		oClient.setPermissions(0);
+		
+		aList = db.findAccount(oClient.getAccount());
+		
+		return aList;
+	}
+	
+	//Gets all of the Employees in the Database and returns their reference ID
+	public List<Integer> getAllEmployeesNum()
+	{
+		List<Integer> aList = new ArrayList<Integer>();
+		employee oEmployee = new employee();
+		oEmployee.setPermissions(-2);		//Special token to search all things not zero
+		
+		aList = db.findAccount(oEmployee.getAccount());
+		
+		return aList;
+	}
+	
+	
 	/*	--------------------------		EXISTS Functions		-------------------------------
  	-					Commands to see if an account ID exists							    	-*/
 	public boolean existsAccount(int AID)
@@ -192,6 +253,24 @@ public class datadriver
 		return db.existsEmployeeInfo(aid);
 	}
 	
+	//Check to see if a username is available to use
+	public boolean isUsernameAvail(String username)
+	{
+		account oAccount = new account();
+		oAccount.setUsername(username);
+		
+		return !db.findAccount(oAccount).isEmpty();
+	}
+		
+		//Check to see if a password is available to use
+	public boolean isEmailAvail(String email)
+	{
+		account oAccount = new account();
+		oAccount.setEmail(email);
+		
+		return !db.findAccount(oAccount).isEmpty();
+	}
+	
 	/*	--------------------------		FIND Functions		-------------------------------
  	-					Commands to find and return data from the DB					  -*/
 	
@@ -221,6 +300,39 @@ public class datadriver
 		}
 		
 		return oIntList.get(0);
+	}
+	
+	//Searches for an employee via the user information like name
+	public List<employee> findEmpByInfo(userinfo oUserInfo)
+	{
+		List<employee> lUserInfo = new ArrayList<employee>();
+		List<Integer> lAID = db.searchuserInfo(oUserInfo);
+		
+		for(int i = 0; i < lAID.size(); i++)
+		{
+			int AID = lAID.get(i);
+			employee oEmployee = getEmployee(AID);
+			if(oEmployee != null)
+				lUserInfo.add(oEmployee);
+		}
+		
+		return lUserInfo;
+	}
+	
+	//Searches for an client via the user information like name searches not case sense
+	public List<client> findClientByInfo(userinfo oUserInfo)
+	{
+		List<client> lUserInfo = new ArrayList<client>();
+		List<Integer> lAID = db.searchuserInfo(oUserInfo);
+		
+		for(int i = 0; i < lAID.size(); i++)
+		{
+			int AID = lAID.get(i);
+			client oClient = getClient(AID);
+			if(oClient != null)
+				lUserInfo.add(oClient);
+		}
+		return lUserInfo;
 	}
 	
 	

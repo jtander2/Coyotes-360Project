@@ -38,6 +38,9 @@ public class mainTest {
 			System.out.println("D	-	Delete Account by ID");
 			System.out.println("T	-	Add Alert to Client");
 			System.out.println("P	-	Find Account from Username and Password.");
+			System.out.println("O	-	List all of the Clients AIDs.");
+			System.out.println("L	-	List all of the Employee AIDs.");
+			System.out.println("M	-	Runs a 'like' search for a client's first name.");
 			System.out.println("Q	-	Quit");
 			
 			choice = input.nextLine();
@@ -238,7 +241,7 @@ public class mainTest {
 				System.out.println(testAcnt.toString());
 				
 				if(testAcnt.getAID() < 0)
-					System.out.println("[ERROR] Account not found");
+					System.out.println("[ERROR] Account not found!");
 				else if(testAcnt.getPermissions() == 0)
 				{
 					oClient = dd.getClient(testAcnt.getAID());		//Gets all client information
@@ -300,6 +303,27 @@ public class mainTest {
 				System.out.println("Type in the PASSWORD: ");
 				String password = input.nextLine();
 				System.out.println("AID: " + dd.findUserPass(username, password) );
+				break;
+				
+				//Gets all of the clients from the Database
+			case "O":
+				System.out.println("A list of all of the Clients AIDs: ");
+				System.out.println( dd.getAllClients() );
+				break;
+				
+				//Gets all of the employees from the Database
+			case "L":
+				System.out.println("A list of all of the Employee AIDs: ");
+				System.out.println( dd.getAllEmployees() );
+				break;
+				
+			//Runs a 'Like' Search for the first name of a client
+			case "M":
+				System.out.println("Type in the first name of the client: ");
+				String firstname = input.nextLine();
+				oClient.setFname(firstname);
+				System.out.println("We found clients: ");
+				System.out.println(dd.findClientByInfo(oClient.getUserInfo()));
 				break;
 				
 			case "Q":
