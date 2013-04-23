@@ -119,10 +119,10 @@ public class PatientMenuPanel extends JPanel implements ActionListener, MouseLis
 		else if (event.getSource() == btnHealthHistory)
 		{	// Health History button was clicked
 			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
+			String[] stringParams = {"Blood Pressure"};					//The top of the jComboBox options is default
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientHealthHistory);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.patientHistoryRequest);
         }
 		else if (event.getSource() == btnEditProfile)
 		{	// Edit Profile Button was selected

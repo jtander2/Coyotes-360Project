@@ -279,10 +279,10 @@ public class SYS{
 				    PatientHistoryService phs = new PatientHistoryService(DB);
 				    
 				    int[] data = phs.process(type);
-				    String[] stringPs1 = new String[0];
+				    String[] stringPs1 = {type};
 				    mData messageD1 = new mData(data, stringPs1);
 				    partition[] subscriber1 = {partition.CND};
-				    sysIO.createMessageToSend(partition.SYS, subscriber1, messageD1, mType.cndDisplayPatientProfilePanel);
+				    sysIO.createMessageToSend(partition.SYS, subscriber1, messageD1, mType.cndDisplayPatientHealthHistory);
 				    break;
 				default:
 					break;					
