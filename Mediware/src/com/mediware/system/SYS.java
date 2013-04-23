@@ -8,6 +8,7 @@ import com.mediware.arch.mData;
 import com.mediware.arch.Enums.partition;
 import com.mediware.arch.Enums.mType;
 import com.mediware.service.LoginService;
+import com.mediware.service.PatientHistoryService;
 import com.mediware.data.dataContainers.*;
 import com.mediware.data.*;
 
@@ -264,6 +265,19 @@ public class SYS{
 						//doctor
 						sysIO.createMessageToSend(partition.CND, subscriberCND, emptyData, mType.cndDisplayDoctorMainPanel);
 					}
+					break;
+				case patientHistoryRequest:
+				    //CND is requesting patient history for type of StringArg[0]
+				    
+				    String type = sysMessages[i].getMessageData().getLabels()[0];
+				    PatientHistoryService phs = new PatientHistoryService(DB);
+				    
+				    int[] data = phs.process(type);
+				    String[] stringPs1 = new String[0];
+				    mData messageD1 = new mData(data, stringPs1);
+				    partition[] subscriber1 = {partition.CND};
+				    sysIO.createMessageToSend(partition.SYS, subscriber1, messageD1, mType.cndDisplayPatientProfilePanel);
+				    break;
 				default:
 					break;					
 			}

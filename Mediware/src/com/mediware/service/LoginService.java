@@ -4,13 +4,13 @@ import com.mediware.data.*;
 
 public class LoginService {
 	
-	private static datadriver DB;
+	private datadriver DB;
 	
 	public LoginService(datadriver driver){
 		this.DB = driver;
 	}
 	
-	public static boolean authenticate(String username, String password) {
+	public boolean authenticate(String username, String password) {
 		System.out.println(username + password);
 		// Make sure username and password are not empty
 		if(username.equals("") || password.equals(""))

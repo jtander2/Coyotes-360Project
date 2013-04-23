@@ -1,5 +1,6 @@
 package com.mediware.gui.patient;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -11,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import com.mediware.arch.IO;
@@ -23,6 +24,7 @@ import com.mediware.arch.Enums.partition;
 public class PatientHealthHistory extends JPanel implements ActionListener {
 
 	private JButton btnCancel;
+	private PatientHealthData graph;
 	private IO io;
 
 	/**
@@ -35,28 +37,23 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 		
 		setBorder(new TitledBorder(null, "Health History", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 300, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JTextPane textPaneHealthHistory = new JTextPane();
-		GridBagConstraints gbc_textPaneHealthHistory = new GridBagConstraints();
-		gbc_textPaneHealthHistory.gridwidth = 14;
-		gbc_textPaneHealthHistory.insets = new Insets(0, 0, 5, 5);
-		gbc_textPaneHealthHistory.fill = GridBagConstraints.BOTH;
-		gbc_textPaneHealthHistory.gridx = 1;
-		gbc_textPaneHealthHistory.gridy = 1;
-		add(textPaneHealthHistory, gbc_textPaneHealthHistory);
-		
-		JLabel lblYear = new JLabel("Year");
-		GridBagConstraints gbc_lblYear = new GridBagConstraints();
-		gbc_lblYear.gridwidth = 4;
-		gbc_lblYear.insets = new Insets(0, 0, 5, 5);
-		gbc_lblYear.gridx = 4;
-		gbc_lblYear.gridy = 2;
-		add(lblYear, gbc_lblYear);
+		//Frame for graph
+		graph = new PatientHealthData();
+		graph.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		graph.setBackground(Color.LIGHT_GRAY);
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.gridwidth = 10;
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 3;
+		gbc_panel.gridy = 1;
+		add(graph, gbc_panel);
 		
 		JLabel lblVitalStat = new JLabel("Vital Stat");
 		GridBagConstraints gbc_lblVitalStat = new GridBagConstraints();
@@ -66,19 +63,10 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 		gbc_lblVitalStat.gridy = 2;
 		add(lblVitalStat, gbc_lblVitalStat);
 		
-		JComboBox comboBoxYear = new JComboBox();
-		comboBoxYear.setModel(new DefaultComboBoxModel(new String[] {"2013", "2012", "2011", "2010"}));
-		GridBagConstraints gbc_comboBoxYear = new GridBagConstraints();
-		gbc_comboBoxYear.gridwidth = 4;
-		gbc_comboBoxYear.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxYear.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxYear.gridx = 4;
-		gbc_comboBoxYear.gridy = 3;
-		add(comboBoxYear, gbc_comboBoxYear);
 		
-		JComboBox comboBoxVitalStat = new JComboBox();
+		JComboBox<String> comboBoxVitalStat = new JComboBox<String>();
 		comboBoxVitalStat.setMaximumRowCount(5);
-		comboBoxVitalStat.setModel(new DefaultComboBoxModel(new String[] {"Blood Pressure", "Pulse", "Temperature", "Weight", "Sugar/Glucose Level"}));
+		comboBoxVitalStat.setModel(new DefaultComboBoxModel<String>(new String[] {"Blood Pressure", "Pulse", "Temperature", "Weight", "Sugar/Glucose Level"}));
 		GridBagConstraints gbc_comboBoxVitalStat = new GridBagConstraints();
 		gbc_comboBoxVitalStat.gridwidth = 2;
 		gbc_comboBoxVitalStat.insets = new Insets(0, 0, 5, 5);
@@ -86,6 +74,8 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 		gbc_comboBoxVitalStat.gridx = 9;
 		gbc_comboBoxVitalStat.gridy = 3;
 		add(comboBoxVitalStat, gbc_comboBoxVitalStat);
+		HistoryComboBoxListener cbListener = new HistoryComboBoxListener();
+		comboBoxVitalStat.addActionListener(cbListener);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -106,7 +96,46 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.SYS};
 			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
-        }
+		}
 	}
-
+	
+	private class HistoryComboBoxListener implements ActionListener {
+	    
+	    public void actionPerformed(ActionEvent event) {
+		String dataRequest = (String)(((JComboBox<?>)event.getSource()).getSelectedItem());
+		//Request Data from SYS based on the selected item in the combo box.
+		int[] intParams = new int[0];
+		String[] stringParams = {dataRequest};
+		mData messageData = new mData(intParams, stringParams);
+		partition[] subscribers = {partition.SYS};
+		io.createMessageToSend(partition.CND, subscribers, messageData, mType.patientHistoryRequest);
+		
+	    }
+	}
+	
+	    /**
+	     * Returns the upperbound of the data, plus a little bit.  To make the graph look nice
+	     * 
+	     * @param data
+	     * @return
+	     */
+	    public static int findUpperBound(int[] data) {
+		
+		int up = 0;
+		
+		for(int i = 0; i < data.length; i++) {
+		    
+		    if(up < data[i]) {
+			up = data[i];
+		    }
+		    
+		}
+		
+		return (int)Math.floor(up*1.2);
+	    }
+	    
+	    public PatientHealthData getGraph() {
+		return graph;
+	    }
 }
+

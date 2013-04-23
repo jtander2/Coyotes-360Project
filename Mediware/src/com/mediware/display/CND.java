@@ -116,6 +116,10 @@ public class CND {
 				case cndDisplayPatientHealthHistory:
 					displayPatientHealthHistory();
 					break;
+					
+				case patientHistoryData:
+				    	drawHealthHistory(cndMessages[i].getMessageData().getArguments());
+				    	break;
 				default:
 					break;					
 			}
@@ -354,6 +358,14 @@ public class CND {
 	//Other
 	public void displayErrorDialog(String message, String type) {
 		JOptionPane.showMessageDialog(currentFrame, message, type, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	//Graph drawing
+	public void drawHealthHistory(int[] data) {
+	 
+	    PatientHealthHistory.findUpperBound(data);
+	    ((PatientHealthHistory)currentFrame.getComponent(0)).getGraph().repaint();
+	
 	}
 	
 }
