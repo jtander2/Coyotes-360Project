@@ -364,7 +364,13 @@ public class CND {
 	public void drawHealthHistory(int[] data) {
 	 
 	    PatientHealthHistory.findUpperBound(data);
-	    ((PatientHealthHistory)currentFrame.getComponent(0)).getGraph().repaint();
+	    for(int i = 0; i < currentFrame.getComponentCount(); i++) {
+		if(currentFrame.getComponent(i) instanceof PatientHealthHistory) {
+		    ((PatientHealthHistory)currentFrame.getComponent(0)).getGraph().repaint();
+		    ((PatientHealthHistory)currentFrame.getComponent(0)).setMaxLabel();
+		}
+	    }
+
 	
 	}
 	

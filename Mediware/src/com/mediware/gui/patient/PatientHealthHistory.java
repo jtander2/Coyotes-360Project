@@ -25,6 +25,7 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 
 	private JButton btnCancel;
 	private PatientHealthData graph;
+	private JLabel maxLabel;
 	private IO io;
 
 	/**
@@ -63,6 +64,13 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 		gbc_lblVitalStat.gridy = 2;
 		add(lblVitalStat, gbc_lblVitalStat);
 		
+		maxLabel = new JLabel("100");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.NORTH;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 13;
+		gbc_lblNewLabel.gridy = 1;
+		add(maxLabel, gbc_lblNewLabel);
 		
 		JComboBox<String> comboBoxVitalStat = new JComboBox<String>();
 		comboBoxVitalStat.setMaximumRowCount(5);
@@ -136,6 +144,10 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 	    
 	    public PatientHealthData getGraph() {
 		return graph;
+	    }
+	    
+	    public void setMaxLabel() {
+		maxLabel.setText(graph.max + "");
 	    }
 }
 

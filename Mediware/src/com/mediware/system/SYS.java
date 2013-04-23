@@ -276,7 +276,7 @@ public class SYS{
 				    String[] stringPs1 = new String[0];
 				    mData messageD1 = new mData(data, stringPs1);
 				    partition[] subscriber1 = {partition.CND};
-				    sysIO.createMessageToSend(partition.SYS, subscriber1, messageD1, mType.cndDisplayPatientProfilePanel);
+				    sysIO.createMessageToSend(partition.SYS, subscriber1, messageD1, mType.patientHistoryData);
 				    break;
 				default:
 					break;					
