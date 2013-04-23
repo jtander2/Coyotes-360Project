@@ -7,7 +7,7 @@ package com.mediware.data;
 		CREATOR:	Shane Spies
 		EMAIL:		stspies@asu.edu
 		CREATED: 	[03-27-2013]
-		CURRENT: 	[03-30-2013]
+		CURRENT: 	[04-18-2013]
 		
 		DEPENDANCIES: java.sql, java.util, client, 
 						employee, userinfo, account, jdbc
@@ -20,10 +20,14 @@ package com.mediware.data;
 				valid data.  Think of these as java SQL stored procedures because
 				this assembles SQL strings and executes them.
 	
-	THIS VERSION: 0.1 Beta	
+	THIS VERSION: 0.2 Beta	
 		-------------------
 		CHANGELOG for DATABASE layer - database.java
 [ / - Changed | + Feature added | ~Bugfix | - Removed | ->Implemented ] 
+		0.1B	~ 	~middlename not searching correctly
+				+	wildcard search for userInfo
+				+	Able to search for all employees now
+		
 		0.1B	~	/Data into 6 tables
 					+Parser/unparser for BP and alerts
 					+Support to search every table
@@ -34,6 +38,10 @@ package com.mediware.data;
 					Formed methods to work with SQL data
 					Uploaded to Dropbox
 					Contained datadriver
+
+If you got Firefox, I use this:
+https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/
+to look at all of the SQLite data.
 
  /////////////////////////////////////////////////////////////////
 */
@@ -299,6 +307,9 @@ public class database
 		
 		if(!(acnt.getPermissions() < 0))
 			sqlCommand += "AND permissions='"+acnt.getPermissions() + "'";
+		else if(acnt.getPermissions() == -2)
+			sqlCommand += "AND permissions<>'0'";
+		
 		
 		Connection connection = null;
 		Statement statement = null;
@@ -423,10 +434,10 @@ public class database
 		
 		
 		if(!acnt.getFname().isEmpty())
-			sqlCommand += "AND fnmame='"+ acnt.getFname() + "' ";
+			sqlCommand += "AND fname='"+ acnt.getFname() + "' ";
 		
 		if(!acnt.getMname().isEmpty())
-			sqlCommand += "AND mname'"+ acnt.getMname() + "' ";
+			sqlCommand += "AND mname='"+ acnt.getMname() + "' ";
 		
 		if(!acnt.getLname().isEmpty())
 			sqlCommand+="AND lname='"+ acnt.getLname() + "' ";
@@ -498,6 +509,98 @@ public class database
 		
 		return accountList;
 	}
+	
+	//searched the database for like names 
+	//Search like username = fj would return fjmaps and anything matching
+		public List<Integer> searchuserInfo(userinfo acnt)
+		{
+			List<Integer> accountList = new ArrayList<Integer>();
+			String sqlCommand = "SELECT * FROM "+ userinfoLocation + " WHERE ";
+			ResultSet result = null;
+			
+			//Checks to see if stuff is empty, if it is, don't include it in the sql command
+			if(acnt.getAID() != -1 )	
+				sqlCommand += "AID LIKE'"+ acnt.getAID() + "%' ";
+			else 
+				sqlCommand += "AID<>'' ";
+			
+			
+			if(!acnt.getFname().isEmpty())
+				sqlCommand += "AND fname LIKE'"+ acnt.getFname() + "%' ";
+			
+			if(!acnt.getMname().isEmpty())
+				sqlCommand += "AND mname LIKE '"+ acnt.getMname() + "%' ";
+			
+			if(!acnt.getLname().isEmpty())
+				sqlCommand+="AND lname LIKE '"+ acnt.getLname() + "%' ";
+			
+			if(!acnt.getAddress1().isEmpty())
+				sqlCommand+="AND address1 LIKE'"+ acnt.getAddress1() + "%' ";
+			
+			if(!acnt.getAddress2().isEmpty())
+				sqlCommand+="AND address2 LIKE'"+ acnt.getAddress2() + "%' ";
+			
+			if(!acnt.getCity().isEmpty())
+				sqlCommand += "AND city LIKE'"+acnt.getCity() + "%' ";
+			
+			if(!acnt.getState().isEmpty())
+				sqlCommand+="AND state LIKE'"+ acnt.getState() + "%' ";
+			
+			if(!acnt.getZip().isEmpty())
+				sqlCommand+="AND zip LIKE'"+ acnt.getZip() + "%' ";
+			
+			if(!acnt.getPhoneWork().isEmpty())
+				sqlCommand+="AND phonework LIKE'"+ acnt.getPhoneWork() + "%' ";
+			
+			if(!acnt.getPhoneMobile().isEmpty())
+				sqlCommand+="AND phonemobile LIKE'"+acnt. getPhoneMobile() + "%' ";
+			
+			if(!acnt.getPhoneHome().isEmpty())
+				sqlCommand+="AND phonehome LIKE'"+ acnt.getPhoneHome() + "%' ";
+			
+			
+			Connection connection = null;
+			Statement statement = null;
+			
+			try 
+			{
+				Class.forName("org.sqlite.JDBC");	//Checks to see if we have the correct packaged installed
+				connection = DriverManager.getConnection(connectionString);	//connects to the DB
+				
+				statement = connection.createStatement();
+				result = statement.executeQuery(sqlCommand);	
+				try {
+					while(result.next())
+					{
+						accountList.add(result.getInt("AID"));
+					}
+				} catch (SQLException e) 
+				{
+					e.printStackTrace();
+				}
+				
+			} 
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			finally 
+			{
+				try 
+				{
+					connection.close();
+					result.close();
+					statement.close();
+				}
+				catch (Exception e )
+				{
+					e.printStackTrace();
+				}
+			}
+			//return null;	//Something wrong happened
+			
+			return accountList;
+		}
 	
 	//This command finds an employee based from any of the search params
 	public List<Integer> findEmployee(employee acnt)
