@@ -33,8 +33,7 @@ public class SYS{
 		//client theClient = new client("doctor", "doctor"); // UN: test PW:test
 		//System.out.println(DB.addClient(theClient)); //adds client to database
 		//----------
-		
-
+	
 	}
 	
 	
@@ -137,7 +136,7 @@ public class SYS{
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 					
 					} 
-					else{
+					else{						
 						//create and fill out new employee
 						employee E = new employee();
 						E.setFname(paramE[0]);
@@ -153,15 +152,23 @@ public class SYS{
 						E.setEmail(paramE[10]);
 						//E.setDOB(paramE[11]);
 						E.setEmpNum(Integer.parseInt(paramE[12]));
-						E.setPermissions(Integer.parseInt(paramE[13]));
 						E.setUsername(paramE[14]);
 						E.setPassword(paramE[15]);
+						
+						//for permissions
+						if(paramE[13].equals("ma"))
+							E.setPermissions(3);
+						else if(paramE[13].equals("nurse"))
+							E.setPermissions(4);
+						else
+						{
+							E.setPermissions(5);
+						}
 												
 						//insert the newly created employee into the database
 						DB.addEmployee(E);
 						
-						//keep track of permissions - sysGoToMenu needs to know this
-						this.mPerm = E.getPermissions();
+
 						//Send message back to SYS (self) sysGoToMenu
 						int[] emptyInt = new int[0];
 		    			String[] emptyParams = {"", ""};
@@ -183,6 +190,7 @@ public class SYS{
 		    			partition[] subscribers = {partition.CND};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 					}else{
+						
 						//create new patient and add to DB
 						// Message has string array created as follows:
 						// Index = 0      1      2      3      4      5     6       7          8           9         10      11         12        13      14    15      16       17        18
@@ -208,9 +216,6 @@ public class SYS{
 						
 						//insert the newly created employee into the database
 						DB.addClient(C);
-						
-						//keep track of permissions - sysGoToMenu needs to know this
-						this.mPerm = C.getPermissions();
 						
 						//Send message back to SYS (self) sysGoToMenu
 						int[] emptyInt = new int[0];
@@ -244,6 +249,7 @@ public class SYS{
 					
 					break;
 				case sysGoToMenu:
+					
 					int[] emptyInts = new int[0];
 					String[] emptyStrings = new String[0];
 					mData emptyData = new mData(emptyInts, emptyStrings);
@@ -252,18 +258,18 @@ public class SYS{
 						//no permissions
 					} else if(mPerm == 1) {
 						//patient
-						sysIO.createMessageToSend(partition.CND, subscriberCND, emptyData, mType.cndDisplayPatientMenuPanel);
+						sysIO.createMessageToSend(partition.SYS, subscriberCND, emptyData, mType.cndDisplayPatientMenuPanel);
 					} else if(mPerm == 2) {
 						//ofc
 					} else if(mPerm == 3) {
 						//ma
-						sysIO.createMessageToSend(partition.CND, subscriberCND, emptyData, mType.cndDisplayMAMainPanel);
+						sysIO.createMessageToSend(partition.SYS, subscriberCND, emptyData, mType.cndDisplayMAMainPanel);
 					} else if(mPerm == 4) {
 						//nurse
-						sysIO.createMessageToSend(partition.CND, subscriberCND, emptyData, mType.cndDisplayNurseMainPanel);
+						sysIO.createMessageToSend(partition.SYS, subscriberCND, emptyData, mType.cndDisplayNurseMainPanel);
 					} else {
 						//doctor
-						sysIO.createMessageToSend(partition.CND, subscriberCND, emptyData, mType.cndDisplayDoctorMainPanel);
+						sysIO.createMessageToSend(partition.SYS, subscriberCND, emptyData, mType.cndDisplayDoctorMainPanel);
 					}
 					break;
 				case patientHistoryRequest:
@@ -273,10 +279,14 @@ public class SYS{
 				    PatientHistoryService phs = new PatientHistoryService(DB);
 				    
 				    int[] data = phs.process(type);
-				    String[] stringPs1 = new String[0];
+				    String[] stringPs1 = {type};
 				    mData messageD1 = new mData(data, stringPs1);
 				    partition[] subscriber1 = {partition.CND};
+<<<<<<< HEAD
 				    sysIO.createMessageToSend(partition.SYS, subscriber1, messageD1, mType.patientHistoryData);
+=======
+				    sysIO.createMessageToSend(partition.SYS, subscriber1, messageD1, mType.cndDisplayPatientHealthHistory);
+>>>>>>> d7f87430f5011e4070ee62bebf07dd66124dbcc3
 				    break;
 				default:
 					break;					

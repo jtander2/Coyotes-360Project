@@ -114,7 +114,9 @@ public class CND {
 					displayPatientVitalsPanel();
 					break;
 				case cndDisplayPatientHealthHistory:
-					displayPatientHealthHistory();
+					int[] historyInts = cndMessages[i].getMessageData().getArguments();
+					String[] historyStrings = cndMessages[i].getMessageData().getLabels();
+					displayPatientHealthHistory(historyInts, historyStrings);
 					break;
 					
 				case patientHistoryData:
@@ -327,10 +329,10 @@ public class CND {
 	//*****************************************************************************
 	//com.mediware.gui.patient
 	//*****************************************************************************
-	public void displayPatientHealthHistory() {
+	public void displayPatientHealthHistory(int[] historyInts, String[] historyStrings) {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new PatientHealthHistory(cndIO));
+		currentFrame.getContentPane().add(new PatientHealthHistory(cndIO, historyInts, historyStrings));
 		currentFrame.setVisible(true);
 	}
 	

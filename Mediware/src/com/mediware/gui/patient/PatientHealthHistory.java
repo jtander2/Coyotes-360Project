@@ -32,7 +32,7 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 	 * Create the panel.
 	 * @param cndIO 
 	 */
-	public PatientHealthHistory(IO cndIO) {
+	public PatientHealthHistory(IO cndIO, int[] pIntData, String[] pStringData) {
 		
 		this.io = cndIO;
 		
@@ -75,6 +75,7 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 		JComboBox<String> comboBoxVitalStat = new JComboBox<String>();
 		comboBoxVitalStat.setMaximumRowCount(5);
 		comboBoxVitalStat.setModel(new DefaultComboBoxModel<String>(new String[] {"Blood Pressure", "Pulse", "Temperature", "Weight", "Sugar/Glucose Level"}));
+		comboBoxVitalStat.setSelectedItem(pStringData[0]);			//set the combobox to display whatever string type is passed in
 		GridBagConstraints gbc_comboBoxVitalStat = new GridBagConstraints();
 		gbc_comboBoxVitalStat.gridwidth = 2;
 		gbc_comboBoxVitalStat.insets = new Insets(0, 0, 5, 5);
@@ -121,33 +122,37 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 	    }
 	}
 	
-	    /**
-	     * Returns the upperbound of the data, plus a little bit.  To make the graph look nice
-	     * 
-	     * @param data
-	     * @return
-	     */
-	    public static int findUpperBound(int[] data) {
+    /**
+     * Returns the upperbound of the data, plus a little bit.  To make the graph look nice
+     * 
+     * @param data
+     * @return
+     */
+    public static int findUpperBound(int[] data) {
 		
 		int up = 0;
 		
 		for(int i = 0; i < data.length; i++) {
 		    
 		    if(up < data[i]) {
-			up = data[i];
+		    	up = data[i];
 		    }
 		    
 		}
 		
 		return (int)Math.floor(up*1.2);
-	    }
+    }
 	    
-	    public PatientHealthData getGraph() {
+    public PatientHealthData getGraph() {
 		return graph;
+<<<<<<< HEAD
 	    }
 	    
 	    public void setMaxLabel() {
 		maxLabel.setText(graph.max + "");
 	    }
+=======
+    }
+>>>>>>> d7f87430f5011e4070ee62bebf07dd66124dbcc3
 }
 
