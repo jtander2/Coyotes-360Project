@@ -130,6 +130,11 @@ public class CND {
 				case patientHistoryData:
 				    drawHealthHistory(cndMessages[i].getMessageData().getArguments());
 				    break;
+				    
+				case cndPatientSearchReport:
+				    displayPatientSelect(cndMessages[i].getMessageData().getArguments(), cndMessages[i].getMessageData().getLabels());
+				    
+				    break;
 				default:
 					break;					
 			}
@@ -313,10 +318,10 @@ public class CND {
 		currentFrame.setVisible(true);
 	}
 	
-	public void displayPatientSelect() {
+	public void displayPatientSelect(int[] AIDS, String[] names) {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new PatientSelect(cndIO));
+		currentFrame.getContentPane().add(new PatientSelect(cndIO, AIDS, names));
 		currentFrame.setVisible(true);
 	}
 	

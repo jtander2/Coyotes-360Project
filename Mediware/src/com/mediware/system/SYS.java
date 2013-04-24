@@ -199,7 +199,14 @@ public class SYS{
 						// Message has string array created as follows:
 						// Index = 0      1      2      3      4      5     6       7          8           9         10      11         12        13      14    15      16       17        18
 						//      {fname, mname, lname, street, city, state, zip, homephone, workphone, mobilephone, email, provider, policynum, groupnum, dob, height, weight, username, password};
-						client C = new client(paramC[17],paramC[18]); // UN: test PW:test
+						client C;
+					    	if(sysMessages[i].getMessageData().getArguments().length == 1) {
+					    	C = new client(sysMessages[i].getMessageData().getArguments()[0]); // UN: test PW:test
+					}	else {
+					    C = new client(AID);
+					}
+						C.setUsername(paramC[17]);
+						C.setPassword(paramC[18]);
 						C.setFname(paramC[0]);
 						C.setMname(paramC[1]);
 						C.setLname(paramC[2]);
@@ -244,7 +251,8 @@ public class SYS{
 				case sysPatientEditProfileRequest:
 					// Send message to CND to display the edit profile screen with the correct parameters
 					int[] intPs = new int[0];
-					String[] stringPs = {"fname", "mname", "lname", "street", "city", "state", "zip", "homenum", "worknum", "mobilenum", "email", "provider", "policy", "group"};
+					client oc = DB.getClient(AID);
+					String[] stringPs = {oc.getFname(), oc.getMname(), oc.getLname(), oc.getAddress1(), oc.getCity(), oc.getState(), oc.getZip(), oc.getPhoneHome(), oc.getPhoneWork(), oc.getPhoneMobile(), oc.getEmail(), oc.getProvider(), oc.getPolicy(), oc.getGroup()};
 					mData messageD = new mData(intPs, stringPs);
 					partition[] subscriber = {partition.CND};
 					sysIO.createMessageToSend(partition.SYS, subscriber, messageD, mType.cndDisplayPatientProfilePanel);					
@@ -315,6 +323,18 @@ public class SYS{
 				    mData messageD11 = new mData(ids, names);
 				    partition[] subscriber11 = {partition.CND};
 				    sysIO.createMessageToSend(partition.SYS, subscriber11, messageD11, mType.cndPatientSearchReport);
+				    break;
+				    
+				case sysSelectPatient:
+				    	int searchedClientAID = sysMessages[i].getMessageData().getArguments()[0];
+				    
+					int[] intPs1 = {searchedClientAID};
+					client oc1 = DB.getClient(searchedClientAID);
+					String[] stringPs11 = {oc1.getFname(), oc1.getMname(), oc1.getLname(), oc1.getAddress1(), oc1.getCity(), oc1.getState(), oc1.getZip(), oc1.getPhoneHome(), oc1.getPhoneWork(), oc1.getPhoneMobile(), oc1.getEmail(), oc1.getProvider(), oc1.getPolicy(), oc1.getGroup()};
+					mData messageD111 = new mData(intPs1, stringPs11);
+					partition[] subscriber111 = {partition.CND};
+					sysIO.createMessageToSend(partition.SYS, subscriber111, messageD111, mType.cndDisplayPatientProfilePanel);
+				    
 				    break;
 				default:
 					break;					

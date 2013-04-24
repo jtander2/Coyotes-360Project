@@ -40,7 +40,8 @@ public enum mType {
     patientHistoryData,
     patientVitalsEntry, // Integer Arguments - bp, weight, temp, pulse, sugarLevel
     doctorPatientSearchRequest,
-    cndPatientSearchReport
+    cndPatientSearchReport,
+    sysSelectPatient
 }
 
 //patientHistoryRequest - 1 arg - String - type of data being requested
