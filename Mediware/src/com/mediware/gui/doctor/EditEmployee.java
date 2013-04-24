@@ -374,6 +374,21 @@ public class EditEmployee extends JPanel implements ActionListener {
 		if (event.getSource() == btnSaveChanges)
 		{	// Save Changes button was clicked
 			
+			//Takes in string parameters to be updated in the db for the current patient who is logged in
+			// Index = 0      1      2      3       4     5     6      7       8         9         10      11       12      13
+			//      {fname, mname, lname, street, city, state, zip, homenum, worknum, mobilenum, email, provider, policy, group}
+			int[] intParams = new int[0];
+			String[] stringParams = {textFieldFirstName.getText(), textFieldMiddleName.getText(), 
+									 textFieldLastName.getText(),  textFieldStreet.getText(), 
+									 textFieldCity.getText(),      textFieldState.getText(), 
+									 textFieldZipCode.getText(),   textFieldHomePhone.getText(), 
+									 textFieldWorkPhone.getText(), textFieldMobilePhone.getText(), 
+									 textFieldEmail.getText(), "" ,"",""    /*textFieldProvider.getText(), 
+									 textFieldPolicy.getText(),    textFieldGroup.getText()*/};			
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysUpdatePatient);
+			
         }
 		else if (event.getSource() == btnCancel)
 		{	// Cancel button was pressed
