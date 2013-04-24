@@ -1,5 +1,8 @@
 package com.mediware.system;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import com.mediware.arch.IO;
@@ -24,6 +27,7 @@ public class SYS{
 	private int current_mType;
 	private account current_Account;
 	private int mPerm;
+	private int AID;
 	
 	//constructor - IO as an argument.
 	public SYS(IO theIO){
@@ -57,7 +61,7 @@ public class SYS{
 		    		if (log.authenticate(loginParams[0], loginParams[1]))
 		    		{	
 		    			//get AID
-		    			int AID = DB.findUserPass(loginParams[0], loginParams[1]);
+		    		    	AID = DB.findUserPass(loginParams[0], loginParams[1]);
 		    			
 		    			System.out.println("AID: " + AID);
 		    			//determine permissions
@@ -285,6 +289,11 @@ public class SYS{
 				    sysIO.createMessageToSend(partition.SYS, subscriber1, messageD1, mType.patientHistoryData);
 
 				    break;
+				case patientVitalsEntry:
+				    bloodpressure newBP = new bloodpressure(AID, sysMessages[i].getMessageData().getArguments()[4] + "", sysMessages[i].getMessageData().getArguments()[0] + "", sysMessages[i].getMessageData().getArguments()[3] + "", sysMessages[i].getMessageData().getArguments()[2] + "", sysMessages[i].getMessageData().getArguments()[1] + "");
+				    DB.getClient(AID).getBP().add(newBP);
+					
+					break;
 				default:
 					break;					
 			}

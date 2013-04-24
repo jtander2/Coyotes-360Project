@@ -118,7 +118,7 @@ public class PatientVitalsPanel extends JPanel implements ActionListener {
 		textFieldTemperature.setColumns(10);
 		
 		JComboBox comboBoxTemp = new JComboBox();
-		comboBoxTemp.setModel(new DefaultComboBoxModel(new String[] {"\u00B0F", "\u00B0C"}));
+		comboBoxTemp.setModel(new DefaultComboBoxModel(new String[] {"\u00B0F"}));
 		comboBoxTemp.setMaximumRowCount(2);
 		GridBagConstraints gbc_comboBoxTemp = new GridBagConstraints();
 		gbc_comboBoxTemp.insets = new Insets(0, 0, 5, 5);
@@ -145,7 +145,7 @@ public class PatientVitalsPanel extends JPanel implements ActionListener {
 		textFieldWeight.setColumns(10);
 		
 		JComboBox comboBoxWeight = new JComboBox();
-		comboBoxWeight.setModel(new DefaultComboBoxModel(new String[] {"lbs", "kg"}));
+		comboBoxWeight.setModel(new DefaultComboBoxModel(new String[] {"lbs"}));
 		comboBoxWeight.setMaximumRowCount(2);
 		GridBagConstraints gbc_comboBoxWeight = new GridBagConstraints();
 		gbc_comboBoxWeight.insets = new Insets(0, 0, 5, 5);
@@ -172,7 +172,7 @@ public class PatientVitalsPanel extends JPanel implements ActionListener {
 		textFieldSugarLevel.setColumns(10);
 		
 		JComboBox comboBoxSugar = new JComboBox();
-		comboBoxSugar.setModel(new DefaultComboBoxModel(new String[] {"Mmol/L", "mg/dL"}));
+		comboBoxSugar.setModel(new DefaultComboBoxModel(new String[] {"Mmol/L"}));
 		comboBoxSugar.setMaximumRowCount(2);
 		GridBagConstraints gbc_comboBoxSugar = new GridBagConstraints();
 		gbc_comboBoxSugar.insets = new Insets(0, 0, 5, 5);
@@ -220,10 +220,39 @@ public class PatientVitalsPanel extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent event) {
 		// Check which button was clicked on
-		if (event.getSource() == btnSubmit)
-		{	// Submit vitals button was pressed
-			
-        }
+		if (event.getSource() == btnSubmit){
+		    
+		    try {
+		
+		int bp =   		Integer.parseInt(textFieldBloodPressure.getText());
+		int weight =   		Integer.parseInt(textFieldWeight.getText());
+		int temp =  		Integer.parseInt(textFieldTemperature.getText());
+		int pulse =   		Integer.parseInt(textFieldPulse.getText());
+		int sugarLevel =	Integer.parseInt(textFieldSugarLevel.getText());
+		
+		if(bp <= 0 || weight <= 0 || temp <= 0 || pulse <= 0 || sugarLevel <= 0) {
+			int[] intParams = new int[0];
+			String[] stringParams = {"Enter in valid parameter!", "Vitals Entry Error"};
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayErrorDialog);
+		} else {
+			int[] intParams = {bp, weight, temp, pulse, sugarLevel};
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.patientVitalsEntry);
+		}
+		
+		    }catch(NumberFormatException e){
+			int[] intParams = new int[0];
+			String[] stringParams = {"Enter in all fields!", "Vitals Entry Error"};
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayErrorDialog);
+		    }
+		    
+		}
 		else if (event.getSource() == btnCancel)
 		{	// Messages / Alerts button was clicked
 			int[] intParams = new int[0];

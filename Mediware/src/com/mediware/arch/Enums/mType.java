@@ -37,7 +37,8 @@ public enum mType {
 									//      {fname, mname, lname, street, city, state, zip, homenum, worknum, mobilenum, email, provider, policy, group}
     sysGoToMenu,				//This will figure out what the current permissions of the logged in user are and call either cndDisplayDoctorMainPanel, cndDisplayNurseMainPanel, cndDisplayPatientMenuPanel, or cndDisplayPatientProfilePanel accordingly
     patientHistoryRequest,
-    patientHistoryData
+    patientHistoryData,
+    patientVitalsEntry // Integer Arguments - bp, weight, temp, pulse, sugarLevel
 }
 
 //patientHistoryRequest - 1 arg - String - type of data being requested
