@@ -291,7 +291,9 @@ public class SYS{
 				    break;
 				case patientVitalsEntry:
 				    bloodpressure newBP = new bloodpressure(AID, sysMessages[i].getMessageData().getArguments()[4] + "", sysMessages[i].getMessageData().getArguments()[0] + "", sysMessages[i].getMessageData().getArguments()[3] + "", sysMessages[i].getMessageData().getArguments()[2] + "", sysMessages[i].getMessageData().getArguments()[1] + "");
-				    DB.getClient(AID).getBP().add(newBP);
+				    client fucker = DB.getClient(AID);
+				    fucker.getBP().add(newBP);
+				    DB.editClient(fucker);
 					
 					break;
 				default:
