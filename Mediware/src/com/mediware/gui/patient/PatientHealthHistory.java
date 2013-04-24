@@ -75,7 +75,7 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 		JComboBox<String> comboBoxVitalStat = new JComboBox<String>();
 		comboBoxVitalStat.setMaximumRowCount(5);
 		comboBoxVitalStat.setModel(new DefaultComboBoxModel<String>(new String[] {"Blood Pressure", "Pulse", "Temperature", "Weight", "Sugar/Glucose Level"}));
-		comboBoxVitalStat.setSelectedItem(pStringData[0]);			//set the combobox to display whatever string type is passed in
+		comboBoxVitalStat.setSelectedItem(1);			//set the combobox to display whatever string type is passed in
 		GridBagConstraints gbc_comboBoxVitalStat = new GridBagConstraints();
 		gbc_comboBoxVitalStat.gridwidth = 2;
 		gbc_comboBoxVitalStat.insets = new Insets(0, 0, 5, 5);
@@ -145,14 +145,10 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 	    
     public PatientHealthData getGraph() {
 		return graph;
-<<<<<<< HEAD
 	    }
 	    
 	    public void setMaxLabel() {
 		maxLabel.setText(graph.max + "");
 	    }
-=======
-    }
->>>>>>> d7f87430f5011e4070ee62bebf07dd66124dbcc3
 }
 

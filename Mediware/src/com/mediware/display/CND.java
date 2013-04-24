@@ -120,6 +120,7 @@ public class CND {
 					break;
 					
 				case patientHistoryData:
+						
 				    	drawHealthHistory(cndMessages[i].getMessageData().getArguments());
 				    	break;
 				default:
@@ -365,14 +366,14 @@ public class CND {
 	//Graph drawing
 	public void drawHealthHistory(int[] data) {
 	 
-	    PatientHealthHistory.findUpperBound(data);
-	    for(int i = 0; i < currentFrame.getComponentCount(); i++) {
-		if(currentFrame.getComponent(i) instanceof PatientHealthHistory) {
-		    ((PatientHealthHistory)currentFrame.getComponent(0)).getGraph().repaint();
-		    ((PatientHealthHistory)currentFrame.getComponent(0)).setMaxLabel();
+	     int max = PatientHealthHistory.findUpperBound(data);
+	    for(int i = 0; i < currentFrame.getContentPane().getComponentCount(); i++) {
+		if(currentFrame.getContentPane().getComponent(i) instanceof PatientHealthHistory) {
+		    ((PatientHealthHistory)currentFrame.getContentPane().getComponent(i)).getGraph().addData(data, max);
+		    ((PatientHealthHistory)currentFrame.getContentPane().getComponent(i)).getGraph().repaint();
+		    ((PatientHealthHistory)currentFrame.getContentPane().getComponent(i)).setMaxLabel();
 		}
 	    }
-
 	
 	}
 	

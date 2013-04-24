@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 
 public class PatientHealthData extends JPanel{
     
-    int max = 100;
-    int[] data = {1, 2, 4, 8, 16, 32, 64};
+    int max = 0;
+    int[] data = {0};
     
     public void addData(int[] data, int max) {
 	

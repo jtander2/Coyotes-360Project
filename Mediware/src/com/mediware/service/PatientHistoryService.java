@@ -24,7 +24,7 @@ public class PatientHistoryService {
 		    return tempData;
 		    
 		case "Blood Pressure":
-		    int[] bloodData = {85};
+		    int[] bloodData = {85, 50, 23};
 		    return bloodData;
 		    
 		case "Weight":
