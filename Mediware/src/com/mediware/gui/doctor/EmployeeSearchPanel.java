@@ -100,6 +100,7 @@ public class EmployeeSearchPanel extends JPanel implements ActionListener {
 		gbc_btnSearch.gridx = 1;
 		gbc_btnSearch.gridy = 6;
 		add(btnSearch, gbc_btnSearch);
+		btnSearch.addActionListener(this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -107,6 +108,7 @@ public class EmployeeSearchPanel extends JPanel implements ActionListener {
 		gbc_btnCancel.gridx = 3;
 		gbc_btnCancel.gridy = 6;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener(this);
 
 	}
 	
@@ -115,18 +117,18 @@ public class EmployeeSearchPanel extends JPanel implements ActionListener {
 		if (event.getSource() == btnSearch)
 		{	// Search button was clicked
 			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
+			String[] stringParams = {textFieldLastName.getText()};
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.doctorEmployeeSearchRequest);
         }
 		else if (event.getSource() == btnCancel)
 		{	// Cancel button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
         }
 		
 		

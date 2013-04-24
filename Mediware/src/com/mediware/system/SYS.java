@@ -306,6 +306,7 @@ public class SYS{
 				    
 					break;
 				case doctorPatientSearchRequest:
+				{
 				    String lastName = sysMessages[i].getMessageData().getLabels()[0];
 				    userinfo searchClient = new userinfo();
 				    searchClient.setLname(lastName);
@@ -316,26 +317,62 @@ public class SYS{
 				    int[] ids = new int[clients.length];
 				    
 				    for(int index = 0; index < clients.length; index++) {
-					names[i] = ((client)clients[i]).getFname() + " " + ((client)clients[i]).getLname();
-					ids[i] = ((client)clients[i]).getAID();
+				    	names[i] = ((client)clients[i]).getFname() + " " + ((client)clients[i]).getLname();
+				    	ids[i] = ((client)clients[i]).getAID();
 				    }
 				    
 				    mData messageD11 = new mData(ids, names);
 				    partition[] subscriber11 = {partition.CND};
 				    sysIO.createMessageToSend(partition.SYS, subscriber11, messageD11, mType.cndPatientSearchReport);
+				}
 				    break;
+				case doctorEmployeeSearchRequest:
+				{
+					String lastName = sysMessages[i].getMessageData().getLabels()[0];
+				    userinfo searchEmployee = new userinfo();
+				    searchEmployee.setLname(lastName);
 				    
+				    System.out.println("Last name is: " +searchEmployee.getLname());
+				    Object[] employees = DB.findEmpByInfo(searchEmployee).toArray();
+				    System.out.println(employees.length);
+				    
+				    
+				    String[] names = new String[employees.length];
+				    int[] ids = new int[employees.length];
+				    
+				    for(int index = 0; index < employees.length; index++) {
+				    	names[i] = ((employee)employees[i]).getFname() + " " + ((employee)employees[i]).getLname();
+				    	System.out.println(names[i]);
+				    	ids[i] = ((employee)employees[i]).getAID();
+				    }
+				    mData messageD11 = new mData(ids, names);
+				    partition[] subscriber11 = {partition.CND};
+				    sysIO.createMessageToSend(partition.SYS, subscriber11, messageD11, mType.cndEmployeeSearchReport);
+				}
+					break;
 				case sysSelectPatient:
-				    	int searchedClientAID = sysMessages[i].getMessageData().getArguments()[0];
+				{
+				    int searchedClientAID = sysMessages[i].getMessageData().getArguments()[0];
 				    
 					int[] intPs1 = {searchedClientAID};
 					client oc1 = DB.getClient(searchedClientAID);
 					String[] stringPs11 = {oc1.getFname(), oc1.getMname(), oc1.getLname(), oc1.getAddress1(), oc1.getCity(), oc1.getState(), oc1.getZip(), oc1.getPhoneHome(), oc1.getPhoneWork(), oc1.getPhoneMobile(), oc1.getEmail(), oc1.getProvider(), oc1.getPolicy(), oc1.getGroup()};
 					mData messageD111 = new mData(intPs1, stringPs11);
 					partition[] subscriber111 = {partition.CND};
-					sysIO.createMessageToSend(partition.SYS, subscriber111, messageD111, mType.cndDisplayPatientProfilePanel);
-				    
+					sysIO.createMessageToSend(partition.SYS, subscriber111, messageD111, mType.cndDisplayPatientProfilePanel);	
+				}
 				    break;
+				case sysSelectEmployee:
+				{
+				    int searchedemployeetAID = sysMessages[i].getMessageData().getArguments()[0];
+					int[] intPs1 = {searchedemployeetAID};
+					client oc1 = DB.getClient(searchedemployeetAID);
+					String[] stringPs11 = {oc1.getFname(), oc1.getMname(), oc1.getLname(), oc1.getAddress1(), oc1.getCity(), oc1.getState(), oc1.getZip(), oc1.getPhoneHome(), oc1.getPhoneWork(), oc1.getPhoneMobile(), oc1.getEmail(), oc1.getProvider(), oc1.getPolicy(), oc1.getGroup()};
+					mData messageD111 = new mData(intPs1, stringPs11);
+					partition[] subscriber111 = {partition.CND};
+					sysIO.createMessageToSend(partition.SYS, subscriber111, messageD111, mType.cndDisplayEditEmployee);	
+				}
+			    	break;
 				default:
 					break;					
 			}

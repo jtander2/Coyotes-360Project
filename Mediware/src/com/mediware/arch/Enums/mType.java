@@ -19,6 +19,7 @@ public enum mType {
     cndDisplayPatientMenuPanel,
     cndDisplayPatientVitalsPanel,
     cndDisplayPatientHealthHistory,
+    cndDisplayEmployeeSearchPanel,
     cndDisplayPatientProfilePanel, 	//Takes in string parameters to be displayed to the user originally for updating
     								// Index = 0      1      2      3       4     5     6      7       8         9         10      11       12      13
     								//      {fname, mname, lname, street, city, state, zip, homenum, worknum, mobilenum, email, provider, policy, group}
@@ -40,8 +41,11 @@ public enum mType {
     patientHistoryData,
     patientVitalsEntry, // Integer Arguments - bp, weight, temp, pulse, sugarLevel
     doctorPatientSearchRequest,
+    doctorEmployeeSearchRequest,
     cndPatientSearchReport,
-    sysSelectPatient
+    cndEmployeeSearchReport,
+    sysSelectPatient,
+    sysSelectEmployee
 }
 
 //patientHistoryRequest - 1 arg - String - type of data being requested

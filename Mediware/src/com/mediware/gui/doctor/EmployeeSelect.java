@@ -6,7 +6,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractListModel;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
@@ -23,13 +25,23 @@ public class EmployeeSelect extends JPanel implements ActionListener {
 	private JButton btnCancel;
 	private JButton btnView;
 	private IO io;
+	private JList list;
+	private int[] aids;
 
 	/**
 	 * Create the panel.
 	 * @param cndIO 
+	 * @param stringParams 
+	 * @param intParams 
 	 */
-	public EmployeeSelect(IO cndIO) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public EmployeeSelect(IO cndIO, int[] intParams, String[] stringParams) {
 		this.io = cndIO;
+		
+		for(int i = 0; i < stringParams.length; i++) {
+			System.out.println(stringParams[i]);
+		}
+		
 		
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Employee Select", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -39,15 +51,34 @@ public class EmployeeSelect extends JPanel implements ActionListener {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JTextArea textAreaEmployeeSelect = new JTextArea();
-		GridBagConstraints gbc_textAreaEmployeeSelect = new GridBagConstraints();
-		gbc_textAreaEmployeeSelect.gridheight = 3;
-		gbc_textAreaEmployeeSelect.gridwidth = 9;
-		gbc_textAreaEmployeeSelect.insets = new Insets(0, 0, 5, 5);
-		gbc_textAreaEmployeeSelect.fill = GridBagConstraints.BOTH;
-		gbc_textAreaEmployeeSelect.gridx = 1;
-		gbc_textAreaEmployeeSelect.gridy = 1;
-		add(textAreaEmployeeSelect, gbc_textAreaEmployeeSelect);
+		aids = intParams;
+		String[] listStuff = new String[stringParams.length+1];
+		listStuff[0] = "ID      NAME";
+		for(int i = 0; i < stringParams.length; i++) {
+		    listStuff[i+1] = intParams[i] + "    " + stringParams[i];
+		}
+		
+		final String[] listElements = listStuff;
+		
+		list = new JList();
+		list.setModel(new AbstractListModel() {
+			String[] values = listElements;
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		
+		GridBagConstraints gbc_list = new GridBagConstraints();
+		gbc_list.gridwidth = 9;
+		gbc_list.gridheight = 3;
+		gbc_list.insets = new Insets(0, 0, 5, 5);
+		gbc_list.fill = GridBagConstraints.BOTH;
+		gbc_list.gridx = 1;
+		gbc_list.gridy = 1;
+		add(list, gbc_list);
 		
 		btnView = new JButton("View");
 		GridBagConstraints gbc_btnView = new GridBagConstraints();
@@ -55,6 +86,7 @@ public class EmployeeSelect extends JPanel implements ActionListener {
 		gbc_btnView.gridx = 7;
 		gbc_btnView.gridy = 5;
 		add(btnView, gbc_btnView);
+		btnView.addActionListener(this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -62,6 +94,7 @@ public class EmployeeSelect extends JPanel implements ActionListener {
 		gbc_btnCancel.gridx = 9;
 		gbc_btnCancel.gridy = 5;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener(this);
 
 	}
 	
@@ -69,19 +102,24 @@ public class EmployeeSelect extends JPanel implements ActionListener {
 		// Check which button was clicked on
 		if (event.getSource() == btnView)
 		{	// View button was clicked
-			int[] intParams = new int[0];
+		    System.out.println(list.getSelectedIndex() + "");
+		    	if(list.getSelectedIndex() <= 0) {
+		    	    return;
+		    	}
+		    	
+			int[] intParams = {aids[list.getSelectedIndex()-1]};
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysSelectEmployee);
         }
 		else if (event.getSource() == btnCancel)
 		{	// Cancel button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
         }
 	}
 

@@ -130,11 +130,15 @@ public class CND {
 				case patientHistoryData:
 				    drawHealthHistory(cndMessages[i].getMessageData().getArguments());
 				    break;
-				    
 				case cndPatientSearchReport:
 				    displayPatientSelect(cndMessages[i].getMessageData().getArguments(), cndMessages[i].getMessageData().getLabels());
-				    
 				    break;
+				case cndEmployeeSearchReport:
+				    displayEmployeeSelect(cndMessages[i].getMessageData().getArguments(), cndMessages[i].getMessageData().getLabels());
+				    break;
+				case cndDisplayEmployeeSearchPanel:
+					displayEmployeeSearchPanel();
+					break;
 				default:
 					break;					
 			}
@@ -248,10 +252,10 @@ public class CND {
 		currentFrame.setVisible(true);
 	}
 	
-	public void displayEmployeeSelect() {
+	public void displayEmployeeSelect(int[] intParams, String[] stringParams) {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new EmployeeSelect(cndIO));
+		currentFrame.getContentPane().add(new EmployeeSelect(cndIO, intParams, stringParams));
 		currentFrame.setVisible(true);
 	}
 	

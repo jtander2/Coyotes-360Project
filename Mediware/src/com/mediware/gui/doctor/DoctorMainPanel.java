@@ -164,7 +164,7 @@ public class DoctorMainPanel extends JPanel  implements ActionListener, MouseLis
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayEditEmployee);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayEmployeeSearchPanel);
         }
 	}
 		

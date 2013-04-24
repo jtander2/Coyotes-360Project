@@ -1,17 +1,18 @@
 package com.mediware.gui.doctor;
 
 import java.awt.GridBagConstraints;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import javax.swing.border.TitledBorder;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.AbstractListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+
 import com.mediware.arch.IO;
 import com.mediware.arch.mData;
 import com.mediware.arch.Enums.mType;
@@ -112,8 +113,8 @@ public class PatientSelect extends JPanel implements ActionListener {
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
         }
 		
 	}
