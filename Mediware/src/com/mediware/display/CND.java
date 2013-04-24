@@ -3,12 +3,15 @@ package com.mediware.display;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.mediware.arch.IO;
 import com.mediware.arch.Message;
+import com.mediware.arch.mData;
+import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 import com.mediware.gui.LoginPanel;
 import com.mediware.gui.MessagePanel;
@@ -117,12 +120,16 @@ public class CND {
 					int[] historyInts = cndMessages[i].getMessageData().getArguments();
 					String[] historyStrings = cndMessages[i].getMessageData().getLabels();
 					displayPatientHealthHistory(historyInts, historyStrings);
+					// After the page is displayed send a message to SYS to start fetching the graph
+					int[] intParams = new int[0];
+					String[] stringParams = { "Blood Pressure" };
+					mData messageData = new mData(intParams, stringParams);
+					partition[] subscribers = { partition.SYS };
+					cndIO.createMessageToSend(partition.CND, subscribers, messageData, mType.patientHistoryRequest);
 					break;
-					
 				case patientHistoryData:
-						
-				    	drawHealthHistory(cndMessages[i].getMessageData().getArguments());
-				    	break;
+				    drawHealthHistory(cndMessages[i].getMessageData().getArguments());
+				    break;
 				default:
 					break;					
 			}
@@ -366,7 +373,7 @@ public class CND {
 	//Graph drawing
 	public void drawHealthHistory(int[] data) {
 	 
-	     int max = PatientHealthHistory.findUpperBound(data);
+	    int max = PatientHealthHistory.findUpperBound(data);
 	    for(int i = 0; i < currentFrame.getContentPane().getComponentCount(); i++) {
 		if(currentFrame.getContentPane().getComponent(i) instanceof PatientHealthHistory) {
 		    ((PatientHealthHistory)currentFrame.getContentPane().getComponent(i)).getGraph().addData(data, max);
