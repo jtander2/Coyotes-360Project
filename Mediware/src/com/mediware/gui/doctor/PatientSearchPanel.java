@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.acl.LastOwnerException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -67,58 +68,6 @@ public class PatientSearchPanel extends JPanel implements ActionListener {
 		add(textFieldLastName, gbc_textFieldLastName);
 		textFieldLastName.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("OR");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 3;
-		add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Phone #");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 1;
-		gbc_lblNewLabel_2.gridy = 4;
-		add(lblNewLabel_2, gbc_lblNewLabel_2);
-		
-		textFieldPhoneNumber = new JTextField();
-		GridBagConstraints gbc_textFieldPhoneNumber = new GridBagConstraints();
-		gbc_textFieldPhoneNumber.gridwidth = 2;
-		gbc_textFieldPhoneNumber.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldPhoneNumber.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldPhoneNumber.gridx = 2;
-		gbc_textFieldPhoneNumber.gridy = 4;
-		add(textFieldPhoneNumber, gbc_textFieldPhoneNumber);
-		textFieldPhoneNumber.setColumns(10);
-		
-		JLabel lblNewLabel_5 = new JLabel("OR");
-		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-		gbc_lblNewLabel_5.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_5.gridx = 1;
-		gbc_lblNewLabel_5.gridy = 5;
-		add(lblNewLabel_5, gbc_lblNewLabel_5);
-		
-		JLabel lblNewLabel_3 = new JLabel("Date of Birth:");
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_3.gridx = 1;
-		gbc_lblNewLabel_3.gridy = 6;
-		add(lblNewLabel_3, gbc_lblNewLabel_3);
-		
-		textFieldDOB = new JTextField();
-		GridBagConstraints gbc_textFieldDOB = new GridBagConstraints();
-		gbc_textFieldDOB.gridwidth = 2;
-		gbc_textFieldDOB.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldDOB.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldDOB.gridx = 2;
-		gbc_textFieldDOB.gridy = 6;
-		add(textFieldDOB, gbc_textFieldDOB);
-		textFieldDOB.setColumns(10);
-		
 		btnSearch = new JButton("Search");
 		GridBagConstraints gbc_btnSearch = new GridBagConstraints();
 		gbc_btnSearch.gridwidth = 2;
@@ -143,10 +92,10 @@ public class PatientSearchPanel extends JPanel implements ActionListener {
 		if (event.getSource() == btnSearch)
 		{	// Patient Search button was clicked
 			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
+			String[] stringParams = {textFieldLastName.getText()};
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			//io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.doctorPatientSearchRequest);
         }
 		else if (event.getSource() == btnCancel)
 		{	// Cancel button was pressed

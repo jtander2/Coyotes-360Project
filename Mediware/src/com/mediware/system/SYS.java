@@ -297,6 +297,25 @@ public class SYS{
 				    DB.editClient(fucker);
 				    
 					break;
+				case doctorPatientSearchRequest:
+				    String lastName = sysMessages[i].getMessageData().getLabels()[0];
+				    userinfo searchClient = new userinfo();
+				    searchClient.setLname(lastName);
+				    
+				    Object[] clients = DB.findClientByInfo(searchClient).toArray();
+				    
+				    String[] names = new String[clients.length];
+				    int[] ids = new int[clients.length];
+				    
+				    for(int index = 0; index < clients.length; index++) {
+					names[i] = ((client)clients[i]).getFname() + " " + ((client)clients[i]).getLname();
+					ids[i] = ((client)clients[i]).getAID();
+				    }
+				    
+				    mData messageD11 = new mData(ids, names);
+				    partition[] subscriber11 = {partition.CND};
+				    sysIO.createMessageToSend(partition.SYS, subscriber11, messageD11, mType.cndPatientSearchReport);
+				    break;
 				default:
 					break;					
 			}

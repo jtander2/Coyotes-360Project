@@ -19,7 +19,7 @@ public class userinfo extends account
 	protected String phoneMobile;
 	protected String phoneHome;
 	
-	userinfo()
+	public userinfo()
 	{
 		//Basic user information
 		Fname = new String();
