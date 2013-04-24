@@ -201,7 +201,7 @@ public class datadriver
 	{
 		List<Integer> aList = new ArrayList<Integer>();
 		client oClient = new client();
-		oClient.setPermissions(0);
+		oClient.setPermissions(1);
 		
 		aList = db.findAccount(oClient.getAccount());
 		

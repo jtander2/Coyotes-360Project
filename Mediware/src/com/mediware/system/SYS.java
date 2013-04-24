@@ -282,7 +282,7 @@ public class SYS{
 				    String type = sysMessages[i].getMessageData().getLabels()[0];
 				    PatientHistoryService phs = new PatientHistoryService(DB);
 				    
-				    int[] data = phs.process(type);
+				    int[] data = phs.process(type, AID);
 				    String[] stringPs1 = {type};
 				    mData messageD1 = new mData(data, stringPs1);
 				    partition[] subscriber1 = {partition.CND};
@@ -291,10 +291,11 @@ public class SYS{
 				    break;
 				case patientVitalsEntry:
 				    bloodpressure newBP = new bloodpressure(AID, sysMessages[i].getMessageData().getArguments()[4] + "", sysMessages[i].getMessageData().getArguments()[0] + "", sysMessages[i].getMessageData().getArguments()[3] + "", sysMessages[i].getMessageData().getArguments()[2] + "", sysMessages[i].getMessageData().getArguments()[1] + "");
-				    client fucker = DB.getClient(AID);
-				    fucker.getBP().add(newBP);
+				    
+					client fucker = DB.getClient(AID);
+					fucker.getBP().add(newBP);
 				    DB.editClient(fucker);
-					
+				    
 					break;
 				default:
 					break;					

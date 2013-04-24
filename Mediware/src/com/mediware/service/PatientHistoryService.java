@@ -1,7 +1,7 @@
 package com.mediware.service;
 
 import com.mediware.data.datadriver;
-
+import com.mediware.data.dataContainers.*;
 
 public class PatientHistoryService {
     
@@ -11,28 +11,45 @@ public class PatientHistoryService {
 		this.DB = driver;
     }
     
-    public int[] process(String type) {
+    public int[] process(String type, int AID) {
+	client oClient = DB.getClient(AID);
 	
 	switch(type) {
 		case "Pulse":
-		    	//TODO: Get database values rather than hardcoded
-		    int[] pulseData = {100, 125, 135, 90, 20};
+		   int[] pulseData = new int[oClient.getBP().size()-1];
+		   
+		   for(int i = 1; i < oClient.getBP().size(); i++)
+			   pulseData[i-1] = Integer.parseInt(oClient.getBP().get(i).getPulse());
+			   
 		    return pulseData;
 		
 		case "Temperature":
-		    int[] tempData = {97, 105, 101, 99, 98};
+			int[] tempData = new int[oClient.getBP().size()-1];
+			   
+			for(int i = 1; i < oClient.getBP().size(); i++)
+				tempData[i-1] = Integer.parseInt(oClient.getBP().get(i).getTemp());
+			
 		    return tempData;
 		    
 		case "Blood Pressure":
-		    int[] bloodData = {85, 50, 23};
-		    return bloodData;
+			int[] bloodPressure = new int[oClient.getBP().size()-1];
+			   
+			for(int i = 1; i < oClient.getBP().size(); i++)
+				bloodPressure[i-1] = Integer.parseInt(oClient.getBP().get(i).getBP());
+		    return bloodPressure;
 		    
 		case "Weight":
-		    int[] weightData = {125, 135, 145, 155, 165};
+			int[] weightData = new int[oClient.getBP().size()-1];
+			   
+			for(int i = 1; i < oClient.getBP().size(); i++)
+				weightData[i-1] = Integer.parseInt(oClient.getBP().get(i).getWeight());
 		    return weightData;
 		    
 		case "Sugar/Glucose Level":
-		    int[] sugarData = {87, 80, 75, 70, 80};
+			int[] sugarData = new int[oClient.getBP().size()-1];
+			   
+			for(int i = 1; i < oClient.getBP().size(); i++)
+				sugarData[i-1] = Integer.parseInt(oClient.getBP().get(i).getDate());
 		    return sugarData;
 		    
 		default:
