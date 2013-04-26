@@ -526,7 +526,7 @@ public class database
 			
 			
 			if(!acnt.getFname().isEmpty())
-				sqlCommand += "AND fname LIKE'"+ acnt.getFname() + "%' ";
+				sqlCommand += "AND fname LIKE '"+ acnt.getFname() + "%' ";
 			
 			if(!acnt.getMname().isEmpty())
 				sqlCommand += "AND mname LIKE '"+ acnt.getMname() + "%' ";
@@ -959,6 +959,58 @@ public class database
 			}
 		}	
 		return oEmployee;
+	}
+	
+	//Gets an employee by empID returns AID, -1 if DNE.
+	public int getEmployeebyEMPID(int empID)
+	{
+		String sqlCommand = "SELECT * FROM " + employeeinfoLocation + " WHERE ";
+		ResultSet result = null;
+		employee oEmployee = new employee(-1);
+			
+		sqlCommand += "empID='"+ empID + "'";		//TODO Check to make sure this is right
+			
+		Connection connection = null;
+		Statement statement = null;
+			
+		//Gets the account information
+		try 
+		{
+			Class.forName("org.sqlite.JDBC");	//Checks to see if we have the correct packaged installed
+			connection = DriverManager.getConnection(connectionString);	//connects to the DB
+				
+			statement = connection.createStatement();
+			result = statement.executeQuery(sqlCommand);
+			try {
+				while(result.next())
+				{
+					oEmployee.setAID(result.getInt("AID"));
+					oEmployee.setEmpNum(result.getInt("empNum"));
+				}
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+				
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				connection.close();
+				result.close();
+				statement.close();
+			}
+			catch (Exception e )
+			{
+				e.printStackTrace();
+			}
+		}	
+		return oEmployee.getAID();
 	}
 	
 	//This command gets account information based from the AID

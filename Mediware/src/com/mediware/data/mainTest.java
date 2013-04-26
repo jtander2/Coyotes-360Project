@@ -41,7 +41,7 @@ public class mainTest {
 			System.out.println("O	-	List all of the Clients AIDs.");
 			System.out.println("L	-	List all of the Employee AIDs.");
 			System.out.println("M	-	Runs a 'like' search for a client's first name.");
-			System.out.println("T	-	Runs a 'like' search for a Empoloyee's first name.");
+			System.out.println("T	-	Runs a 'like' search for a Empoloyee's last name.");
 			System.out.println("Q	-	Quit");
 			
 			choice = input.nextLine();
@@ -329,10 +329,10 @@ public class mainTest {
 				
 			//Runs a 'Like' Search for the first name of a client
 			case "T":
-				System.out.println("Type in the first name of the client: ");
+				System.out.println("Type in the last name of the employee: ");
 				String fname = input.nextLine();
-				oEmployee.setFname(fname);
-				System.out.println("We found clients: ");
+				oEmployee.setLname(fname);
+				System.out.println("We found emp: ");
 				System.out.println(dd.findEmpByInfo(oEmployee.getUserInfo()));
 				break;
 				

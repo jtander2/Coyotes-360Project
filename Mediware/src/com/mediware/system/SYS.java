@@ -130,16 +130,33 @@ public class SYS{
 					
 					String[] paramE = sysMessages[i].getMessageData().getLabels();
 					
-					//first check and make sure username is available -- uncomment once isUsernameAvail()
-					//method is written.....
+					//first check and make sure username is available
 						if(DB.isUsernameAvail(paramE[14])) {
-						int[] intParams = new int[0];
-		    			String[] stringParams = {"Cannot use this username. Please select a new one.", "Create Patient Error"};
-		    			mData messageData = new mData(intParams, stringParams);
-		    			partition[] subscribers = {partition.CND};
-		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
-					
-					} 
+							int[] intParams = new int[0];
+			    			String[] stringParams = {"Username is already taken! Please select a new one.", "Create Patient Error"};
+			    			mData messageData = new mData(intParams, stringParams);
+			    			partition[] subscribers = {partition.CND};
+			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
+						}
+						
+		    			//Run another check to see if the email we're adding is valid
+		    			if(DB.isEmailAvail(paramE[10])){
+							int[] intParams1 = new int[0];
+			    			String[] stringParams1 = {"Email is already in use! Please select a new one.", "Create Patient Error"};
+			    			mData messageData1 = new mData(intParams1, stringParams1);
+			    			partition[] subscribers1 = {partition.CND};
+			    			sysIO.createMessageToSend(partition.SYS, subscribers1, messageData1, mType.cndDisplayErrorDialog);
+		    			} 
+		    			
+		    			//Run yet another check to see if the empNumber is not in use
+		    			if(DB.isEmpNumAvail(paramE[12])){
+							int[] intParams1 = new int[0];
+			    			String[] stringParams1 = {"That employee number is already in use! Please select a new one.", "Create Patient Error"};
+			    			mData messageData1 = new mData(intParams1, stringParams1);
+			    			partition[] subscribers1 = {partition.CND};
+			    			sysIO.createMessageToSend(partition.SYS, subscribers1, messageData1, mType.cndDisplayErrorDialog);
+		    			} 
+		    			
 					else{						
 						//create and fill out new employee
 						employee E = new employee();

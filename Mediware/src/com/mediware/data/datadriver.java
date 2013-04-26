@@ -271,6 +271,12 @@ public class datadriver
 		return !db.findAccount(oAccount).isEmpty();
 	}
 	
+	public boolean isEmpNumAvail(String number)
+	{
+		db.getEmployeebyEMPID(Integer.parseInt(number));
+		return true;
+	}
+	
 	/*	--------------------------		FIND Functions		-------------------------------
  	-					Commands to find and return data from the DB					  -*/
 	
@@ -305,6 +311,7 @@ public class datadriver
 	//Searches for an employee via the user information like name
 	public List<employee> findEmpByInfo(userinfo oUserInfo)
 	{
+		oUserInfo.setAID(-1);
 		List<employee> lUserInfo = new ArrayList<employee>();
 		List<Integer> lAID = db.searchuserInfo(oUserInfo);
 		
