@@ -122,6 +122,7 @@ public class SYS{
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 		    		}
 					break;
+					
 				case sysCreateEmployee:
 					//create a new employee - insert in database
 					// Message has string array created as follows:
@@ -133,7 +134,7 @@ public class SYS{
 					//first check and make sure username is available
 						if(DB.isUsernameAvail(paramE[14])) {
 							int[] intParams = new int[0];
-			    			String[] stringParams = {"Username is already taken! Please select a new one.", "Create Patient Error"};
+			    			String[] stringParams = {"Username is already taken! Please select a new one.", "Create Employee Error"};
 			    			mData messageData = new mData(intParams, stringParams);
 			    			partition[] subscribers = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
@@ -142,7 +143,7 @@ public class SYS{
 		    			//Run another check to see if the email we're adding is valid
 		    			if(DB.isEmailAvail(paramE[10])){
 							int[] intParams1 = new int[0];
-			    			String[] stringParams1 = {"Email is already in use! Please select a new one.", "Create Patient Error"};
+			    			String[] stringParams1 = {"Email is already in use! Please select a new one.", "Create Employee Error"};
 			    			mData messageData1 = new mData(intParams1, stringParams1);
 			    			partition[] subscribers1 = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers1, messageData1, mType.cndDisplayErrorDialog);
@@ -151,7 +152,7 @@ public class SYS{
 		    			//Run yet another check to see if the empNumber is not in use
 		    			if(DB.isEmpNumAvail(paramE[12])){
 							int[] intParams1 = new int[0];
-			    			String[] stringParams1 = {"That employee number is already in use! Please select a new one.", "Create Patient Error"};
+			    			String[] stringParams1 = {"That employee number is already in use! Please select a new one.", "Create Employee Error"};
 			    			mData messageData1 = new mData(intParams1, stringParams1);
 			    			partition[] subscribers1 = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers1, messageData1, mType.cndDisplayErrorDialog);
@@ -196,7 +197,6 @@ public class SYS{
 		    			mData messageData = new mData(emptyInt, emptyParams);
 		    			partition[] subscribers = {partition.SYS};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.sysGoToMenu);
-					
 					}
 					
 					break;
@@ -238,11 +238,11 @@ public class SYS{
 						C.setProvider(paramC[11]);
 						C.setPolicy(paramC[12]);
 						C.setGroup(paramC[13]);
-						//C.setDOB(paramC[14];
+						//C.setDOB(paramC[14];		//TODO add these data
 						//C.setHeight(paramC[15]);
-						//C.setWeight(paramC[16]);    //these last three need to be added to datadriver()
+						//C.setWeight(paramC[16]);   
 						
-						//insert the newly created employee into the database
+						//insert the newly created patient into the database
 						DB.addClient(C);
 						
 						//Send message back to SYS (self) sysGoToMenu
@@ -265,6 +265,7 @@ public class SYS{
 					partition[] subscribers = {partition.CND};
 					sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayLoginPanel);
 					break;
+					
 				case sysPatientEditProfileRequest:
 					// Send message to CND to display the edit profile screen with the correct parameters
 					int[] intPs = new int[0];
@@ -274,6 +275,7 @@ public class SYS{
 					partition[] subscriber = {partition.CND};
 					sysIO.createMessageToSend(partition.SYS, subscriber, messageD, mType.cndDisplayPatientProfilePanel);					
 					break;
+					
 				case sysUpdatePatient:
 					//for updating patient info
 					System.out.println(this.AID);
@@ -310,6 +312,7 @@ public class SYS{
 	    			sysIO.createMessageToSend(partition.SYS, subscribers_1, message_Data, mType.sysGoToMenu);
 					
 					break;
+					
 				case sysGoToMenu:
 					
 					int[] emptyInts = new int[0];
@@ -334,6 +337,7 @@ public class SYS{
 						sysIO.createMessageToSend(partition.SYS, subscriberCND, emptyData, mType.cndDisplayDoctorMainPanel);
 					}
 					break;
+					
 				case patientHistoryRequest:
 				    //CND is requesting patient history for type of StringArg[0]
 				    

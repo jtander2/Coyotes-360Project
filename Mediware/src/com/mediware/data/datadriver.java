@@ -88,9 +88,9 @@ public class datadriver
 		
 		
 		if ( db.addClientInfo(AID) < 0 )
-			return -6;		//For some reason, the userinfo row didn't get added
+			return -6;		//For some reason, the clientinfo row didn't get added
 		
-		oClient = getClient(AID);
+		oClient.setAID(AID);
 		
 		db.updateBP(oClient.getBP(), AID);
 		db.updateAlerts(oClient.getAlerts(), AID);
