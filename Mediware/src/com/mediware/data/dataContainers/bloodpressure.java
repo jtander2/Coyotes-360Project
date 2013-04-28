@@ -7,6 +7,7 @@ public class bloodpressure
 	private String pulse;
 	private String temp;
 	private String weight;
+	private String sug;
 	
 	public bloodpressure()
 	{
@@ -16,6 +17,7 @@ public class bloodpressure
 		 pulse  = "0" ;
 		 temp  = "0" ;
 		 weight  = "0" ;
+		 sug = "0";
 	}
 	
 	public bloodpressure(int AID)
@@ -26,9 +28,10 @@ public class bloodpressure
 		 pulse  = "0" ;
 		 temp  = "0" ;
 		 weight  = "0" ;
+		 sug = "0";		 
 	}
 	
-	public bloodpressure(int AID, String date, String BP, String pulse, String temp, String weight)
+	public bloodpressure(int AID, String date, String BP, String pulse, String temp, String weight, String sug)
 	{
 		 this.AID = AID;
 		 this.date = date;
@@ -36,8 +39,20 @@ public class bloodpressure
 		 this.pulse = pulse;
 		 this.temp = temp;
 		 this.weight = weight;
+		 this.sug = sug;
 	}
 
+	//Legacy Constructor for using as date -> sug
+	public bloodpressure(int AID, String sug, String BP, String pulse, String temp, String weight)
+	{
+		 this.AID = AID;
+		 this.BP = BP;
+		 this.pulse = pulse;
+		 this.temp = temp;
+		 this.weight = weight;
+		 this.sug = sug;
+	}
+	
 	public int getAID() {
 		return AID;
 	}
@@ -84,6 +99,15 @@ public class bloodpressure
 
 	public void setWeight(String weight) {
 		this.weight = weight;
+	}
+	
+	public void setSug(String sug){
+		this.sug = sug;
+	}
+	
+	public String getSug()
+	{
+		return sug;
 	}
 	
 	

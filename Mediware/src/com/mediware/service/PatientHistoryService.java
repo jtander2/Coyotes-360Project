@@ -49,7 +49,7 @@ public class PatientHistoryService {
 			int[] sugarData = new int[oClient.getBP().size()-1];
 			   
 			for(int i = 1; i < oClient.getBP().size(); i++)
-				sugarData[i-1] = Integer.parseInt(oClient.getBP().get(i).getDate());
+				sugarData[i-1] = Integer.parseInt(oClient.getBP().get(i).getSug());
 		    return sugarData;
 		    
 		default:

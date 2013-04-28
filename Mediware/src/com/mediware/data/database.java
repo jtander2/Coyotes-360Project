@@ -24,6 +24,9 @@ package com.mediware.data;
 		-------------------
 		CHANGELOG for DATABASE layer - database.java
 [ / - Changed | + Feature added | ~Bugfix | - Removed | ->Implemented ] 
+		0.2B	+	new col for clientinfo weight, height, dob
+				+	BP now has col sug 
+
 		0.1B	~ 	~middlename not searching correctly
 				+	wildcard search for userInfo
 				+	Able to search for all employees now
@@ -74,9 +77,9 @@ import com.mediware.data.dataContainers.userinfo;
 		alerts
 			AID		priority	date	 	msg
 		bloodpressure
-			AID		date		BP			pulse	temp		weight
+			AID		date		BP			pulse		temp		weight 		SuguarLevel(sug)
 		clientinfo
-			AID		Provider	Policy		igrp
+			AID		Provider	Policy		igrp  		height 		weight
 		employeeInfo
 			AID		empNum
 		userInfo
@@ -375,7 +378,16 @@ public class database
 		
 		if(!acnt.getGroup().isEmpty())
 			sqlCommand+="AND igrp='"+ acnt.getGroup() + "' ";
+		
+		if(!acnt.getHeight().isEmpty())
+			sqlCommand+="AND height='"+ acnt.getHeight() + "' ";
 	
+		if(!acnt.getWeight().isEmpty())
+			sqlCommand+="AND weight='"+ acnt.getWeight() + "' ";
+		
+		if(!acnt.getDob().isEmpty())
+			sqlCommand+="AND dob='"+ acnt.getDob() + "' ";
+		
 		Connection connection = null;
 		Statement statement = null;
 		
@@ -808,6 +820,7 @@ public class database
 			String pulse = "";
 			String temp = "";
 			String weight = "";
+			String sug = "";
 			
 			
 			//Gets the account information
@@ -827,6 +840,7 @@ public class database
 						pulse = result.getString("pulse");
 						temp = result.getString("temp");
 						weight = result.getString("weight");
+						sug = result.getString("sug");
 					}
 				} catch (SQLException e) 
 				{
@@ -851,7 +865,7 @@ public class database
 					e.printStackTrace();
 				}
 			}	
-			bloodpressures = parseBPs(AID, date, BP, pulse, temp, weight);
+			bloodpressures = parseBPs(AID, date, BP, pulse, temp, weight, sug);
 			return bloodpressures;
 		}
 	
@@ -882,6 +896,9 @@ public class database
 					oClient.setProvider(result.getString("provider"));
 					oClient.setPolicy(result.getString("policy"));
 					oClient.setGroup(result.getString("igrp"));
+					oClient.setHeight("height");
+					oClient.setWeight("weight");
+					oClient.setDob("dob");
 				}
 			} catch (SQLException e) 
 			{
@@ -1283,7 +1300,7 @@ public class database
 		
 		List<String> oTempStrings = unparseBPs(oBP);
 		
-		if(oTempStrings.size() != 5)
+		if(oTempStrings.size() != 6)
 			return -2;
 		
 		//put the data into the Database
@@ -1292,7 +1309,8 @@ public class database
 		sqlCommand += "BP='" + oTempStrings.get(1) + "',";
 		sqlCommand += "pulse='" + oTempStrings.get(2) + "',";
 		sqlCommand += "temp='" + oTempStrings.get(3) + "',";
-		sqlCommand += "weight='" + oTempStrings.get(4) + "'";
+		sqlCommand += "weight='" + oTempStrings.get(4) + "',";
+		sqlCommand += "sug='" + oTempStrings.get(5) + "'";
 		sqlCommand += " WHERE AID='" + AID + "'";	
 		
 		execSqlCommandNoR(sqlCommand);		//executes the command against SQL
@@ -1313,7 +1331,10 @@ public class database
 		String sqlCommand = "UPDATE " + clientinfoTableLocation + " SET ";
 		sqlCommand += "provider='" + oClient.getProvider() + "',";
 		sqlCommand += "policy='" + oClient.getPolicy() + "',";
-		sqlCommand += "igrp='" + oClient.getGroup() + "'";
+		sqlCommand += "igrp='" + oClient.getGroup() + "',";
+		sqlCommand += "height='" + oClient.getHeight() + "',";
+		sqlCommand += "weight='" + oClient.getWeight() + "',";
+		sqlCommand += "dob='" + oClient.getDob() + "'";
 		sqlCommand += " WHERE AID='" + oClient.getAID() + "'";	
 		
 		execSqlCommandNoR(sqlCommand);		//executes the command against SQL
@@ -1570,7 +1591,7 @@ public class database
 	}
 	
 	//Parses a list of Bloodpressures from the DB, inputs are delimed by "|"
-	private List<bloodpressure> parseBPs(int AID, String date, String BP, String pulse, String temp, String weight)
+	private List<bloodpressure> parseBPs(int AID, String date, String BP, String pulse, String temp, String weight, String sug)
 	{
 		List<bloodpressure> bps = new ArrayList<bloodpressure>();
 		
@@ -1586,14 +1607,16 @@ public class database
 		Scanner srcpulse = new Scanner(pulse);
 		Scanner srcTemp = new Scanner(temp);
 		Scanner srcWeight = new Scanner(weight);
+		Scanner srcSug = new Scanner(sug);
 		
 		srcdate.useDelimiter("\\|");
 		srcBP.useDelimiter("\\|");
 		srcpulse.useDelimiter("\\|");
 		srcTemp.useDelimiter("\\|");
 		srcWeight.useDelimiter("\\|");
+		srcSug.useDelimiter("\\|");
 		
-		while(srcdate.hasNext() && srcBP.hasNext() && srcpulse.hasNext() && srcTemp.hasNext() && srcWeight.hasNext())	//Might not parse right if columns in SQL not barred correctly
+		while(srcdate.hasNext() && srcBP.hasNext() && srcpulse.hasNext() && srcTemp.hasNext() && srcWeight.hasNext() && srcSug.hasNext())	//Might not parse right if columns in SQL not barred correctly
 		{
 			bloodpressure BloodPressure = new bloodpressure(AID);
 			
@@ -1602,6 +1625,7 @@ public class database
 			BloodPressure.setPulse(srcpulse.next());
 			BloodPressure.setTemp(srcTemp.next());
 			BloodPressure.setWeight(srcWeight.next());
+			BloodPressure.setSug(srcSug.next());
 			
 			bps.add(BloodPressure);
 		}
@@ -1611,6 +1635,7 @@ public class database
 		srcpulse.close();
 		srcTemp.close();
 		srcWeight.close();
+		srcSug.close();
 		
 		return bps;
 	}
@@ -1624,6 +1649,7 @@ public class database
 		String Pulse = "";
 		String Temp = "";
 		String Weight = "";
+		String Sug = "";
 		
 		Iterator<bloodpressure> sIterator = BPS.iterator();
 		
@@ -1636,13 +1662,15 @@ public class database
 			Pulse +=  sBP.getPulse()+ "|";
 			Temp += sBP.getTemp()+ "|";
 			Weight += sBP.getWeight() + "|";
+			Sug += sBP.getSug() + "|";
 		}
 		
 		sbp.add(Dates);			//[0]  = date
 		sbp.add(BP);			//[1]  = BP
 		sbp.add(Pulse);		//[2]  = pulse
 		sbp.add(Temp);		//[3] = temp
-		sbp.add(Weight);	//[4] weight
+		sbp.add(Weight);	//[4] = weight
+		sbp.add(Sug);		//[5] = 
 		
 		return sbp;
 	}

@@ -141,7 +141,7 @@ public class SYS{
 						}
 						
 		    			//Run another check to see if the email we're adding is valid
-		    			if(DB.isEmailAvail(paramE[10])){
+						else if(DB.isEmailAvail(paramE[10])){
 							int[] intParams1 = new int[0];
 			    			String[] stringParams1 = {"Email is already in use! Please select a new one.", "Create Employee Error"};
 			    			mData messageData1 = new mData(intParams1, stringParams1);
@@ -150,14 +150,14 @@ public class SYS{
 		    			} 
 		    			
 		    			//Run yet another check to see if the empNumber is not in use
-		    			if(DB.isEmpNumAvail(paramE[12])){
+						else if(DB.isEmpNumAvail(paramE[12])){
 							int[] intParams1 = new int[0];
 			    			String[] stringParams1 = {"That employee number is already in use! Please select a new one.", "Create Employee Error"};
 			    			mData messageData1 = new mData(intParams1, stringParams1);
 			    			partition[] subscribers1 = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers1, messageData1, mType.cndDisplayErrorDialog);
 		    			} 
-		    			
+		 
 					else{						
 						//create and fill out new employee
 						employee E = new employee();
@@ -206,11 +206,19 @@ public class SYS{
 					//Example of how to display an error message if username is already in the db
 					if(DB.isUsernameAvail(paramC[17])) {
 						int[] intParams = new int[0];
-		    			String[] stringParams = {"Cannot use this username. Please select a new one.", "Create Patient Error"};
+		    			String[] stringParams = {"This username is already taken! Please select a new one.", "Create Patient Error"};
 		    			mData messageData = new mData(intParams, stringParams);
 		    			partition[] subscribers = {partition.CND};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
-					}else{
+					}
+					else if(DB.isEmailAvail(paramC[10])) {
+						int[] intParams = new int[0];
+		    			String[] stringParams = {"This email is already registered in the database! Select a different one.", "Create Patient Error"};
+		    			mData messageData = new mData(intParams, stringParams);
+		    			partition[] subscribers = {partition.CND};
+		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
+					}
+					else{
 						
 						//create new patient and add to DB
 						// Message has string array created as follows:
@@ -238,9 +246,9 @@ public class SYS{
 						C.setProvider(paramC[11]);
 						C.setPolicy(paramC[12]);
 						C.setGroup(paramC[13]);
-						//C.setDOB(paramC[14];		//TODO add these data
-						//C.setHeight(paramC[15]);
-						//C.setWeight(paramC[16]);   
+						C.setDob(paramC[14]);	
+						C.setHeight(paramC[15]);
+						C.setWeight(paramC[16]);   
 						
 						//insert the newly created patient into the database
 						DB.addClient(C);
@@ -286,6 +294,8 @@ public class SYS{
 		
 					client C = DB.getClient(this.AID);
 					
+					//TODO validate data here, empty data will explode the system
+					
 					//edits database
 					C.setFname(paramCl[0]);
 					C.setMname(paramCl[1]);
@@ -301,8 +311,11 @@ public class SYS{
 					C.setProvider(paramCl[11]);
 					C.setPolicy(paramCl[12]);
 					C.setGroup(paramCl[13]);
+					//TODO add height weight DOB
 					
-					DB.editClient(C);
+					DB.editClient(C);	//TODO make into a condit to see if pass or fail
+					
+					//TODO fix bug that doesn't allow editing of provider policy and group
 					
 					//Send message back to SYS (self) sysGoToMenu
 					int[] emptyInt = new int[0];
@@ -370,8 +383,8 @@ public class SYS{
 				    int[] ids = new int[clients.length];
 				    
 				    for(int index = 0; index < clients.length; index++) {
-					names[i] = ((client)clients[i]).getFname() + " " + ((client)clients[i]).getLname();
-					ids[i] = ((client)clients[i]).getAID();
+					names[index] = ((client)clients[index]).getFname() + " " + ((client)clients[index]).getLname();
+					ids[index] = ((client)clients[index]).getAID();
 				    }
 				    
 				    mData messageD11 = new mData(ids, names);

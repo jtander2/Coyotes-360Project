@@ -23,7 +23,9 @@ package com.mediware.data;
 	THIS VERSION: 0.1 Beta	
 		-------------------
 		CHANGELOG for DATABASE layer - database.java
-[ / - Changed | + Feature added | ~Bugfix | - Removed | ->Implemented ] 
+[ / - Changed | + Feature added | ~Bugfix | - Removed | ->Implemented ]
+		0.2B	~	~Client permission is now 1 and not 0
+ 
 		0.1B	~	+GetAllClients/Employees
 					+gets if an account username and password exists
 					+ability to search 'like' names by using end based wildcard
@@ -69,13 +71,13 @@ public class datadriver
  	-					Commands to add in the database are here						  -*/
 	public int addClient(client oClient)
 	{
-		oClient.setPermissions(0);
+		oClient.setPermissions(1);
 		int AID = db.addAccount(oClient.getAccount());
 		
 		if ( AID < 0 )		//Checks to see if something went wrong
 			return AID;
 		
-		if ( db.addBP(AID) < 0 )
+		if ( db.addBP(AID) < 0 )	//Adds an empty row of BloodPressure
 			return -3;		//For some reason, the BP row didn't get added
 		
 		

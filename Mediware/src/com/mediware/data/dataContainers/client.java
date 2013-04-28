@@ -19,6 +19,12 @@ public class client extends userinfo
 		//Inserts a blank null row for the first instance of BP and Alert
 		 BP.add(new bloodpressure());
 		 Alerts.add(new alert());
+		 
+		 //General patient information
+		 weight = new String();
+		 height = new String();
+		 dob = new String();
+		 
 	}
 	
 	public client(int AID)
@@ -37,6 +43,11 @@ public class client extends userinfo
 		//Inserts a blank null row for the first instance of BP and Alert
 		 BP.add(new bloodpressure(AID));
 		 Alerts.add(new alert(AID));
+		 
+		 //General patient information
+		 weight = new String();
+		 height = new String();
+		 dob = new String();
 	}
 	
 	public client(String username, String password)
@@ -56,6 +67,11 @@ public class client extends userinfo
 		//Inserts a blank null row for the first instance of BP and Alert
 		 BP.add(new bloodpressure());
 		 Alerts.add(new alert());
+		 
+		 //General patient information
+		 weight = new String();
+		 height = new String();
+		 dob = new String();
 	}
 	
 	public client(account oAccount, userinfo oUserInfo, List<bloodpressure> BP, List<alert> Alerts, client oClient)
@@ -94,6 +110,10 @@ public class client extends userinfo
 		provider = oClient.getProvider();
 		policy = oClient.getPolicy();
 		group = oClient.getGroup();
+		
+		weight = oClient.getWeight();
+		height = oClient.getHeight();
+		dob = oClient.getDob();
 	}
 	
 	//Medical Information
@@ -104,6 +124,41 @@ public class client extends userinfo
 	protected String provider;
 	protected String policy;
 	protected String group;
+	
+	//General info
+	protected String weight;
+	protected String height;
+	protected String dob;
+	
+	public void setDob(String dob)
+	{
+		this.dob = dob;
+	}
+	
+	public String getDob()
+	{
+		return dob;
+	}
+	
+	public void setHeight(String height)
+	{
+		this.height = height;
+	}
+	
+	public void setWeight(String weight)
+	{
+		this.weight = weight;
+	}
+	
+	public String getHeight()
+	{
+		return height;
+	}
+	
+	public String getWeight()
+	{
+		return weight;
+	}
 	
 	public List<bloodpressure> getBP() {
 		return BP;
@@ -161,5 +216,4 @@ public class client extends userinfo
 		
 		return  oAccount;
 	}
-	
 }
