@@ -5,6 +5,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +20,7 @@ import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
-public class MessagePanel extends JPanel implements ActionListener {
+public class MessagePanel extends JPanel implements ActionListener, KeyListener {
 
 	private JButton btnViewMessage;
 	private JButton btnDeleteMessage;
@@ -58,6 +60,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 		gbc_btnViewMessage.gridy = 5;
 		add(btnViewMessage, gbc_btnViewMessage);
 		btnViewMessage.addActionListener (this);
+		btnViewMessage.addKeyListener (this);
 		
 		btnDeleteMessage = new JButton("Delete Message");
 		GridBagConstraints gbc_btnDeleteMessage = new GridBagConstraints();
@@ -75,6 +78,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 		gbc_btnCancel.gridy = 5;
 		add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener (this);
+		btnCancel.addKeyListener (this);
 
 	}
 	
@@ -97,13 +101,46 @@ public class MessagePanel extends JPanel implements ActionListener {
 			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
         }
 		else if (event.getSource() == btnCancel)
-		{	// Messages / Alerts button was clicked
+		{	// Cancel button was clicked
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.SYS};
 			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
         }
+		
+	}
+
+	@Override
+public void keyPressed(KeyEvent keyEvent) {	
+		// Check which key was pressed
+		if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER)
+		{	// Enter was pressed for Patient Search
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.CND};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientSearchPanel);
+		}
+		else if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE)
+		{	// Escape button pressed for Cancel
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
+        }
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 

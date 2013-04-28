@@ -5,6 +5,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -22,7 +24,7 @@ import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
-public class ResetPassword extends JPanel implements ActionListener {
+public class ResetPassword extends JPanel implements ActionListener, KeyListener {
 	private JTextField textFieldAnswer1;
 	private JTextField textFieldAnswer2;
 	private JButton btnNext;
@@ -137,5 +139,32 @@ public class ResetPassword extends JPanel implements ActionListener {
         }
 		
 	}
+	
+	@Override
+	public void keyPressed(KeyEvent keyEvent) {
+		// Check to see what was clicked on
+			
+		if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE)
+		{	// Escape button pressed - Cancel
+			int[] intParams = new int[0];
+			String[] stringParams = new String[0];
+			mData messageData = new mData(intParams, stringParams);
+			partition[] subscribers = {partition.SYS};
+			// Go back to Log-In panel
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayLoginPanel);
+		}
+	}
 
-}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	}

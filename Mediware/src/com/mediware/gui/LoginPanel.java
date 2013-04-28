@@ -3,6 +3,8 @@ package com.mediware.gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -10,6 +12,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -22,7 +25,7 @@ import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 
 @SuppressWarnings("serial")
-public class LoginPanel extends JPanel implements ActionListener, MouseListener {
+public class LoginPanel extends JPanel implements ActionListener, MouseListener, KeyListener {
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
 	private JButton btnLogin;
@@ -42,11 +45,13 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 		
 		txtUsername = new JTextField();
 		txtUsername.setColumns(10);
+		txtUsername.addKeyListener(this);
 		
 		JLabel lblPassword = new JLabel("Password:");
 		
 		txtPassword = new JPasswordField();
 		txtPassword.setColumns(10);
+		txtPassword.addKeyListener(this);
 		
 		lblForgotPassword = new JLabel("<html><u>Forgot Password?</u></html>");
 		lblForgotPassword.setForeground(Color.BLUE);
@@ -176,6 +181,43 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener 
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent keyEvent) {
+		
+		
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent keyEvent) {
+		
+		// Check which key was pressed
+		if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER)
+		{	// Enter button was pressed
+			// Create a message of type loginRequest to be sent to SYS with the username and password as
+			// parameters
+			int[] loginInts = new int[0];
+			
+			//getPassword returns character array - must convert to string
+			//before putting into loginParams
+			char[] thePW = txtPassword.getPassword();
+			String strPW = new String(thePW);
+			System.out.println(strPW);
+			
+			//create message and send message to SYS to check if user is valid
+			String[] loginParams = {txtUsername.getText(), strPW};
+			mData messageData = new mData(loginInts, loginParams);
+			partition[] subscribers = {partition.SYS};
+			logIO.createMessageToSend(partition.CND, subscribers, messageData, mType.loginRequest);
+		}
 	}
 }
 
