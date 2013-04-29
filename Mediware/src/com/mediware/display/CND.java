@@ -20,6 +20,7 @@ import com.mediware.gui.RtvPassword;
 import com.mediware.gui.RtvUsername;
 import com.mediware.gui.TempPassword;
 import com.mediware.gui.ViewMessagePanel;
+import com.mediware.gui.sndMessage;
 import com.mediware.gui.doctor.DoctorMainPanel;
 import com.mediware.gui.doctor.EditEmployee;
 import com.mediware.gui.doctor.EmployeeSearchPanel;
@@ -144,6 +145,9 @@ public class CND {
 				case cndDisplayMessage:
 				    displayMessage(cndMessages[i].getMessageData().getLabels()[0]);
 					break;
+				case cndDisplaySendMessage:
+					displaySendMessage();
+					break;
 				default:
 					break;					
 			}
@@ -225,6 +229,12 @@ public class CND {
 		currentFrame.getContentPane().add(new ViewMessagePanel(cndIO));
 		currentFrame.setVisible(true);
 	}
+	
+	public void displaySendMessage() {
+		JDialog dlgSendMessage = new sndMessage(cndIO);
+		dlgSendMessage.setVisible(true);
+
+		}
 	
 	//*****************************************************************************
 	//com.mediware.gui.doctor

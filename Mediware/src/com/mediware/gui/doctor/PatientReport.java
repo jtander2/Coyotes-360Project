@@ -181,7 +181,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		add(btnViewHistory, gbc_btnViewHistory);
 		btnViewHistory.addActionListener (this);
 		
-		btnComments = new JButton("Comments");
+		btnComments = new JButton("Send Message");
 		GridBagConstraints gbc_btnComments = new GridBagConstraints();
 		gbc_btnComments.insets = new Insets(0, 0, 5, 5);
 		gbc_btnComments.gridx = 2;
@@ -242,7 +242,7 @@ public class PatientReport extends JPanel implements ActionListener {
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplaySendMessage);
         }
 		else if (event.getSource() == btnViewProfile)
 		{	// Messages / Alerts button was clicked

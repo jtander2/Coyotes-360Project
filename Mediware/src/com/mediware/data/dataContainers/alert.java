@@ -27,8 +27,8 @@ public class alert
 	public alert(int AID, String date, String msg, int priority)
 	{
 		this.AID = AID;
-		this.date = "0";
-		this.msg = "0";
+		this.date = date;
+		this.msg = msg;
 		this.priority = priority;
 	}
 

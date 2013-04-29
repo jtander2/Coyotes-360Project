@@ -531,6 +531,15 @@ public class SYS{
 					sysIO.createMessageToSend(partition.CND, subscribers1, messageData11, mType.sysGoToMenu);
 					break;
 					
+				case sysSendMessage:
+					alert newAlert = new alert(EditAID, "4/29", sysMessages[i].getMessageData().getLabels()[0], sysMessages[i].getMessageData().getArguments()[0]);
+					client pat = DB.getClient(EditAID);
+					java.util.List<alert> alerts2 = pat.getAlerts();
+					alerts2.add(newAlert);
+					pat.setAlerts(alerts2);
+					DB.editClient(pat);
+					break;
+					
 				default:
 					break;					
 			}
