@@ -349,7 +349,12 @@ public class SYS{
 				    String type = sysMessages[i].getMessageData().getLabels()[0];
 				    PatientHistoryService phs = new PatientHistoryService(DB);
 				    
-				    int[] data = phs.process(type, AID);
+				    int rAID = AID;
+				    
+				    if(current_Account.getPermissions() > 1)
+				    	rAID = EditAID;
+				    
+				    int[] data = phs.process(type, rAID);
 				    String[] stringPs1 = {type};
 				    mData messageD1 = new mData(data, stringPs1);
 				    partition[] subscriber1 = {partition.CND};
@@ -357,9 +362,17 @@ public class SYS{
 
 				    break;
 				case patientVitalsEntry:
-				    bloodpressure newBP = new bloodpressure(AID, sysMessages[i].getMessageData().getArguments()[4] + "", sysMessages[i].getMessageData().getArguments()[0] + "", sysMessages[i].getMessageData().getArguments()[3] + "", sysMessages[i].getMessageData().getArguments()[2] + "", sysMessages[i].getMessageData().getArguments()[1] + "");
+					
+					int cAID;
+					
+					cAID = AID;
+					
+					if(current_Account.getPermissions() > 1)
+						cAID = EditAID;
+					
+				    bloodpressure newBP = new bloodpressure(cAID, sysMessages[i].getMessageData().getArguments()[4] + "", sysMessages[i].getMessageData().getArguments()[0] + "", sysMessages[i].getMessageData().getArguments()[3] + "", sysMessages[i].getMessageData().getArguments()[2] + "", sysMessages[i].getMessageData().getArguments()[1] + "");
 				    
-					client fucker = DB.getClient(AID);
+					client fucker = DB.getClient(cAID);
 					fucker.getBP().add(newBP);
 				    DB.editClient(fucker);
 				    
