@@ -173,9 +173,9 @@ public class SYS{
 						E.setPassword(paramE[15]);
 						
 						//for permissions
-						if(paramE[13].equals("ma"))
+						if(paramE[13].equals("Medical Assistant"))
 							E.setPermissions(3);
-						else if(paramE[13].equals("nurse"))
+						else if(paramE[13].equals("Nurse"))
 							E.setPermissions(4);
 						else
 						{
@@ -512,9 +512,9 @@ public class SYS{
 					//TODO add height weight DOB
 					
 					//for permissions
-					if(paramC5[11].equals("ma"))
+					if(paramC5[11].equals("Medical Assistant"))
 						C1.setPermissions(3);
-					else if(paramC5[11].equals("nurse"))
+					else if(paramC5[11].equals("Nurse"))
 						C1.setPermissions(4);
 					else
 					{
