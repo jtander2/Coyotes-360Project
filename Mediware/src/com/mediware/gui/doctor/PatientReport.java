@@ -111,59 +111,6 @@ public class PatientReport extends JPanel implements ActionListener {
 		gbc_lblLast.gridy = 2;
 		add(lblLast, gbc_lblLast);
 		
-		JLabel lblDOB = new JLabel("Date of Birth:");
-		GridBagConstraints gbc_lblDOB = new GridBagConstraints();
-		gbc_lblDOB.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDOB.anchor = GridBagConstraints.BELOW_BASELINE_TRAILING;
-		gbc_lblDOB.gridx = 1;
-		gbc_lblDOB.gridy = 3;
-		add(lblDOB, gbc_lblDOB);
-		
-		textFieldDOB = new JTextField();
-		textFieldDOB.setEditable(false);
-		GridBagConstraints gbc_textFieldDOB = new GridBagConstraints();
-		gbc_textFieldDOB.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldDOB.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldDOB.gridx = 2;
-		gbc_textFieldDOB.gridy = 3;
-		add(textFieldDOB, gbc_textFieldDOB);
-		textFieldDOB.setColumns(10);
-		
-		JLabel lblHeight = new JLabel("Height:");
-		GridBagConstraints gbc_lblHeight = new GridBagConstraints();
-		gbc_lblHeight.anchor = GridBagConstraints.EAST;
-		gbc_lblHeight.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHeight.gridx = 3;
-		gbc_lblHeight.gridy = 3;
-		add(lblHeight, gbc_lblHeight);
-		
-		textFieldHeight = new JTextField();
-		textFieldHeight.setEditable(false);
-		GridBagConstraints gbc_textFieldHeight = new GridBagConstraints();
-		gbc_textFieldHeight.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldHeight.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldHeight.gridx = 4;
-		gbc_textFieldHeight.gridy = 3;
-		add(textFieldHeight, gbc_textFieldHeight);
-		textFieldHeight.setColumns(10);
-		
-		JLabel lblWeight = new JLabel("Weight:");
-		GridBagConstraints gbc_lblWeight = new GridBagConstraints();
-		gbc_lblWeight.anchor = GridBagConstraints.EAST;
-		gbc_lblWeight.insets = new Insets(0, 0, 5, 5);
-		gbc_lblWeight.gridx = 3;
-		gbc_lblWeight.gridy = 4;
-		add(lblWeight, gbc_lblWeight);
-		
-		textFieldWeight = new JTextField();
-		textFieldWeight.setEditable(false);
-		GridBagConstraints gbc_textFieldWeight = new GridBagConstraints();
-		gbc_textFieldWeight.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldWeight.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldWeight.gridx = 4;
-		gbc_textFieldWeight.gridy = 4;
-		add(textFieldWeight, gbc_textFieldWeight);
-		textFieldWeight.setColumns(10);
 		
 		btnTakeVitals = new JButton("Take Vitals");
 		GridBagConstraints gbc_btnTakeVitals = new GridBagConstraints();
@@ -212,9 +159,6 @@ public class PatientReport extends JPanel implements ActionListener {
 		textFieldFirstName.setText(labels[0]);
 		textFieldMiddleName.setText(labels[1]);
 		textFieldLastName.setText(labels[2]);
-		textFieldHeight.setText(labels[3]);
-		textFieldWeight.setText(labels[4]);
-		textFieldDOB.setText(labels[5]);
 		
 	}
 

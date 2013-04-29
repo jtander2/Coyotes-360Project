@@ -19,7 +19,6 @@ public class Mediware {
 			io.getInbox().emptyReadMessages();
 		}
 		
-		
 		//cnd.displayLoginPanel();
 		//cnd.displayMessagePanel(labels);
 		//cnd.displayReplyPanel();
