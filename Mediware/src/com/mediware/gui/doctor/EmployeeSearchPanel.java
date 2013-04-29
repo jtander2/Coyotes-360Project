@@ -67,31 +67,31 @@ public class EmployeeSearchPanel extends JPanel implements ActionListener {
 		add(textFieldLastName, gbc_textFieldLastName);
 		textFieldLastName.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("OR");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 3;
-		add(lblNewLabel_1, gbc_lblNewLabel_1);
+//		JLabel lblNewLabel_1 = new JLabel("OR");
+//		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+//		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
+//		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+//		gbc_lblNewLabel_1.gridx = 1;
+//		gbc_lblNewLabel_1.gridy = 3;
+//		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Employee #");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 1;
-		gbc_lblNewLabel_2.gridy = 4;
-		add(lblNewLabel_2, gbc_lblNewLabel_2);
-		
-		textFieldEmployeeNumber = new JTextField();
-		GridBagConstraints gbc_textFieldEmployeeNumber = new GridBagConstraints();
-		gbc_textFieldEmployeeNumber.gridwidth = 2;
-		gbc_textFieldEmployeeNumber.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldEmployeeNumber.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldEmployeeNumber.gridx = 2;
-		gbc_textFieldEmployeeNumber.gridy = 4;
-		add(textFieldEmployeeNumber, gbc_textFieldEmployeeNumber);
-		textFieldEmployeeNumber.setColumns(10);
+//		JLabel lblNewLabel_2 = new JLabel("Employee #");
+//		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+//		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
+//		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+//		gbc_lblNewLabel_2.gridx = 1;
+//		gbc_lblNewLabel_2.gridy = 4;
+//		add(lblNewLabel_2, gbc_lblNewLabel_2);
+//		
+//		textFieldEmployeeNumber = new JTextField();
+//		GridBagConstraints gbc_textFieldEmployeeNumber = new GridBagConstraints();
+//		gbc_textFieldEmployeeNumber.gridwidth = 2;
+//		gbc_textFieldEmployeeNumber.insets = new Insets(0, 0, 5, 5);
+//		gbc_textFieldEmployeeNumber.fill = GridBagConstraints.HORIZONTAL;
+//		gbc_textFieldEmployeeNumber.gridx = 2;
+//		gbc_textFieldEmployeeNumber.gridy = 4;
+//		add(textFieldEmployeeNumber, gbc_textFieldEmployeeNumber);
+//		textFieldEmployeeNumber.setColumns(10);
 		
 		btnSearch = new JButton("Search");
 		GridBagConstraints gbc_btnSearch = new GridBagConstraints();

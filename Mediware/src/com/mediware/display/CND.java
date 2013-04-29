@@ -94,7 +94,7 @@ public class CND {
 					displayNewEmployeePanel();
 					break;
 				case cndDisplayEditEmployee:
-					displayEditEmployee();
+					displayEditEmployee(cndMessages[i].getMessageData().getLabels());
 					break;
 				case cndDisplayLoginPanel:
 					displayLoginPanel();
@@ -236,10 +236,10 @@ public class CND {
 		currentFrame.setVisible(true);
 	}
 	
-	public void displayEditEmployee() {
+	public void displayEditEmployee(String msg[]) {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new EditEmployee(cndIO));
+		currentFrame.getContentPane().add(new EditEmployee(cndIO, msg));
 		currentFrame.setVisible(true);
 	}
 	

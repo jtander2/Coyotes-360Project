@@ -61,7 +61,7 @@ public class EditEmployee extends JPanel implements ActionListener {
 	 * Create the panel.
 	 * @param cndIO 
 	 */
-	public EditEmployee(IO cndIO) {
+	public EditEmployee(IO cndIO, String msg[]) {
 		this.io = cndIO;
 		
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "View/Edit Employee Profile", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -366,6 +366,23 @@ public class EditEmployee extends JPanel implements ActionListener {
 		add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener(this);
 
+		//SETS ALL OF THE FIELDS
+		//			0			1			2					3					4				5			6				7					8					9					10				11
+		//{oE1.getFname(), oE1.getMname(), oE1.getLname(), oE1.getAddress1(), oE1.getCity(), oE1.getState(), oE1.getZip(), oE1.getPhoneHome(), oE1.getPhoneWork(), oE1.getPhoneMobile(), oE1.getEmail(), oE1.getEmpNum() + ""};
+		
+		textFieldFirstName.setText(msg[0]);
+		textFieldMiddleName.setText(msg[1]);
+		textFieldLastName.setText(msg[2]);
+		textFieldStreet.setText(msg[3]);
+		textFieldCity.setText(msg[4]);
+		textFieldState.setText(msg[5]);
+		textFieldZipCode.setText(msg[6]);
+		textFieldHomePhone.setText(msg[7]);
+		textFieldWorkPhone.setText(msg[8]);
+		textFieldMobilePhone.setText(msg[9]);
+		textFieldEmail.setText(msg[10]);
+		textFieldEmployeeNumber.setText(msg[11]);
+		
 	}
 	
 	

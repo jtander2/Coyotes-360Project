@@ -438,6 +438,10 @@ public class SYS{
 					employee oE1 = DB.getEmployee(searchedEmpAID);
 					EditAID = searchedEmpAID;
 					String[] stringPs5 = {oE1.getFname(), oE1.getMname(), oE1.getLname(), oE1.getAddress1(), oE1.getCity(), oE1.getState(), oE1.getZip(), oE1.getPhoneHome(), oE1.getPhoneWork(), oE1.getPhoneMobile(), oE1.getEmail(), oE1.getEmpNum() + ""};
+					
+					mData messageData2 = new mData(noIntArgs, stringPs5);
+					partition[] subscriber4 = {partition.CND};
+					sysIO.createMessageToSend(partition.SYS, subscriber4, messageData2, mType.cndDisplayEditEmployee);
 				    break;
 				    
 				case sysRequestMessages:
@@ -469,9 +473,62 @@ public class SYS{
 					pt.setAlerts(alerts);
 					DB.editClient(pt);
 
-					mData messageData2 = new mData(noIntArgs, noStringArgs);
+					mData messageData5 = new mData(noIntArgs, noStringArgs);
 					partition[] subscriber3 = {partition.SYS};
-					sysIO.createMessageToSend(partition.SYS, subscriber3, messageData2, mType.sysRequestMessages);
+					sysIO.createMessageToSend(partition.SYS, subscriber3, messageData5, mType.sysRequestMessages);
+					break;
+					
+				case sysUpdateEmployee:
+					
+					//for updating patient info
+					System.out.println("Editing AID:" + EditAID);
+					
+					String[] paramC5 = sysMessages[i].getMessageData().getLabels();
+					
+					System.out.println(paramC5[2]);
+		
+					employee C1 = DB.getEmployee(EditAID);
+					
+					//TODO validate data here, empty data will explode the system
+					
+					// Index = 0      1      2      3       4     5     6      7       8         9         10      11       12    
+					//      {fname, mname, lname, street, city, state, zip, homenum, worknum, mobilenum, email, permission  empNum}
+					
+					//edits database
+					C1.setFname(paramC5[0]);
+					C1.setMname(paramC5[1]);
+					C1.setLname(paramC5[2]);
+					C1.setAddress1(paramC5[3]);
+					C1.setAddress2("");
+					C1.setCity(paramC5[4]);
+					C1.setState(paramC5[5]);
+					C1.setZip(paramC5[6]);
+					C1.setPhoneHome(paramC5[7]);
+					C1.setPhoneWork(paramC5[8]);
+					C1.setPhoneMobile(paramC5[9]);
+					C1.setEmail(paramC5[10]);
+					//C1.setPermissions(Integer.parseInt(paramC5[11]));
+					C1.setEmpNum(Integer.parseInt(paramC5[12]));
+					//TODO add height weight DOB
+					
+					//for permissions
+					if(paramC5[11].equals("ma"))
+						C1.setPermissions(3);
+					else if(paramC5[11].equals("nurse"))
+						C1.setPermissions(4);
+					else
+					{
+						C1.setPermissions(5);
+					}
+					
+					DB.editEmployee(C1);	//TODO make into a condit to see if pass or fail
+					
+					
+					int[] intParams1 = new int[0];
+					String[] stringParams1 = new String[0];
+					mData messageData11 = new mData(intParams1, stringParams1);
+					partition[] subscribers1 = {partition.SYS};
+					sysIO.createMessageToSend(partition.CND, subscribers1, messageData11, mType.sysGoToMenu);
 					break;
 					
 				default:

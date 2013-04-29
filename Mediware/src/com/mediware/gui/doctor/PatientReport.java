@@ -58,6 +58,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		add(lblName, gbc_lblName);
 		
 		textFieldFirstName = new JTextField();
+		textFieldFirstName.setEditable(false);
 		GridBagConstraints gbc_textFieldFirstName = new GridBagConstraints();
 		gbc_textFieldFirstName.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldFirstName.fill = GridBagConstraints.HORIZONTAL;
@@ -67,6 +68,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		textFieldFirstName.setColumns(10);
 		
 		textFieldMiddleName = new JTextField();
+		textFieldMiddleName.setEditable(false);
 		GridBagConstraints gbc_textFieldMiddleName = new GridBagConstraints();
 		gbc_textFieldMiddleName.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldMiddleName.fill = GridBagConstraints.HORIZONTAL;
@@ -76,6 +78,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		textFieldMiddleName.setColumns(10);
 		
 		textFieldLastName = new JTextField();
+		textFieldLastName.setEditable(false);
 		GridBagConstraints gbc_textFieldLastName = new GridBagConstraints();
 		gbc_textFieldLastName.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldLastName.fill = GridBagConstraints.HORIZONTAL;
@@ -117,6 +120,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		add(lblDOB, gbc_lblDOB);
 		
 		textFieldDOB = new JTextField();
+		textFieldDOB.setEditable(false);
 		GridBagConstraints gbc_textFieldDOB = new GridBagConstraints();
 		gbc_textFieldDOB.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldDOB.fill = GridBagConstraints.HORIZONTAL;
@@ -134,6 +138,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		add(lblHeight, gbc_lblHeight);
 		
 		textFieldHeight = new JTextField();
+		textFieldHeight.setEditable(false);
 		GridBagConstraints gbc_textFieldHeight = new GridBagConstraints();
 		gbc_textFieldHeight.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldHeight.fill = GridBagConstraints.HORIZONTAL;
@@ -151,6 +156,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		add(lblWeight, gbc_lblWeight);
 		
 		textFieldWeight = new JTextField();
+		textFieldWeight.setEditable(false);
 		GridBagConstraints gbc_textFieldWeight = new GridBagConstraints();
 		gbc_textFieldWeight.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldWeight.fill = GridBagConstraints.HORIZONTAL;
