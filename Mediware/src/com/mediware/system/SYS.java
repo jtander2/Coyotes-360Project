@@ -273,8 +273,13 @@ public class SYS{
 				case sysPatientEditProfileRequest:
 				// Send message to CND to display the edit profile screen with the correct parameters	//TODO update it so it works with weight, height and DOB
 					int[] intPs = sysMessages[i].getMessageData().getArguments();
-					client oc = DB.getClient(EditAID);
+					
 					//EditAID = AID;
+					if(current_Account.getPermissions() == 1)	//If an account is a patient, they edit their own profile
+						EditAID = AID;
+					
+					client oc = DB.getClient(EditAID);
+					
 					String[] stringPs = {oc.getFname(), oc.getMname(), oc.getLname(), oc.getAddress1(), oc.getCity(), oc.getState(), oc.getZip(), oc.getPhoneHome(), oc.getPhoneWork(), oc.getPhoneMobile(), oc.getEmail(), oc.getProvider(), oc.getPolicy(), oc.getGroup()};
 					mData messageD = new mData(intPs, stringPs);
 					partition[] subscriber = {partition.CND};
