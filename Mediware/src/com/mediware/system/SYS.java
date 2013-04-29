@@ -273,8 +273,8 @@ public class SYS{
 				case sysPatientEditProfileRequest:
 				// Send message to CND to display the edit profile screen with the correct parameters	//TODO update it so it works with weight, height and DOB
 					int[] intPs = new int[0];
-					client oc = DB.getClient(AID);
-					EditAID = AID;
+					client oc = DB.getClient(EditAID);
+					//EditAID = AID;
 					String[] stringPs = {oc.getFname(), oc.getMname(), oc.getLname(), oc.getAddress1(), oc.getCity(), oc.getState(), oc.getZip(), oc.getPhoneHome(), oc.getPhoneWork(), oc.getPhoneMobile(), oc.getEmail(), oc.getProvider(), oc.getPolicy(), oc.getGroup()};
 					mData messageD = new mData(intPs, stringPs);
 					partition[] subscriber = {partition.CND};
@@ -395,27 +395,6 @@ public class SYS{
 					sysIO.createMessageToSend(partition.SYS, subscriber111, messageD111, mType.cndPatientReport);		//TODO CHANGE TO PATIENTREPORT PANEL
 				    break;
 				    
-				case doctorEmployeeSearchRequest:
-				{
-				    String ElastName = sysMessages[i].getMessageData().getLabels()[0];
-				    userinfo EsearchEmp = new userinfo();
-				    EsearchEmp.setLname(ElastName);
-				    
-				    Object[] employees = DB.findEmpByInfo(EsearchEmp).toArray();
-				    
-				    String[] Enames = new String[employees.length];
-				    int[] Eids = new int[employees.length];
-				    
-				    for(int index = 0; index < employees.length; index++) 
-				    {
-				    	Enames[index] = ((employee)employees[index]).getFname() + " " + ((employee)employees[index]).getLname();
-				    	Eids[index] = ((employee)employees[index]).getAID();
-				    }
-				    
-				    mData messageD3 = new mData(Eids, Enames);
-				    partition[] subscriber3 = {partition.CND};
-				    sysIO.createMessageToSend(partition.SYS, subscriber3, messageD3, mType.cndEmployeeSearchReport);
-				    break;
 				    
 				case doctorEmployeeSearchRequest:
 				{
@@ -438,15 +417,8 @@ public class SYS{
 				    partition[] subscriber3 = {partition.CND};
 				    sysIO.createMessageToSend(partition.SYS, subscriber3, messageD3, mType.cndEmployeeSearchReport);
 				    break;
-				
-				case sysRequestMessages:
-				    java.util.List<alert> alist = DB.getClient(AID).getAlerts();
-				    String[] messages = new String[alist.size()];
-				    
-				    for(int j = 1; j < alist.size(); j++) {
-					messages[j] = alist.get(j).getPriority() + "                   " + alist.get(j).getDate();
 				}
-				    
+						    
 				case sysSelectEmployee:
 				    int searchedEmpAID = sysMessages[i].getMessageData().getArguments()[0];
 					int[] intPs2 = {searchedEmpAID};
@@ -454,20 +426,41 @@ public class SYS{
 					EditAID = searchedEmpAID;
 					String[] stringPs5 = {oE1.getFname(), oE1.getMname(), oE1.getLname(), oE1.getAddress1(), oE1.getCity(), oE1.getState(), oE1.getZip(), oE1.getPhoneHome(), oE1.getPhoneWork(), oE1.getPhoneMobile(), oE1.getEmail(), oE1.getEmpNum() + ""};
 				    break;
-				    String[] mes = {DB.getClient(AID).getAlerts().get(sysMessages[i].getMessageData().getArguments()[0]).getMsg()};
-				    mData messageDataD1111 = new mData(noIntArgs, mes);
-				    partition[] subscriber1111 = {partition.CND};
-				    sysIO.createMessageToSend(partition.SYS, subscriber1111, messageDataD1111, mType.cndDisplayMessage);
-					break;
-				    int indexToDelete = sysMessages[i].getMessageData().getArguments()[0];
-				    client pt = DB.getClient(AID);
-				    java.util.List<alert> alerts = pt.getAlerts();
-				    pt.setAlerts(alerts);
-				    DB.editClient(pt);
 				    
-				    mData messageData2 = new mData(noIntArgs, noStringArgs);
-				    partition[] subscriber3 = {partition.SYS};
-				    sysIO.createMessageToSend(partition.SYS, subscriber3, messageData2, mType.sysRequestMessages);
+				case sysRequestMessages:
+					java.util.List<alert> alist = DB.getClient(AID).getAlerts();
+					String[] messages = new String[alist.size()];
+
+					for(int j = 1; j < alist.size(); j++) 
+					{
+						messages[j] = alist.get(j).getPriority() + " " + alist.get(j).getDate();
+					}
+					
+					mData messageData1 = new mData(noIntArgs, messages);
+					partition[] subscriber2 = {partition.CND};
+					sysIO.createMessageToSend(partition.SYS, subscriber2, messageData1, mType.cndDisplayMessagePanel);
+					break;
+
+					case sysRequestMessageNum:
+					String[] mes = {DB.getClient(AID).getAlerts().get(sysMessages[i].getMessageData().getArguments()[0]-1).getMsg()};
+					mData messageDataD1111 = new mData(noIntArgs, mes);
+					partition[] subscriber1111 = {partition.CND};
+					sysIO.createMessageToSend(partition.SYS, subscriber1111, messageDataD1111, mType.cndDisplayMessage);
+					break;
+
+				case sysRequestMessageDeletion:
+					int indexToDelete = sysMessages[i].getMessageData().getArguments()[0]-1;
+					client pt = DB.getClient(AID);
+					java.util.List<alert> alerts = pt.getAlerts();
+					alerts.remove(indexToDelete);
+					pt.setAlerts(alerts);
+					DB.editClient(pt);
+
+					mData messageData2 = new mData(noIntArgs, noStringArgs);
+					partition[] subscriber3 = {partition.SYS};
+					sysIO.createMessageToSend(partition.SYS, subscriber3, messageData2, mType.sysRequestMessages);
+					break;
+					
 				default:
 					break;					
 			}
