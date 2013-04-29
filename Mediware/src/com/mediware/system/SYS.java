@@ -1,19 +1,19 @@
 package com.mediware.system;
 
-import java.awt.List;
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
 import com.mediware.arch.IO;
 import com.mediware.arch.Message;
 import com.mediware.arch.mData;
-import com.mediware.arch.Enums.partition;
 import com.mediware.arch.Enums.mType;
+import com.mediware.arch.Enums.partition;
+import com.mediware.data.datadriver;
+import com.mediware.data.dataContainers.account;
+import com.mediware.data.dataContainers.alert;
+import com.mediware.data.dataContainers.bloodpressure;
+import com.mediware.data.dataContainers.client;
+import com.mediware.data.dataContainers.employee;
+import com.mediware.data.dataContainers.userinfo;
 import com.mediware.service.LoginService;
 import com.mediware.service.PatientHistoryService;
-import com.mediware.data.dataContainers.*;
-import com.mediware.data.*;
 
 /**
  *  Class for system controls partition. 
@@ -55,7 +55,11 @@ public class SYS{
 				
 		//first retrieve messages
 		sysMessages = sysIO.nextFrame(partition.SYS);
+		
+		//loop through and handle all pending messages
 		for(int i = 0; i < sysMessages.length; i++) {
+			
+			//case statement which handles message types defined in mTypes
 			switch(sysMessages[i].getMessageType()) {
 				case loginRequest:
 					LoginService log = new LoginService(DB);
@@ -197,19 +201,21 @@ public class SYS{
 				case sysCreatePatient:
 					String[] paramC = sysMessages[i].getMessageData().getLabels();
 					
-					//Example of how to display an error message if username is already in the db
+					//Error checking is username is new
 					if(DB.isUsernameAvail(paramC[17])) {
 		    			String[] stringParams = {"This username is already taken! Please select a new one.", "Create Patient Error"};
 		    			mData messageData = new mData(noIntArgs, stringParams);
 		    			partition[] subscribers = {partition.CND};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 					}
+					//Error checking if email is new
 					else if(DB.isEmailAvail(paramC[10])) {
 		    			String[] stringParams = {"This email is already registered in the database! Select a different one.", "Create Patient Error"};
 		    			mData messageData = new mData(noIntArgs, stringParams);
 		    			partition[] subscribers = {partition.CND};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 					}
+					//Add client to db
 					else{
 						
 						//create new patient and add to DB
@@ -217,11 +223,12 @@ public class SYS{
 						// Index = 0      1      2      3      4      5     6       7          8           9         10      11         12        13      14    15      16       17        18
 						//      {fname, mname, lname, street, city, state, zip, homephone, workphone, mobilephone, email, provider, policynum, groupnum, dob, height, weight, username, password};
 						client C;
-					    	if(sysMessages[i].getMessageData().getArguments().length == 1) {
+					    if(sysMessages[i].getMessageData().getArguments().length == 1) {
 					    	C = new client(sysMessages[i].getMessageData().getArguments()[0]); // UN: test PW:test
-					}	else {
-					    C = new client(AID);
-					}
+					    }	else {
+					    	C = new client(AID);
+					    }
+					    //set values to those from message
 						C.setUsername(paramC[17]);
 						C.setPassword(paramC[18]);
 						C.setFname(paramC[0]);
@@ -327,6 +334,7 @@ public class SYS{
 					break;
 					
 				case sysGoToMenu:
+					//Displays the appropriate menu based on user permissions
 					mData emptyData = new mData(noIntArgs, noStringArgs);
 					partition[] subscriberCND = {partition.CND};
 					if(mPerm == 0) {
@@ -359,7 +367,7 @@ public class SYS{
 				    if(current_Account.getPermissions() > 1)
 				    	rAID = EditAID;
 				    
-				    int[] data = phs.process(type, rAID);
+				    int[] data = phs.process(type, rAID);		//send history values as a string in a new message
 				    String[] stringPs1 = {type};
 				    mData messageD1 = new mData(data, stringPs1);
 				    partition[] subscriber1 = {partition.CND};
@@ -375,11 +383,13 @@ public class SYS{
 					if(current_Account.getPermissions() > 1)
 						cAID = EditAID;
 					
+					//create a new string with vitals to enter into the db
 				    bloodpressure newBP = new bloodpressure(cAID, sysMessages[i].getMessageData().getArguments()[4] + "", sysMessages[i].getMessageData().getArguments()[0] + "", sysMessages[i].getMessageData().getArguments()[3] + "", sysMessages[i].getMessageData().getArguments()[2] + "", sysMessages[i].getMessageData().getArguments()[1] + "");
 				    
-					client fucker = DB.getClient(cAID);
-					fucker.getBP().add(newBP);
-				    DB.editClient(fucker);
+				    //add to db at correct location from cAID
+					client cguy = DB.getClient(cAID);
+					cguy.getBP().add(newBP);
+				    DB.editClient(cguy);
 				    
 					break;
 				case doctorPatientSearchRequest:
@@ -393,8 +403,8 @@ public class SYS{
 				    int[] ids = new int[clients.length];
 				    
 				    for(int index = 0; index < clients.length; index++) {
-					names[index] = ((client)clients[index]).getFname() + " " + ((client)clients[index]).getLname();
-					ids[index] = ((client)clients[index]).getAID();
+						names[index] = ((client)clients[index]).getFname() + " " + ((client)clients[index]).getLname();
+						ids[index] = ((client)clients[index]).getAID();
 				    }
 				    
 				    mData messageD11 = new mData(ids, names);

@@ -45,14 +45,18 @@ import com.mediware.gui.patient.PatientVitalsPanel;
 
 public class CND {
 
+	//private IO used for sending and recieveing messages
 	private IO cndIO;
+	//array of messages that we will recieve
 	private Message[] cndMessages;
+	//current frame to display
 	private JFrame currentFrame;
 	private ArrayList<JFrame> previousFrames;
 	
 	public CND(IO io) {
 		cndIO = io;
 		
+		//Set initial frame to the login panel
 		currentFrame = new JFrame("Mediware Health Services");
 		currentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		currentFrame.setSize(600, 600);
@@ -66,8 +70,12 @@ public class CND {
 	public void run() {
 		//first retrieve messages
 		cndMessages = cndIO.nextFrame(partition.CND);
+		
+		//loop through all pending messages and take care of the necessary actions
 		for(int i = 0; i < cndMessages.length; i++) {
 			System.out.println(cndMessages[i].getMessageType().toString());
+			
+			//Case statement to handle the various message types as defined in mTypes.java
 			switch(cndMessages[i].getMessageType()) {
 				case cndDisplayDoctorMainPanel:
 					displayDoctorMainPanel();
@@ -80,6 +88,7 @@ public class CND {
 					break;
 				case cndDisplayErrorDialog:
 					String[] params = cndMessages[i].getMessageData().getLabels();
+					//display the error dialog with the parameters retrieved from the message
 					displayErrorDialog(params[0], params[1]);
 					break;
 				case cndDisplayNewPatientPanel:
@@ -112,6 +121,7 @@ public class CND {
 				case cndDisplayPatientProfilePanel:
 				{
 					String[] patientParams = cndMessages[i].getMessageData().getLabels();
+					//from variable is used to determine if the next pages cancel button should return to main menu or a different menu
 					int[] fromInt = cndMessages[i].getMessageData().getArguments();
 					int from = 0;
 					if(fromInt.length == 0) {
@@ -124,6 +134,7 @@ public class CND {
 				}
 				case cndDisplayPatientVitalsPanel:
 				{
+					//from variable is used to determine if the next pages cancel button should return to main menu or a different menu
 					int[] fromInt = cndMessages[i].getMessageData().getArguments();
 					int from = 0;
 					if(fromInt.length == 0) {
@@ -139,16 +150,19 @@ public class CND {
 					int[] historyInts = cndMessages[i].getMessageData().getArguments();
 					String[] historyStrings = cndMessages[i].getMessageData().getLabels();
 					
+					//from variable is used to determine if the next pages cancel button should return to main menu or a different menu
 					int from = 0;
 					if(historyStrings.length == 0) {
 						from = 0;
 					} else {
 						from = 1;
 					}
-					
+					//display the page initially
 					displayPatientHealthHistory(historyInts, from);
 					// After the page is displayed send a message to SYS to start fetching the graph
+					//this is normally triggered by a change in the comboBox but initially we need to call it
 					int[] intParams = new int[0];
+					//BP is default
 					String[] stringParams = { "Blood Pressure" };
 					mData messageData = new mData(intParams, stringParams);
 					partition[] subscribers = { partition.SYS };
@@ -174,7 +188,6 @@ public class CND {
 				    displayMessage(cndMessages[i].getMessageData().getLabels()[0]);
 					break;
 				case cndDisplaySendMessage:
-					int frm = 0;
 					displaySendMessage();
 					break;
 				default:
@@ -186,6 +199,7 @@ public class CND {
 	}
 	
 
+	//Getters and Setters
 	public IO getCndIO() {
 		return cndIO;
 	}
@@ -211,7 +225,7 @@ public class CND {
 	}
 	
 	//*****************************************************************************
-	//com.mediware.gui
+	//com.mediware.gui display functions which switch current frame viewed
 	//*****************************************************************************
 	public void displayLoginPanel() {
 		currentFrame.getContentPane().removeAll();
@@ -266,7 +280,7 @@ public class CND {
 		}
 	
 	//*****************************************************************************
-	//com.mediware.gui.doctor
+	//com.mediware.gui.doctor display functions which switch current frame viewed
 	//*****************************************************************************
 	public void displayDoctorMainPanel() {
 		currentFrame.getContentPane().removeAll();
@@ -381,7 +395,7 @@ public class CND {
 	}
 	
 	//*****************************************************************************
-	//com.mediware.gui.patient
+	//com.mediware.gui.patient display functions which switch current frame viewed
 	//*****************************************************************************
 	public void displayPatientHealthHistory(int[] historyInts, int from) {
 		currentFrame.getContentPane().removeAll();
