@@ -108,7 +108,7 @@ public class RtvUsername extends JDialog implements ActionListener{
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayLoginPanel);
         }
 		
 	}

@@ -29,8 +29,10 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener,
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
 	private JButton btnLogin;
+	/** Future Implementation of Forgot Username and Forgot Password functionality
 	private JLabel lblForgotPassword;
 	private JLabel lblforgotUsername;
+	*/
 	private IO logIO;
 	
 	/**
@@ -53,17 +55,20 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener,
 		txtPassword.setColumns(10);
 		txtPassword.addKeyListener(this);
 		
-		lblForgotPassword = new JLabel("<html><u>Forgot Password?</u></html>");
-		lblForgotPassword.setForeground(Color.BLUE);
-		lblForgotPassword.addMouseListener(this);
-		
 		//Login button
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener (this);
 		
+		/** Future Implementation of Forgot Username and Forgot Password functionality
+		lblForgotPassword = new JLabel("<html><u>Forgot Password?</u></html>");
+		lblForgotPassword.setForeground(Color.BLUE);
+		lblForgotPassword.addMouseListener(this);
+		
 		lblforgotUsername = new JLabel("<html><u>Forgot Username?</u></html>");
 		lblforgotUsername.setForeground(Color.BLUE);
 		lblforgotUsername.addMouseListener (this);
+		*/
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -82,11 +87,11 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener,
 					.addComponent(btnLogin)
 					.addContainerGap(274, Short.MAX_VALUE))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblForgotPassword, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblforgotUsername, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
-		);
+					.addContainerGap()));
+//					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+//						.addComponent(lblForgotPassword, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+//						.addComponent(lblforgotUsername, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
+//		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -101,9 +106,9 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener,
 					.addGap(9)
 					.addComponent(btnLogin)
 					.addGap(11)
-					.addComponent(lblforgotUsername)
+	//				.addComponent(lblforgotUsername)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblForgotPassword)
+	//				.addComponent(lblForgotPassword)
 					.addContainerGap(141, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
@@ -134,6 +139,7 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener,
         }
 	}
 
+	/** Future Implementation of Forgot Username and Forgot Password functionality
 	@Override
 	public void mousePressed(MouseEvent event) {
 		// Check to see what was clicked on
@@ -158,7 +164,7 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener,
 		}
 		
 	}
-
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -218,6 +224,12 @@ public class LoginPanel extends JPanel implements ActionListener, MouseListener,
 			partition[] subscribers = {partition.SYS};
 			logIO.createMessageToSend(partition.CND, subscribers, messageData, mType.loginRequest);
 		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

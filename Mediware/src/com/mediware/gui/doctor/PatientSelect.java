@@ -107,6 +107,7 @@ public class PatientSelect extends JPanel implements ActionListener {
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.SYS};
 			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysSelectPatient);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientMenuPanel);
         }
 		else if (event.getSource() == btnCancel)
 		{	// Messages / Alerts button was clicked
