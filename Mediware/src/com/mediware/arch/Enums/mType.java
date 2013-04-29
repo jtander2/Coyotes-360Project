@@ -7,6 +7,7 @@ public enum mType {
     cndDisplayDoctorMainPanel,
     cndDisplayRtvUsername,
     cndDisplayRtvPassword,
+    cndDisplaySendMessage,
     cndDisplayErrorDialog,
     cndDisplayNewPatientPanel,
     cndDisplayPatientSearchPanel,
@@ -52,7 +53,8 @@ public enum mType {
     sysRequestMessages,
     sysRequestMessageNum,
     sysRequestMessageDeletion,
-    cndDisplayMessage
+    cndDisplayMessage,
+    sysSendMessage
 }
 
 //patientHistoryRequest - 1 arg - String - type of data being requested
