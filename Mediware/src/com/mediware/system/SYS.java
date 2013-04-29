@@ -30,6 +30,9 @@ public class SYS{
 	private int AID;
 	private int EditAID;
 	
+	private final int[] noIntArgs = {};
+	private final String[] noStringArgs = {};
+	
 	//constructor - IO as an argument.
 	public SYS(IO theIO){
 		this.sysIO = theIO;
@@ -78,9 +81,7 @@ public class SYS{
 		    			else if(mPerm == 1) //client
 		    			{
 			    			System.out.println("Should send message to CND to display patient menu");
-			    			int[] intParams = new int[0];
-			    			String[] stringParams = new String[0];
-			    			mData messageData = new mData(intParams, stringParams);
+			    			mData messageData = new mData(noIntArgs, noStringArgs);
 			    			partition[] subscribers = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayPatientMenuPanel);
 		    				
@@ -92,36 +93,29 @@ public class SYS{
 		    			else if(mPerm == 3) //ma
 		    			{
 			    			System.out.println("Should send message to CND to display MA main panel");
-			    			int[] intParams = new int[0];
-			    			String[] stringParams = new String[0];
-			    			mData messageData = new mData(intParams, stringParams);
+			    			mData messageData = new mData(noIntArgs, noStringArgs);
 			    			partition[] subscribers = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayMAMainPanel);
 		    			}
 		    			else if(mPerm == 4) //nurse
 		    			{
 			    			System.out.println("Should send message to CND to display MA main panel");
-			    			int[] intParams = new int[0];
-			    			String[] stringParams = new String[0];
-			    			mData messageData = new mData(intParams, stringParams);
+			    			mData messageData = new mData(noIntArgs, noStringArgs);
 			    			partition[] subscribers = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayNurseMainPanel);
 		    			}
 		    			else //doctor
 		    			{
 			    			System.out.println("Should send message to CND to display doctor panel");
-			    			int[] intParams = new int[0];
-			    			String[] stringParams = new String[0];
-			    			mData messageData = new mData(intParams, stringParams);
+			    			mData messageData = new mData(noIntArgs, noStringArgs);
 			    			partition[] subscribers = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayDoctorMainPanel);	
 		    			}
 		    		}
 		    		else
 		    		{	// User is invalid
-		    			int[] intParams = new int[0];
 		    			String[] stringParams = {"Invalid Username or Password", "Login Error"};
-		    			mData messageData = new mData(intParams, stringParams);
+		    			mData messageData = new mData(noIntArgs, stringParams);
 		    			partition[] subscribers = {partition.CND};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 		    		}
@@ -137,27 +131,24 @@ public class SYS{
 					
 					//first check and make sure username is available
 						if(DB.isUsernameAvail(paramE[14])) {
-							int[] intParams = new int[0];
 			    			String[] stringParams = {"Username is already taken! Please select a new one.", "Create Employee Error"};
-			    			mData messageData = new mData(intParams, stringParams);
+			    			mData messageData = new mData(noIntArgs, stringParams);
 			    			partition[] subscribers = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 						}
 						
 		    			//Run another check to see if the email we're adding is valid
 						else if(DB.isEmailAvail(paramE[10])){
-							int[] intParams1 = new int[0];
 			    			String[] stringParams1 = {"Email is already in use! Please select a new one.", "Create Employee Error"};
-			    			mData messageData1 = new mData(intParams1, stringParams1);
+			    			mData messageData1 = new mData(noIntArgs, stringParams1);
 			    			partition[] subscribers1 = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers1, messageData1, mType.cndDisplayErrorDialog);
 		    			} 
 		    			
 		    			//Run yet another check to see if the empNumber is not in use
 						else if(DB.isEmpNumAvail(paramE[12])){
-							int[] intParams1 = new int[0];
 			    			String[] stringParams1 = {"That employee number is already in use! Please select a new one.", "Create Employee Error"};
-			    			mData messageData1 = new mData(intParams1, stringParams1);
+			    			mData messageData1 = new mData(noIntArgs, stringParams1);
 			    			partition[] subscribers1 = {partition.CND};
 			    			sysIO.createMessageToSend(partition.SYS, subscribers1, messageData1, mType.cndDisplayErrorDialog);
 		    			} 
@@ -196,9 +187,8 @@ public class SYS{
 						
 
 						//Send message back to SYS (self) sysGoToMenu
-						int[] emptyInt = new int[0];
 		    			String[] emptyParams = {"", ""};
-		    			mData messageData = new mData(emptyInt, emptyParams);
+		    			mData messageData = new mData(noIntArgs, emptyParams);
 		    			partition[] subscribers = {partition.SYS};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.sysGoToMenu);
 					}
@@ -209,16 +199,14 @@ public class SYS{
 					
 					//Example of how to display an error message if username is already in the db
 					if(DB.isUsernameAvail(paramC[17])) {
-						int[] intParams = new int[0];
 		    			String[] stringParams = {"This username is already taken! Please select a new one.", "Create Patient Error"};
-		    			mData messageData = new mData(intParams, stringParams);
+		    			mData messageData = new mData(noIntArgs, stringParams);
 		    			partition[] subscribers = {partition.CND};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 					}
 					else if(DB.isEmailAvail(paramC[10])) {
-						int[] intParams = new int[0];
 		    			String[] stringParams = {"This email is already registered in the database! Select a different one.", "Create Patient Error"};
-		    			mData messageData = new mData(intParams, stringParams);
+		    			mData messageData = new mData(noIntArgs, stringParams);
 		    			partition[] subscribers = {partition.CND};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.cndDisplayErrorDialog);
 					}
@@ -258,9 +246,8 @@ public class SYS{
 						DB.addClient(C);
 						
 						//Send message back to SYS (self) sysGoToMenu
-						int[] emptyInt = new int[0];
 		    			String[] emptyParams = {"", ""};
-		    			mData messageData = new mData(emptyInt, emptyParams);
+		    			mData messageData = new mData(noIntArgs, emptyParams);
 		    			partition[] subscribers = {partition.SYS};
 		    			sysIO.createMessageToSend(partition.SYS, subscribers, messageData, mType.sysGoToMenu);
 					
@@ -284,7 +271,7 @@ public class SYS{
 					break;
 					
 				case sysPatientEditProfileRequest:
-					// Send message to CND to display the edit profile screen with the correct parameters	//TODO update it so it works with weight, height and DOB
+				// Send message to CND to display the edit profile screen with the correct parameters	//TODO update it so it works with weight, height and DOB
 					int[] intPs = new int[0];
 					client oc = DB.getClient(AID);
 					EditAID = AID;
@@ -327,19 +314,15 @@ public class SYS{
 					DB.editClient(C);	//TODO make into a condit to see if pass or fail
 					
 					//Send message back to SYS (self) sysGoToMenu
-					int[] emptyInt = new int[0];
 	    			String[] emptyParams = {"", ""};
-	    			mData message_Data = new mData(emptyInt, emptyParams);
+	    			mData message_Data = new mData(noIntArgs, emptyParams);
 	    			partition[] subscribers_1 = {partition.SYS};
 	    			sysIO.createMessageToSend(partition.SYS, subscribers_1, message_Data, mType.sysGoToMenu);
 					
 					break;
 					
 				case sysGoToMenu:
-					
-					int[] emptyInts = new int[0];
-					String[] emptyStrings = new String[0];
-					mData emptyData = new mData(emptyInts, emptyStrings);
+					mData emptyData = new mData(noIntArgs, noStringArgs);
 					partition[] subscriberCND = {partition.CND};
 					if(mPerm == 0) {
 						//no permissions
@@ -433,6 +416,35 @@ public class SYS{
 				    partition[] subscriber3 = {partition.CND};
 				    sysIO.createMessageToSend(partition.SYS, subscriber3, messageD3, mType.cndEmployeeSearchReport);
 				    break;
+				    
+				case doctorEmployeeSearchRequest:
+				{
+				    String ElastName = sysMessages[i].getMessageData().getLabels()[0];
+				    userinfo EsearchEmp = new userinfo();
+				    EsearchEmp.setLname(ElastName);
+				    
+				    Object[] employees = DB.findEmpByInfo(EsearchEmp).toArray();
+				    
+				    String[] Enames = new String[employees.length];
+				    int[] Eids = new int[employees.length];
+				    
+				    for(int index = 0; index < employees.length; index++) 
+				    {
+				    	Enames[index] = ((employee)employees[index]).getFname() + " " + ((employee)employees[index]).getLname();
+				    	Eids[index] = ((employee)employees[index]).getAID();
+				    }
+				    
+				    mData messageD3 = new mData(Eids, Enames);
+				    partition[] subscriber3 = {partition.CND};
+				    sysIO.createMessageToSend(partition.SYS, subscriber3, messageD3, mType.cndEmployeeSearchReport);
+				    break;
+				
+				case sysRequestMessages:
+				    java.util.List<alert> alist = DB.getClient(AID).getAlerts();
+				    String[] messages = new String[alist.size()];
+				    
+				    for(int j = 1; j < alist.size(); j++) {
+					messages[j] = alist.get(j).getPriority() + "                   " + alist.get(j).getDate();
 				}
 				    
 				case sysSelectEmployee:
@@ -441,21 +453,21 @@ public class SYS{
 					employee oE1 = DB.getEmployee(searchedEmpAID);
 					EditAID = searchedEmpAID;
 					String[] stringPs5 = {oE1.getFname(), oE1.getMname(), oE1.getLname(), oE1.getAddress1(), oE1.getCity(), oE1.getState(), oE1.getZip(), oE1.getPhoneHome(), oE1.getPhoneWork(), oE1.getPhoneMobile(), oE1.getEmail(), oE1.getEmpNum() + ""};
-					mData messageD5 = new mData(intPs2, stringPs5);
-					partition[] subscriber5 = {partition.CND};
-					sysIO.createMessageToSend(partition.SYS, subscriber5, messageD5, mType.cndDisplayEditEmployee);
 				    break;
-				
-				case sysUpdateEmployee:
-					//TODO FILL THIS OUT
+				    String[] mes = {DB.getClient(AID).getAlerts().get(sysMessages[i].getMessageData().getArguments()[0]).getMsg()};
+				    mData messageDataD1111 = new mData(noIntArgs, mes);
+				    partition[] subscriber1111 = {partition.CND};
+				    sysIO.createMessageToSend(partition.SYS, subscriber1111, messageDataD1111, mType.cndDisplayMessage);
 					break;
-					
-				case sysRequestClientUpdate:
-					
-					//cndDisplayPatientProfilePanel
-					//TODO FILL THIS OUT
-					break;
+				    int indexToDelete = sysMessages[i].getMessageData().getArguments()[0];
+				    client pt = DB.getClient(AID);
+				    java.util.List<alert> alerts = pt.getAlerts();
+				    pt.setAlerts(alerts);
+				    DB.editClient(pt);
 				    
+				    mData messageData2 = new mData(noIntArgs, noStringArgs);
+				    partition[] subscriber3 = {partition.SYS};
+				    sysIO.createMessageToSend(partition.SYS, subscriber3, messageData2, mType.sysRequestMessages);
 				default:
 					break;					
 			}

@@ -48,7 +48,11 @@ public enum mType {
     sysSelectPatient,
     sysUpdateEmployee,				//    {fname, mname, lname, street, city, state, zip, homenum, worknum, mobilenum, email, permission  empNum}
     sysRequestClientUpdate,			//	  {fname, mname, lname, street, city, state, zip, homenum, worknum, mobilenum, email, provider, policy, group, weight, height}
-    sysSelectEmployee
+    sysSelectEmployee,
+    sysRequestMessages,
+    sysRequestMessageNum,
+    sysRequestMessageDeletion,
+    cndDisplayMessage
 }
 
 //patientHistoryRequest - 1 arg - String - type of data being requested

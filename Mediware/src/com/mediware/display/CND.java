@@ -15,7 +15,6 @@ import com.mediware.arch.Enums.mType;
 import com.mediware.arch.Enums.partition;
 import com.mediware.gui.LoginPanel;
 import com.mediware.gui.MessagePanel;
-import com.mediware.gui.ReplyPanel;
 import com.mediware.gui.ResetPassword;
 import com.mediware.gui.RtvPassword;
 import com.mediware.gui.RtvUsername;
@@ -89,7 +88,7 @@ public class CND {
 					displayPatientSearchPanel();
 					break;
 				case cndDisplayMessagePanel:
-					displayMessagePanel();
+					displayMessagePanel(cndMessages[i].getMessageData().getLabels());
 					break;
 				case cndDisplayNewEmployeePanel:
 					displayNewEmployeePanel();
@@ -142,7 +141,9 @@ public class CND {
 				case cndPatientReport:
 					displayPatientReport(cndMessages[i].getMessageData().getLabels());
 					break;
-					
+				case cndDisplayMessage:
+				    displayMessage(cndMessages[i].getMessageData().getLabels()[0]);
+					break;
 				default:
 					break;					
 			}
@@ -187,17 +188,10 @@ public class CND {
 	}
 	
 	
-	public void displayMessagePanel() {
+	public void displayMessagePanel(String[] labels) {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new MessagePanel(cndIO));
-		currentFrame.setVisible(true);
-	}
-	
-	public void displayReplyPanel() {
-		currentFrame.getContentPane().removeAll();
-		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new ReplyPanel(cndIO));
+		currentFrame.getContentPane().add(new MessagePanel(cndIO, labels));
 		currentFrame.setVisible(true);
 	}
 	
@@ -381,6 +375,11 @@ public class CND {
 	//Other
 	public void displayErrorDialog(String message, String type) {
 		JOptionPane.showMessageDialog(currentFrame, message, type, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void displayMessage(String message) {
+	    JOptionPane.showMessageDialog(currentFrame, message, "Message", JOptionPane.INFORMATION_MESSAGE);
+	    
 	}
 	
 	//Graph drawing

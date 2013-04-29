@@ -19,8 +19,9 @@ public class Mediware {
 			io.getInbox().emptyReadMessages();
 		}
 		
+		
 		//cnd.displayLoginPanel();
-		//cnd.displayMessagePanel();
+		//cnd.displayMessagePanel(labels);
 		//cnd.displayReplyPanel();
 		//cnd.displayResetPassword();
 		//cnd.displayRtvPassword();
@@ -39,12 +40,11 @@ public class Mediware {
 		//cnd.displayNewPatientPanel();
 		//cnd.displayNurseMainPanel();
 		//cnd.displayPatientProfile();
-		//cnd.displayPatientReport();
+		///cnd.displayPatientReport();
 		//cnd.displayPatientSearchPanel();
 		//cnd.displayPatientSelect();
 		//cnd.displayViewCommentPanel();
 		//cnd.displayVitalsPanel();
-		
 		//cnd.displayPatientHealthHistory();
 		//cnd.displayPatientMenuPanel();
 		//cnd.displayPatientProfilePanel();

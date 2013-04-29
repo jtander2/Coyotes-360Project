@@ -113,8 +113,8 @@ public class PatientMenuPanel extends JPanel implements ActionListener, MouseLis
 			int[] intParams = new int[0];
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			partition[] subscribers = {partition.SYS};
+			io.createMessageToSend(partition.SYS, subscribers, messageData, mType.sysRequestMessages);
         }
 		else if (event.getSource() == btnHealthHistory)
 		{	// Health History button was clicked
