@@ -985,7 +985,7 @@ public class database
 		ResultSet result = null;
 		employee oEmployee = new employee(-1);
 			
-		sqlCommand += "empID='"+ empID + "'";		//TODO Check to make sure this is right
+		sqlCommand += "empNum='"+ empID + "'";	
 			
 		Connection connection = null;
 		Statement statement = null;
@@ -1002,7 +1002,7 @@ public class database
 				while(result.next())
 				{
 					oEmployee.setAID(result.getInt("AID"));
-					oEmployee.setEmpNum(result.getInt("empNum"));
+					//oEmployee.setEmpNum(result.getInt("empNum"));
 				}
 			} catch (SQLException e) 
 			{

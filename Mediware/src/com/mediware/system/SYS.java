@@ -24,10 +24,11 @@ public class SYS{
 	private IO sysIO;
 	private datadriver DB = new datadriver();
 	private Message[] sysMessages; 		
-	private int current_mType;
-	private account current_Account;
+	//private int current_mType;
+	private account current_Account;		//Used for the current account tha
 	private int mPerm;
 	private int AID;
+	private int EditAID;
 	
 	//constructor - IO as an argument.
 	public SYS(IO theIO){
@@ -63,6 +64,9 @@ public class SYS{
 		    			//get AID
 		    		    	AID = DB.findUserPass(loginParams[0], loginParams[1]);
 		    			
+		    		    //Sets current account that's logged in.
+		    		    	current_Account = DB.getAccount(AID);
+		    		    	
 		    			System.out.println("AID: " + AID);
 		    			//determine permissions
 		    			mPerm = DB.getPermission(AID);
@@ -172,7 +176,7 @@ public class SYS{
 						E.setPhoneWork(paramE[8]);
 						E.setPhoneMobile(paramE[9]);
 						E.setEmail(paramE[10]);
-						//E.setDOB(paramE[11]);
+						//E.setDOB(paramE[11]);		//We don't need this for employees do we? -Shane
 						E.setEmpNum(Integer.parseInt(paramE[12]));
 						E.setUsername(paramE[14]);
 						E.setPassword(paramE[15]);
@@ -265,7 +269,12 @@ public class SYS{
 					break;
 				case sysLogoutRequest:
 					// Clear saved data
+					
+					//Unbinds current account
+					current_Account = null;
+					
 					mPerm = 0;	//no permissions
+					
 					// Send message to CND to display the login panel
 					int[] intParams = new int[0];
 					String[] stringParams = new String[0];
@@ -275,9 +284,10 @@ public class SYS{
 					break;
 					
 				case sysPatientEditProfileRequest:
-					// Send message to CND to display the edit profile screen with the correct parameters
+					// Send message to CND to display the edit profile screen with the correct parameters	//TODO update it so it works with weight, height and DOB
 					int[] intPs = new int[0];
 					client oc = DB.getClient(AID);
+					EditAID = AID;
 					String[] stringPs = {oc.getFname(), oc.getMname(), oc.getLname(), oc.getAddress1(), oc.getCity(), oc.getState(), oc.getZip(), oc.getPhoneHome(), oc.getPhoneWork(), oc.getPhoneMobile(), oc.getEmail(), oc.getProvider(), oc.getPolicy(), oc.getGroup()};
 					mData messageD = new mData(intPs, stringPs);
 					partition[] subscriber = {partition.CND};
@@ -286,13 +296,13 @@ public class SYS{
 					
 				case sysUpdatePatient:
 					//for updating patient info
-					System.out.println(this.AID);
+					System.out.println("Editing AID:" + EditAID);
 					
 					String[] paramCl = sysMessages[i].getMessageData().getLabels();
 					
 					System.out.println(paramCl[2]);
 		
-					client C = DB.getClient(this.AID);
+					client C = DB.getClient(EditAID);
 					
 					//TODO validate data here, empty data will explode the system
 					
@@ -301,6 +311,7 @@ public class SYS{
 					C.setMname(paramCl[1]);
 					C.setLname(paramCl[2]);
 					C.setAddress1(paramCl[3]);
+					C.setAddress2("");
 					C.setCity(paramCl[4]);
 					C.setState(paramCl[5]);
 					C.setZip(paramCl[6]);
@@ -314,8 +325,6 @@ public class SYS{
 					//TODO add height weight DOB
 					
 					DB.editClient(C);	//TODO make into a condit to see if pass or fail
-					
-					//TODO fix bug that doesn't allow editing of provider policy and group
 					
 					//Send message back to SYS (self) sysGoToMenu
 					int[] emptyInt = new int[0];
@@ -393,16 +402,60 @@ public class SYS{
 				    break;
 				    
 				case sysSelectPatient:
-				    	int searchedClientAID = sysMessages[i].getMessageData().getArguments()[0];
-				    
+				    int searchedClientAID = sysMessages[i].getMessageData().getArguments()[0];
 					int[] intPs1 = {searchedClientAID};
 					client oc1 = DB.getClient(searchedClientAID);
-					String[] stringPs11 = {oc1.getFname(), oc1.getMname(), oc1.getLname(), oc1.getAddress1(), oc1.getCity(), oc1.getState(), oc1.getZip(), oc1.getPhoneHome(), oc1.getPhoneWork(), oc1.getPhoneMobile(), oc1.getEmail(), oc1.getProvider(), oc1.getPolicy(), oc1.getGroup()};
+					EditAID = searchedClientAID;
+					String[] stringPs11 = {oc1.getFname(), oc1.getMname(), oc1.getLname(), oc1.getHeight(), oc1.getWeight(), oc1.getDob()};
 					mData messageD111 = new mData(intPs1, stringPs11);
 					partition[] subscriber111 = {partition.CND};
-					sysIO.createMessageToSend(partition.SYS, subscriber111, messageD111, mType.cndDisplayPatientProfilePanel);
-				    
+					sysIO.createMessageToSend(partition.SYS, subscriber111, messageD111, mType.cndPatientReport);		//TODO CHANGE TO PATIENTREPORT PANEL
 				    break;
+				    
+				case doctorEmployeeSearchRequest:
+				{
+				    String ElastName = sysMessages[i].getMessageData().getLabels()[0];
+				    userinfo EsearchEmp = new userinfo();
+				    EsearchEmp.setLname(ElastName);
+				    
+				    Object[] employees = DB.findEmpByInfo(EsearchEmp).toArray();
+				    
+				    String[] Enames = new String[employees.length];
+				    int[] Eids = new int[employees.length];
+				    
+				    for(int index = 0; index < employees.length; index++) 
+				    {
+				    	Enames[index] = ((employee)employees[index]).getFname() + " " + ((employee)employees[index]).getLname();
+				    	Eids[index] = ((employee)employees[index]).getAID();
+				    }
+				    
+				    mData messageD3 = new mData(Eids, Enames);
+				    partition[] subscriber3 = {partition.CND};
+				    sysIO.createMessageToSend(partition.SYS, subscriber3, messageD3, mType.cndEmployeeSearchReport);
+				    break;
+				}
+				    
+				case sysSelectEmployee:
+				    int searchedEmpAID = sysMessages[i].getMessageData().getArguments()[0];
+					int[] intPs2 = {searchedEmpAID};
+					employee oE1 = DB.getEmployee(searchedEmpAID);
+					EditAID = searchedEmpAID;
+					String[] stringPs5 = {oE1.getFname(), oE1.getMname(), oE1.getLname(), oE1.getAddress1(), oE1.getCity(), oE1.getState(), oE1.getZip(), oE1.getPhoneHome(), oE1.getPhoneWork(), oE1.getPhoneMobile(), oE1.getEmail(), oE1.getEmpNum() + ""};
+					mData messageD5 = new mData(intPs2, stringPs5);
+					partition[] subscriber5 = {partition.CND};
+					sysIO.createMessageToSend(partition.SYS, subscriber5, messageD5, mType.cndDisplayEditEmployee);
+				    break;
+				
+				case sysUpdateEmployee:
+					//TODO FILL THIS OUT
+					break;
+					
+				case sysRequestClientUpdate:
+					
+					//cndDisplayPatientProfilePanel
+					//TODO FILL THIS OUT
+					break;
+				    
 				default:
 					break;					
 			}

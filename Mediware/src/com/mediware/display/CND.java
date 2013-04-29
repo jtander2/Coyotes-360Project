@@ -139,6 +139,10 @@ public class CND {
 				case cndDisplayEmployeeSearchPanel:
 					displayEmployeeSearchPanel();
 					break;
+				case cndPatientReport:
+					displayPatientReport(cndMessages[i].getMessageData().getLabels());
+					break;
+					
 				default:
 					break;					
 			}
@@ -308,10 +312,10 @@ public class CND {
 		currentFrame.setVisible(true);
 	}
 	
-	public void displayPatientReport() {
+	public void displayPatientReport(String [] labels) {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new PatientReport(cndIO));
+		currentFrame.getContentPane().add(new PatientReport(cndIO, labels));
 		currentFrame.setVisible(true);
 	}
 	

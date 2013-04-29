@@ -297,22 +297,22 @@ public class EditEmployee extends JPanel implements ActionListener {
 		add(textFieldEmail, gbc_textFieldEmail);
 		textFieldEmail.setColumns(10);
 		
-		lblNewLabel_1 = new JLabel("Date of Birth:");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 10;
-		add(lblNewLabel_1, gbc_lblNewLabel_1);
+//		lblNewLabel_1 = new JLabel("Date of Birth:");
+//		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+//		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
+//		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+//		gbc_lblNewLabel_1.gridx = 1;
+//		gbc_lblNewLabel_1.gridy = 10;
+//		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textFieldDOB = new JTextField();
-		GridBagConstraints gbc_textFieldDOB = new GridBagConstraints();
-		gbc_textFieldDOB.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldDOB.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldDOB.gridx = 2;
-		gbc_textFieldDOB.gridy = 10;
-		add(textFieldDOB, gbc_textFieldDOB);
-		textFieldDOB.setColumns(10);
+//		textFieldDOB = new JTextField();
+//		GridBagConstraints gbc_textFieldDOB = new GridBagConstraints();
+//		gbc_textFieldDOB.insets = new Insets(0, 0, 5, 5);
+//		gbc_textFieldDOB.fill = GridBagConstraints.HORIZONTAL;
+//		gbc_textFieldDOB.gridx = 2;
+//		gbc_textFieldDOB.gridy = 10;
+//		add(textFieldDOB, gbc_textFieldDOB);
+//		textFieldDOB.setColumns(10);
 		
 		lblNewLabel = new JLabel("Employee #");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -375,19 +375,20 @@ public class EditEmployee extends JPanel implements ActionListener {
 		{	// Save Changes button was clicked
 			
 			//Takes in string parameters to be updated in the db for the current patient who is logged in
-			// Index = 0      1      2      3       4     5     6      7       8         9         10      11       12      13
-			//      {fname, mname, lname, street, city, state, zip, homenum, worknum, mobilenum, email, provider, policy, group}
+			// Index = 0      1      2      3       4     5     6      7       8         9         10      11       12    
+			//      {fname, mname, lname, street, city, state, zip, homenum, worknum, mobilenum, email, permission  empNum}
 			int[] intParams = new int[0];
 			String[] stringParams = {textFieldFirstName.getText(), textFieldMiddleName.getText(), 
 									 textFieldLastName.getText(),  textFieldStreet.getText(), 
 									 textFieldCity.getText(),      textFieldState.getText(), 
 									 textFieldZipCode.getText(),   textFieldHomePhone.getText(), 
 									 textFieldWorkPhone.getText(), textFieldMobilePhone.getText(), 
-									 textFieldEmail.getText(), "" ,"",""    /*textFieldProvider.getText(), 
+									 textFieldEmail.getText(), (String)comboBoxAdminLevel.getSelectedItem(), 
+									 textFieldEmployeeNumber.getText(),""    /*textFieldProvider.getText(), 
 									 textFieldPolicy.getText(),    textFieldGroup.getText()*/};			
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.SYS};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysUpdatePatient);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysUpdateEmployee);
 			
         }
 		else if (event.getSource() == btnCancel)

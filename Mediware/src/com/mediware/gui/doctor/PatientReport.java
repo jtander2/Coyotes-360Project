@@ -37,7 +37,7 @@ public class PatientReport extends JPanel implements ActionListener {
 	 * Create the panel.
 	 * @param cndIO 
 	 */
-	public PatientReport(IO cndIO) {
+	public PatientReport(IO cndIO, String []labels) {
 		
 		this.io = cndIO;
 		
@@ -165,6 +165,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		gbc_btnTakeVitals.gridx = 2;
 		gbc_btnTakeVitals.gridy = 6;
 		add(btnTakeVitals, gbc_btnTakeVitals);
+		btnTakeVitals.addActionListener (this);
 		
 		btnViewHistory = new JButton("View History");
 		GridBagConstraints gbc_btnViewHistory = new GridBagConstraints();
@@ -172,6 +173,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		gbc_btnViewHistory.gridx = 2;
 		gbc_btnViewHistory.gridy = 7;
 		add(btnViewHistory, gbc_btnViewHistory);
+		btnViewHistory.addActionListener (this);
 		
 		btnComments = new JButton("Comments");
 		GridBagConstraints gbc_btnComments = new GridBagConstraints();
@@ -179,6 +181,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		gbc_btnComments.gridx = 2;
 		gbc_btnComments.gridy = 8;
 		add(btnComments, gbc_btnComments);
+		btnComments.addActionListener (this);
 		
 		btnViewProfile = new JButton("View/Edit Profile");
 		GridBagConstraints gbc_btnViewProfile = new GridBagConstraints();
@@ -186,6 +189,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		gbc_btnViewProfile.gridx = 2;
 		gbc_btnViewProfile.gridy = 9;
 		add(btnViewProfile, gbc_btnViewProfile);
+		btnViewProfile.addActionListener (this);
 		
 		btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -193,7 +197,19 @@ public class PatientReport extends JPanel implements ActionListener {
 		gbc_btnCancel.gridx = 4;
 		gbc_btnCancel.gridy = 9;
 		add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener (this);
 
+		//Set for the textfields
+		//			0			1				2				3				4				5
+		// {oc1.getFname(), oc1.getMname(), oc1.getLname(), oc1.getHeight(), oc1.getWeight(), oc1.getDob()};
+		
+		textFieldFirstName.setText(labels[0]);
+		textFieldMiddleName.setText(labels[1]);
+		textFieldLastName.setText(labels[2]);
+		textFieldHeight.setText(labels[3]);
+		textFieldWeight.setText(labels[4]);
+		textFieldDOB.setText(labels[5]);
+		
 	}
 
 	public void actionPerformed(ActionEvent event) {
@@ -228,7 +244,7 @@ public class PatientReport extends JPanel implements ActionListener {
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientProfilePanel);
         }
 		else if (event.getSource() == btnCancel)
 		{	// Messages / Alerts button was clicked
@@ -236,7 +252,7 @@ public class PatientReport extends JPanel implements ActionListener {
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayMessagePanel);
+			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayDoctorMainPanel);
         }
 		
 	}

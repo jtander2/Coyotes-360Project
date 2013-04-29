@@ -275,8 +275,9 @@ public class datadriver
 	
 	public boolean isEmpNumAvail(String number)
 	{
-		db.getEmployeebyEMPID(Integer.parseInt(number));
-		return true;
+		if( db.getEmployeebyEMPID(Integer.parseInt(number)) > 0 )
+			return true;
+		return false;
 	}
 	
 	/*	--------------------------		FIND Functions		-------------------------------
