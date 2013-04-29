@@ -272,7 +272,7 @@ public class SYS{
 					
 				case sysPatientEditProfileRequest:
 				// Send message to CND to display the edit profile screen with the correct parameters	//TODO update it so it works with weight, height and DOB
-					int[] intPs = new int[0];
+					int[] intPs = sysMessages[i].getMessageData().getArguments();
 					client oc = DB.getClient(EditAID);
 					//EditAID = AID;
 					String[] stringPs = {oc.getFname(), oc.getMname(), oc.getLname(), oc.getAddress1(), oc.getCity(), oc.getState(), oc.getZip(), oc.getPhoneHome(), oc.getPhoneWork(), oc.getPhoneMobile(), oc.getEmail(), oc.getProvider(), oc.getPolicy(), oc.getGroup()};
@@ -539,7 +539,14 @@ public class SYS{
 					pat.setAlerts(alerts2);
 					DB.editClient(pat);
 					break;
-					
+				case sysGoToViewedPatientMenu:
+					client c1 = DB.getClient(EditAID);
+					int[] intps2 = {EditAID};
+					String[] stringPs2 = {c1.getFname(), c1.getMname(), c1.getLname(), c1.getHeight(), c1.getWeight(), c1.getDob()};
+					mData messageD2 = new mData(intps2, stringPs2);
+					partition[] subscriber11111 = {partition.CND};
+					sysIO.createMessageToSend(partition.SYS, subscriber11111, messageD2, mType.cndPatientReport);		//TODO CHANGE TO PATIENTREPORT PANEL
+				    break;
 				default:
 					break;					
 			}

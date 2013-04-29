@@ -31,15 +31,16 @@ public class PatientVitalsPanel extends JPanel implements ActionListener {
 	private JButton btnSubmit;
 	private JButton btnCancel;
 	private IO io;
+	private int from;
 
 	/**
 	 * Create the panel.
 	 * @param cndIO 
 	 */
-	public PatientVitalsPanel(IO cndIO) {
+	public PatientVitalsPanel(IO cndIO, int pFrom) {
 		
 		this.io = cndIO;
-		
+		from = pFrom;
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Record Vitals", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 88, 0, 0, 0, 0, 0};
@@ -255,11 +256,19 @@ public class PatientVitalsPanel extends JPanel implements ActionListener {
 		}
 		else if (event.getSource() == btnCancel)
 		{	// Messages / Alerts button was clicked
-			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
-			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.SYS};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
+			if(from == 0) {
+				int[] intParams = new int[0];
+				String[] stringParams = new String[0];
+				mData messageData = new mData(intParams, stringParams);
+				partition[] subscribers = {partition.SYS};
+				io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
+			} else {
+				int[] intParams = new int[0];
+				String[] stringParams = new String[0];
+				mData messageData = new mData(intParams, stringParams);
+				partition[] subscribers = {partition.SYS};
+				io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToViewedPatientMenu);
+			}
         }
 		
 	}

@@ -222,7 +222,7 @@ public class PatientReport extends JPanel implements ActionListener {
 		// Check which button was clicked on
 		if (event.getSource() == btnTakeVitals)
 		{	// Patient Search button was clicked
-			int[] intParams = new int[0];
+			int[] intParams = {1};
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
@@ -231,14 +231,14 @@ public class PatientReport extends JPanel implements ActionListener {
 		else if (event.getSource() == btnViewHistory)
 		{	// Messages / Alerts button was clicked
 			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
+			String[] stringParams = new String[1];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
 			io.createMessageToSend(partition.CND, subscribers, messageData, mType.cndDisplayPatientHealthHistory);
         }
 		else if (event.getSource() == btnComments)
 		{	// Messages / Alerts button was clicked
-			int[] intParams = new int[0];
+			int[] intParams = {1};
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.CND};
@@ -246,7 +246,7 @@ public class PatientReport extends JPanel implements ActionListener {
         }
 		else if (event.getSource() == btnViewProfile)
 		{	// Messages / Alerts button was clicked
-			int[] intParams = new int[0];
+			int[] intParams = {1};
 			String[] stringParams = new String[0];
 			mData messageData = new mData(intParams, stringParams);
 			partition[] subscribers = {partition.SYS};

@@ -54,7 +54,8 @@ public enum mType {
     sysRequestMessageNum,
     sysRequestMessageDeletion,
     cndDisplayMessage,
-    sysSendMessage
+    sysSendMessage,
+    sysGoToViewedPatientMenu
 }
 
 //patientHistoryRequest - 1 arg - String - type of data being requested

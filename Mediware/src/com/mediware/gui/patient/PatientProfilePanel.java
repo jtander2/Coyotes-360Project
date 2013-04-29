@@ -59,15 +59,18 @@ public class PatientProfilePanel extends JPanel implements ActionListener, Mouse
 	private JLabel lblNewLabel;
 	private JLabel lblChangePassword;
 	private IO io;
+	private int from;
 
 
 	/**
 	 * Create the panel.
 	 * @param cndIO 
+	 * @param from 
 	 */
-	public PatientProfilePanel(IO cndIO, String[] patientData) {
+	public PatientProfilePanel(IO cndIO, String[] patientData, int from) {
 		
 		this.io = cndIO;
+		this.from = from;
 		
 		setBorder(new TitledBorder(null, "Profile", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -435,11 +438,19 @@ public class PatientProfilePanel extends JPanel implements ActionListener, Mouse
         }
 		else if (event.getSource() == btnCancel)
 		{	// Cancel button was pressed
-			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
-			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = {partition.SYS};
-			io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
+			if(from == 0) {
+				int[] intParams = new int[0];
+				String[] stringParams = new String[0];
+				mData messageData = new mData(intParams, stringParams);
+				partition[] subscribers = {partition.SYS};
+				io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToMenu);
+			} else {
+				int[] intParams = new int[0];
+				String[] stringParams = new String[0];
+				mData messageData = new mData(intParams, stringParams);
+				partition[] subscribers = {partition.SYS};
+				io.createMessageToSend(partition.CND, subscribers, messageData, mType.sysGoToViewedPatientMenu);
+			}
         }
 		
 	}

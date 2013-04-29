@@ -110,16 +110,43 @@ public class CND {
 					displayPatientMenuPanel();
 					break;
 				case cndDisplayPatientProfilePanel:
+				{
 					String[] patientParams = cndMessages[i].getMessageData().getLabels();
-					displayPatientProfilePanel(patientParams);
+					int[] fromInt = cndMessages[i].getMessageData().getArguments();
+					int from = 0;
+					if(fromInt.length == 0) {
+						from = 0;
+					} else {
+						from = 1;
+					}
+					displayPatientProfilePanel(patientParams, from);
 					break;
+				}
 				case cndDisplayPatientVitalsPanel:
-					displayPatientVitalsPanel();
+				{
+					int[] fromInt = cndMessages[i].getMessageData().getArguments();
+					int from = 0;
+					if(fromInt.length == 0) {
+						from = 0;
+					} else {
+						from = 1;
+					}
+					displayPatientVitalsPanel(from);
 					break;
+				}
 				case cndDisplayPatientHealthHistory:
+				{
 					int[] historyInts = cndMessages[i].getMessageData().getArguments();
 					String[] historyStrings = cndMessages[i].getMessageData().getLabels();
-					displayPatientHealthHistory(historyInts, historyStrings);
+					
+					int from = 0;
+					if(historyStrings.length == 0) {
+						from = 0;
+					} else {
+						from = 1;
+					}
+					
+					displayPatientHealthHistory(historyInts, from);
 					// After the page is displayed send a message to SYS to start fetching the graph
 					int[] intParams = new int[0];
 					String[] stringParams = { "Blood Pressure" };
@@ -127,6 +154,7 @@ public class CND {
 					partition[] subscribers = { partition.SYS };
 					cndIO.createMessageToSend(partition.CND, subscribers, messageData, mType.patientHistoryRequest);
 					break;
+				}
 				case patientHistoryData:
 				    drawHealthHistory(cndMessages[i].getMessageData().getArguments());
 				    break;
@@ -146,6 +174,7 @@ public class CND {
 				    displayMessage(cndMessages[i].getMessageData().getLabels()[0]);
 					break;
 				case cndDisplaySendMessage:
+					int frm = 0;
 					displaySendMessage();
 					break;
 				default:
@@ -354,10 +383,10 @@ public class CND {
 	//*****************************************************************************
 	//com.mediware.gui.patient
 	//*****************************************************************************
-	public void displayPatientHealthHistory(int[] historyInts, String[] historyStrings) {
+	public void displayPatientHealthHistory(int[] historyInts, int from) {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new PatientHealthHistory(cndIO, historyInts, historyStrings));
+		currentFrame.getContentPane().add(new PatientHealthHistory(cndIO, historyInts, from));
 		currentFrame.setVisible(true);
 	}
 	
@@ -368,17 +397,17 @@ public class CND {
 		currentFrame.setVisible(true);
 	}
 	
-	public void displayPatientProfilePanel(String[] patientData) {
+	public void displayPatientProfilePanel(String[] patientData, int from) {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new PatientProfilePanel(cndIO, patientData));
+		currentFrame.getContentPane().add(new PatientProfilePanel(cndIO, patientData, from));
 		currentFrame.setVisible(true);
 	}
 	
-	public void displayPatientVitalsPanel() {
+	public void displayPatientVitalsPanel(int from) {
 		currentFrame.getContentPane().removeAll();
 		currentFrame.setVisible(false);
-		currentFrame.getContentPane().add(new PatientVitalsPanel(cndIO));
+		currentFrame.getContentPane().add(new PatientVitalsPanel(cndIO, from));
 		currentFrame.setVisible(true);
 	}
 	

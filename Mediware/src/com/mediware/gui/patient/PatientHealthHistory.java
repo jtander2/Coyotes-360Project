@@ -27,16 +27,18 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 	private PatientHealthData graph;
 	private JLabel maxLabel;
 	private IO io;
+	private int from;
 
 	/**
 	 * Create the panel.
 	 * 
 	 * @param cndIO
 	 */
-	public PatientHealthHistory(IO cndIO, int[] pIntData, String[] pStringData) {
+	public PatientHealthHistory(IO cndIO, int[] pIntData, int pFrom) {
 
 		this.io = cndIO;
-
+		from = pFrom;
+		
 		setBorder(new TitledBorder(null, "Health History",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -109,12 +111,21 @@ public class PatientHealthHistory extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		// Check which button was clicked on
 		if (event.getSource() == btnCancel) { // Cancel button was clicked
-			int[] intParams = new int[0];
-			String[] stringParams = new String[0];
-			mData messageData = new mData(intParams, stringParams);
-			partition[] subscribers = { partition.SYS };
-			io.createMessageToSend(partition.CND, subscribers, messageData,
-					mType.sysGoToMenu);
+			if(from == 0) {
+				int[] intParams = new int[0];
+				String[] stringParams = new String[0];
+				mData messageData = new mData(intParams, stringParams);
+				partition[] subscribers = { partition.SYS };
+				io.createMessageToSend(partition.CND, subscribers, messageData,
+						mType.sysGoToMenu);
+			} else {
+				int[] intParams = new int[0];
+				String[] stringParams = new String[0];
+				mData messageData = new mData(intParams, stringParams);
+				partition[] subscribers = { partition.SYS };
+				io.createMessageToSend(partition.CND, subscribers, messageData,
+						mType.sysGoToViewedPatientMenu);
+			}
 		}
 	}
 
